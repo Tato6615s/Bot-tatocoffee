@@ -438,136 +438,6 @@ footer {
   .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
   .footer-top { grid-template-columns: 1fr; }
 }
-
-/* ─── AI QUIZ SECTION ──────────────────────────── */
-#quiz-section {
-  background: linear-gradient(160deg, #1a1208 0%, #2e1d08 60%, #3d2b0f 100%);
-  position: relative; overflow: hidden;
-}
-#quiz-section::before {
-  content: '';
-  position: absolute; top: -150px; right: -150px;
-  width: 500px; height: 500px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(196,154,58,0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-.quiz-intro {
-  text-align: center; max-width: 600px; margin: 0 auto 3.5rem;
-  position: relative; z-index: 1;
-}
-.quiz-intro .section-eyebrow { color: var(--gold); }
-.quiz-intro .section-title { color: #fff; }
-.quiz-intro .section-sub { color: rgba(255,255,255,0.55); margin: 0 auto; }
-
-.quiz-card {
-  background: var(--warm-white);
-  border-radius: 28px;
-  max-width: 620px;
-  margin: 0 auto;
-  padding: 2.75rem;
-  position: relative; z-index: 1;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.35);
-}
-
-.qz-progress-wrap { margin-bottom: 2rem; }
-.qz-progress-label {
-  display: flex; justify-content: space-between;
-  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 8px;
-}
-.qz-progress-bar { height: 3px; background: var(--mist); border-radius: 2px; }
-.qz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--caramel), var(--gold)); border-radius: 2px; transition: width 0.4s ease; }
-
-.qz-step { display: none; }
-.qz-step.active { display: block; }
-.qz-question { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: var(--ink); line-height: 1.35; margin-bottom: 1.75rem; }
-
-.qz-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.75rem; }
-.qz-choice {
-  background: var(--cream2); border: 1.5px solid var(--border);
-  border-radius: 14px; padding: 1rem 1.1rem;
-  cursor: pointer; transition: all 0.2s; text-align: left;
-}
-.qz-choice:hover { border-color: var(--caramel); background: var(--cream); }
-.qz-choice.picked { border-color: var(--caramel); background: var(--cream); box-shadow: inset 0 0 0 1px var(--caramel); }
-.qz-choice-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
-.qz-choice-sub { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
-
-.qz-next {
-  width: 100%; background: var(--brown); color: #fff;
-  border: none; border-radius: 12px; padding: 14px;
-  font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-  cursor: pointer; transition: all 0.25s; opacity: 0.35; pointer-events: none;
-  letter-spacing: 0.3px;
-}
-.qz-next.ready { opacity: 1; pointer-events: auto; }
-.qz-next.ready:hover { background: var(--caramel); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-
-/* Result */
-.qz-result { display: none; }
-.qz-result.active { display: block; }
-.qz-result-match {
-  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--caramel); margin-bottom: 6px;
-}
-.qz-result-img {
-  height: 140px; border-radius: 16px; margin-bottom: 1.25rem;
-  display: flex; align-items: center; justify-content: center; font-size: 64px;
-}
-.qz-result-name { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
-.qz-result-origin { font-size: 12px; color: var(--text-muted); margin-bottom: 0.75rem; }
-.qz-result-desc { font-size: 14px; color: var(--ink); line-height: 1.8; margin-bottom: 1rem; }
-.qz-result-notes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
-.qz-score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.qz-score-label { font-size: 11px; color: var(--text-muted); width: 70px; flex-shrink: 0; }
-.qz-score-track { flex: 1; height: 4px; background: var(--mist); border-radius: 2px; overflow: hidden; }
-.qz-score-fill { height: 100%; background: linear-gradient(90deg, var(--caramel), var(--gold)); border-radius: 2px; }
-.qz-score-val { font-size: 11px; color: var(--text-muted); width: 28px; text-align: right; }
-
-.qz-result-footer {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
-}
-.qz-price-big { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 500; color: var(--ink); }
-.qz-price-unit { font-size: 12px; color: var(--text-muted); margin-left: 6px; }
-.qz-cta-row { display: flex; gap: 10px; }
-
-.btn-telegram {
-  background: #229ED9; color: #fff;
-  border: none; border-radius: 50px;
-  padding: 13px 22px; font-size: 13px; font-weight: 500;
-  font-family: 'DM Sans', sans-serif; letter-spacing: 0.3px;
-  cursor: pointer; transition: all 0.25s;
-  display: inline-flex; align-items: center; gap: 8px;
-  text-decoration: none;
-}
-.btn-telegram:hover { background: #1a8cc0; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(34,158,217,0.35); }
-.btn-telegram svg { width: 16px; height: 16px; fill: #fff; flex-shrink: 0; }
-
-.qz-alts { margin-top: 2rem; }
-.qz-alts-label {
-  font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 0.75rem;
-}
-.qz-alt-item {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0.85rem 1rem; background: var(--cream2);
-  border-radius: 12px; margin-bottom: 8px; cursor: pointer;
-  border: 1px solid var(--border); transition: all 0.2s;
-}
-.qz-alt-item:hover { border-color: var(--caramel); background: var(--cream); }
-.qz-alt-name { font-size: 13px; font-weight: 500; color: var(--ink); }
-.qz-alt-origin { font-size: 11px; color: var(--text-muted); }
-.qz-alt-right { display: flex; align-items: center; gap: 10px; }
-.qz-alt-price { font-size: 13px; color: var(--text-muted); }
-.qz-alt-emoji { font-size: 22px; }
-.qz-restart {
-  width: 100%; margin-top: 1rem; background: transparent;
-  color: var(--text-muted); border: 1px solid var(--border);
-  border-radius: 12px; padding: 11px; font-size: 13px;
-  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s;
-}
-.qz-restart:hover { border-color: var(--caramel); color: var(--caramel); }
 </style>
 </head>
 <body>
@@ -577,11 +447,11 @@ footer {
   <div class="logo">Origin <em>Coffee</em></div>
   <div class="nav-links">
     <a href="#catalog">กาแฟ</a>
-    <a href="#quiz-section">ค้นหารสชาติ</a>
     <a href="#story">เรื่องราว</a>
     <a href="#process">กระบวนการ</a>
+    <a href="#leads">ติดต่อ</a>
   </div>
-  <button class="nav-cta" onclick="window.open('https://t.me/origincoffeebot?start=website','_blank')">สั่งซื้อ / ถาม →</button>
+  <button class="nav-cta" onclick="window.open('https://t.me/OrigincoffeeShop_bot','_blank')">☕ สั่งซื้อผ่าน Telegram</button>
 </nav>
 
 <!-- HERO -->
@@ -658,108 +528,13 @@ footer {
   </div>
 </section>
 
-<!-- AI QUIZ SECTION -->
-<section class="section" id="quiz-section">
-  <div class="quiz-intro">
-    <div class="section-eyebrow">AI Coffee Finder</div>
-    <h2 class="section-title">ค้นหาเมล็ดที่<em>ใช่</em>สำหรับคุณ</h2>
-    <p class="section-sub">ตอบ 4 คำถาม — AI แนะนำเมล็ดที่เหมาะกับรสชาติของคุณ แล้วสั่งผ่าน Telegram ได้เลย</p>
-  </div>
-
-  <div class="quiz-card">
-    <!-- Progress -->
-    <div class="qz-progress-wrap">
-      <div class="qz-progress-label">
-        <span id="qz-step-label">คำถามที่ 1 / 4</span>
-        <span id="qz-pct">0%</span>
-      </div>
-      <div class="qz-progress-bar"><div class="qz-progress-fill" id="qz-fill" style="width:0%"></div></div>
-    </div>
-
-    <!-- Step 1 -->
-    <div class="qz-step active" id="qzs-0">
-      <div class="qz-question">คุณดื่มกาแฟแบบไหนเป็นหลัก?</div>
-      <div class="qz-choices">
-        <div class="qz-choice" onclick="qzPick(0,0,this)"><div class="qz-choice-title">Black Coffee</div><div class="qz-choice-sub">Espresso, Americano, Pour over</div></div>
-        <div class="qz-choice" onclick="qzPick(0,1,this)"><div class="qz-choice-title">Milk-Based</div><div class="qz-choice-sub">Latte, Cappuccino, Flat white</div></div>
-        <div class="qz-choice" onclick="qzPick(0,2,this)"><div class="qz-choice-title">Cold Brew / Iced</div><div class="qz-choice-sub">ชอบความเย็นและเข้มข้น</div></div>
-        <div class="qz-choice" onclick="qzPick(0,3,this)"><div class="qz-choice-title">กำลังสำรวจ</div><div class="qz-choice-sub">ยังลองหลายๆ แบบอยู่</div></div>
-      </div>
-      <button class="qz-next" id="qzn-0" onclick="qzNext(1)">ถัดไป →</button>
-    </div>
-
-    <!-- Step 2 -->
-    <div class="qz-step" id="qzs-1">
-      <div class="qz-question">รสชาติที่คุณชอบคือแบบไหน?</div>
-      <div class="qz-choices">
-        <div class="qz-choice" onclick="qzPick(1,0,this)"><div class="qz-choice-title">เปรี้ยวสดใส</div><div class="qz-choice-sub">มะนาว ผลไม้ ดอกไม้</div></div>
-        <div class="qz-choice" onclick="qzPick(1,1,this)"><div class="qz-choice-title">หวานนุ่ม</div><div class="qz-choice-sub">น้ำผึ้ง คาราเมล วานิลลา</div></div>
-        <div class="qz-choice" onclick="qzPick(1,2,this)"><div class="qz-choice-title">เข้มข้น เต็มปาก</div><div class="qz-choice-sub">ช็อกโกแลต ถั่ว เนย</div></div>
-        <div class="qz-choice" onclick="qzPick(1,3,this)"><div class="qz-choice-title">ซับซ้อน แปลก</div><div class="qz-choice-sub">ไวน์ Fermentation ผลไม้หมัก</div></div>
-      </div>
-      <button class="qz-next" id="qzn-1" onclick="qzNext(2)">ถัดไป →</button>
-    </div>
-
-    <!-- Step 3 -->
-    <div class="qz-step" id="qzs-2">
-      <div class="qz-question">ประสบการณ์กับ Specialty Coffee ของคุณ?</div>
-      <div class="qz-choices">
-        <div class="qz-choice" onclick="qzPick(2,0,this)"><div class="qz-choice-title">มือใหม่</div><div class="qz-choice-sub">เพิ่งเริ่มสนใจ อยากลองครั้งแรก</div></div>
-        <div class="qz-choice" onclick="qzPick(2,1,this)"><div class="qz-choice-title">พอรู้บ้าง</div><div class="qz-choice-sub">เคยลองมาบ้าง รู้จัก Origin</div></div>
-        <div class="qz-choice" onclick="qzPick(2,2,this)"><div class="qz-choice-title">ผู้เชี่ยวชาญ</div><div class="qz-choice-sub">รู้จัก SCA Score, Process ต่างๆ</div></div>
-      </div>
-      <button class="qz-next" id="qzn-2" onclick="qzNext(3)">ถัดไป →</button>
-    </div>
-
-    <!-- Step 4 -->
-    <div class="qz-step" id="qzs-3">
-      <div class="qz-question">งบประมาณต่อ 250g ที่โอเคสำหรับคุณ?</div>
-      <div class="qz-choices">
-        <div class="qz-choice" onclick="qzPick(3,0,this)"><div class="qz-choice-title">ไม่เกิน ฿650</div><div class="qz-choice-sub">คุ้มค่าเป็นสำคัญ</div></div>
-        <div class="qz-choice" onclick="qzPick(3,1,this)"><div class="qz-choice-title">฿650 – ฿800</div><div class="qz-choice-sub">ยอมจ่ายเพื่อคุณภาพ</div></div>
-        <div class="qz-choice" onclick="qzPick(3,2,this)"><div class="qz-choice-title">฿800 ขึ้นไป</div><div class="qz-choice-sub">ต้องการที่ดีที่สุด</div></div>
-      </div>
-      <button class="qz-next" id="qzn-3" onclick="qzShowResult()">ดูผลลัพธ์ ✓</button>
-    </div>
-
-    <!-- Result -->
-    <div class="qz-result" id="qz-result">
-      <div class="qz-result-match">จับคู่ที่ดีที่สุดสำหรับคุณ</div>
-      <div class="qz-result-img" id="qz-res-img"></div>
-      <div class="qz-result-name" id="qz-res-name"></div>
-      <div class="qz-result-origin" id="qz-res-origin"></div>
-      <div class="qz-result-desc" id="qz-res-desc"></div>
-      <div class="qz-result-notes" id="qz-res-notes"></div>
-      <div id="qz-res-scores"></div>
-      <div class="qz-result-footer">
-        <div>
-          <span class="qz-price-big" id="qz-res-price"></span>
-          <span class="qz-price-unit">/ 250g</span>
-        </div>
-        <div class="qz-cta-row">
-          <button class="btn-ghost" onclick="openModal(window._qzTopId)">ดูรายละเอียด</button>
-          <a class="btn-telegram" id="qz-tg-btn" target="_blank">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.496.969z"/></svg>
-            สั่งซื้อผ่าน Telegram
-          </a>
-        </div>
-      </div>
-      <div class="qz-alts">
-        <div class="qz-alts-label">ตัวเลือกอื่นที่อาจถูกใจ</div>
-        <div id="qz-alts-list"></div>
-      </div>
-      <button class="qz-restart" onclick="qzRestart()">← เริ่มใหม่อีกครั้ง</button>
-    </div>
-  </div>
-</section>
-
 <!-- LEAD CAPTURE -->
 <section class="section" id="leads">
   <div class="leads-inner">
     <div class="leads-left">
       <div class="section-eyebrow">สั่งซื้อ & ติดต่อ</div>
-      <h2 class="section-title">สนใจ<em>สั่งซื้อ</em><br>หรือขอใบเสนอราคา?</h2>
-      <p class="section-sub">ทักหาเราผ่าน Telegram ได้เลยทันที ตอบไวภายใน 1-2 ชั่วโมง</p>
+      <h2 class="section-title">สั่งซื้อตรง<br><em>ผ่าน Telegram</em></h2>
+      <p class="section-sub">ไม่ต้องกรอกฟอร์ม — แค่กดปุ่มด้านล่าง Telegram เปิดขึ้นทันที แจ้งชื่อสินค้าและปริมาณ เราตอบกลับภายใน 1 ชั่วโมง</p>
       <div class="leads-perks">
         <div class="leads-perk">
           <div class="leads-perk-icon">☕</div>
@@ -785,48 +560,14 @@ footer {
       </div>
     </div>
 
-    <div class="leads-form-card">
-      <div class="leads-form-title">ส่งข้อมูลมาหาเรา</div>
-      <div class="leads-form-sub">กรอกแบบฟอร์มนี้ เราจะติดต่อกลับเร็วที่สุด</div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">ชื่อ *</label>
-          <input type="text" class="form-input" placeholder="ชื่อของคุณ" id="f_name">
-        </div>
-        <div class="form-group">
-          <label class="form-label">เบอร์โทร *</label>
-          <input type="tel" class="form-input" placeholder="0812345678" id="f_phone">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="your@email.com" id="f_email">
-      </div>
-      <div class="form-group">
-        <label class="form-label">ประเภทลูกค้า</label>
-        <select class="form-select" id="f_type">
-          <option value="">เลือกประเภท</option>
-          <option>บุคคลทั่วไป</option>
-          <option>ร้านกาแฟ / Café</option>
-          <option>โรงแรม / Restaurant</option>
-          <option>Office / Corporate</option>
-          <option>Roastery / Reseller</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">กาแฟที่สนใจ / ปริมาณ / ความต้องการ</label>
-        <textarea class="form-input" rows="3" placeholder="เช่น สนใจ Ethiopia Yirgacheffe 5 กิโล ขอราคาส่งได้เลย..." id="f_msg" style="resize:none;"></textarea>
-      </div>
-      <button class="form-submit" onclick="submitLead()">ส่งข้อมูล →</button>
-      <div style="margin-top:1rem;">
-        <a href="https://t.me/origincoffeebot?start=order" target="_blank" class="btn-telegram" style="width:100%;justify-content:center;border-radius:12px;padding:14px;">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.496.969z"/></svg>
-          ทักมาสั่งซื้อผ่าน Telegram
-        </a>
-      </div>
-      <div id="toast" class="toast">✅ ได้รับข้อมูลแล้ว! เราจะติดต่อกลับภายใน 24 ชั่วโมง</div>
-      <p class="form-note">ข้อมูลของคุณปลอดภัย — ไม่มีการส่ง spam แน่นอน</p>
+    <div class="leads-form-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.5rem;">
+      <div style="font-size:64px;">✈️</div>
+      <div class="leads-form-title">พูดคุยกับเราได้เลย</div>
+      <p class="leads-form-sub" style="margin-bottom:0;">บอกชื่อสินค้า ปริมาณ และที่อยู่จัดส่ง<br>เราส่งใบเสนอราคาให้ภายใน 1 ชั่วโมง</p>
+      <a href="https://t.me/OrigincoffeeShop_bot" target="_blank" class="btn-primary" style="font-size:15px;padding:16px 40px;text-decoration:none;display:inline-block;">
+        เปิด Telegram สั่งซื้อเลย →
+      </a>
+      <p style="font-size:12px;color:var(--text-muted);">ตอบเร็ว · ไม่ต้องกรอกฟอร์ม · ปลอดภัย</p>
     </div>
   </div>
 </section>
@@ -989,8 +730,8 @@ footer {
     </div>
     <div class="footer-col">
       <div class="footer-col-title">ติดต่อ</div>
-      <a href="https://t.me/origincoffeebot" target="_blank">Telegram: @origincoffeebot</a>
-      <a href="https://t.me/origincoffeebot?start=order" target="_blank">สั่งซื้อ / ขอใบเสนอราคา</a>
+      <a href="#">สั่งซื้อ / ขอใบเสนอราคา</a>
+      <a href="https://t.me/OrigincoffeeShop_bot" target="_blank">Telegram: @OrigincoffeeShop_bot</a>
       <a href="#">IG: @origincoffee.th</a>
     </div>
   </div>
@@ -1118,7 +859,7 @@ function renderCoffees(filter) {
             <div class="coffee-price">฿${c.price.toLocaleString()}</div>
             <div class="coffee-price-unit">${c.unit} · SCA ${c.score}</div>
           </div>
-          <button class="coffee-inquiry" onclick="event.stopPropagation();inquireAbout('${c.name}')">${c.soldOut ? 'แจ้งเมื่อมีสินค้า' : 'สั่งซื้อ / ถาม'}</button>
+          <button class="coffee-inquiry" onclick="event.stopPropagation();inquireAbout('${c.name}',${c.soldOut||false})">${c.soldOut ? 'แจ้งเมื่อมีสินค้า' : '☕ สั่งซื้อผ่าน Telegram'}</button>
         </div>
       </div>
     </div>
@@ -1152,7 +893,7 @@ function openModal(id) {
     <div class="score-row"><span class="score-label">Finish</span><div class="score-track"><div class="score-fill" style="width:${c.finish}%"></div></div><span class="score-val">${c.finish}</span></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border);">
       <div><span style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;">฿${c.price.toLocaleString()}</span><span style="font-size:12px;color:var(--text-muted);margin-left:6px;">${c.unit} · SCA ${c.score}</span></div>
-      <button class="btn-primary" onclick="inquireAbout('${c.name}');closeModal()">${c.soldOut ? 'แจ้งเตือนเมื่อมีสินค้า' : 'สั่งซื้อ / ถาม →'}</button>
+      <button class="btn-primary" onclick="inquireAbout('${c.name}',${c.soldOut||false});closeModal()">${c.soldOut ? 'แจ้งเตือนเมื่อมีสินค้า' : '☕ สั่งซื้อผ่าน Telegram →'}</button>
     </div>
   `;
   document.getElementById('modalOverlay').classList.add('open');
@@ -1165,118 +906,13 @@ function closeModal(e) {
   document.body.style.overflow = '';
 }
 
-function inquireAbout(name) {
-  document.getElementById('f_msg').value = `สนใจสั่งซื้อ ${name} `;
-  document.getElementById('leads').scrollIntoView({ behavior: 'smooth' });
-}
-
-function submitLead() {
-  const name = document.getElementById('f_name').value.trim();
-  const phone = document.getElementById('f_phone').value.trim();
-  if (!name || !phone) {
-    alert('กรุณากรอกชื่อและเบอร์โทรก่อนนะครับ');
-    return;
+function inquireAbout(name, soldOut) {
+  if (soldOut) {
+    const msg = encodeURIComponent(`สวัสดีครับ ขอแจ้งเตือนเมื่อมีสินค้า: ${name}`);
+    window.open(`https://t.me/OrigincoffeeShop_bot?start=notify_${encodeURIComponent(name)}`, '_blank');
+  } else {
+    window.open(`https://t.me/OrigincoffeeShop_bot?start=order_${encodeURIComponent(name)}`, '_blank');
   }
-  const toast = document.getElementById('toast');
-  toast.classList.add('show');
-  document.getElementById('f_name').value = '';
-  document.getElementById('f_phone').value = '';
-  document.getElementById('f_email').value = '';
-  document.getElementById('f_msg').value = '';
-  document.getElementById('f_type').value = '';
-  setTimeout(() => toast.classList.remove('show'), 5000);
-}
-
-// ── QUIZ LOGIC ────────────────────────────────────
-const qzAnswers = [null, null, null, null];
-const TELEGRAM_BOT = 'origincoffeebot';
-
-function qzPick(step, val, el) {
-  qzAnswers[step] = val;
-  el.closest('.qz-choices').querySelectorAll('.qz-choice').forEach(b => b.classList.remove('picked'));
-  el.classList.add('picked');
-  document.getElementById('qzn-' + step).classList.add('ready');
-}
-
-function qzNext(n) {
-  document.querySelectorAll('.qz-step').forEach(s => s.classList.remove('active'));
-  document.getElementById('qzs-' + n).classList.add('active');
-  const pct = Math.round((n / 4) * 100);
-  document.getElementById('qz-fill').style.width = pct + '%';
-  document.getElementById('qz-pct').textContent = pct + '%';
-  document.getElementById('qz-step-label').textContent = 'คำถามที่ ' + (n + 1) + ' / 4';
-}
-
-function qzScore(c) {
-  let s = 0;
-  const flavor = qzAnswers[1];
-  const exp = qzAnswers[2];
-  const budget = qzAnswers[3];
-  if (flavor === 0) s += c.acidity;
-  else if (flavor === 1) s += c.sweetness;
-  else if (flavor === 2) s += (100 - c.acidity + c.body);
-  else if (flavor === 3) s += c.finish + (c.score > 89 ? 20 : 0);
-  const budgetMap = [0, 1, 2];
-  const cBudget = c.price <= 650 ? 0 : c.price <= 800 ? 1 : 2;
-  if (budget !== null && cBudget === budgetMap[budget]) s += 35;
-  if (exp === 0 && c.sweetness > 80) s += 15;
-  if (exp === 2 && c.score >= 89) s += 15;
-  if (c.soldOut) s -= 100;
-  return s;
-}
-
-function qzShowResult() {
-  document.getElementById('qz-fill').style.width = '100%';
-  document.getElementById('qz-pct').textContent = '100%';
-  document.querySelectorAll('.qz-step').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.qz-progress-wrap .qz-step-label');
-
-  const ranked = [...coffees].sort((a, b) => qzScore(b) - qzScore(a));
-  const top = ranked[0];
-  window._qzTopId = top.id;
-
-  document.getElementById('qz-res-img').style.background = top.color;
-  document.getElementById('qz-res-img').innerHTML = '<span style="font-size:64px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.25))">' + top.emoji + '</span>';
-  document.getElementById('qz-res-name').textContent = top.name;
-  document.getElementById('qz-res-origin').textContent = top.origin;
-  document.getElementById('qz-res-desc').textContent = top.desc;
-  document.getElementById('qz-res-price').textContent = '฿' + top.price.toLocaleString();
-  document.getElementById('qz-res-notes').innerHTML = top.notes.map(n => '<span class="note-tag">' + n + '</span>').join('');
-  document.getElementById('qz-res-scores').innerHTML =
-    ['Acidity','Sweetness','Body','Finish'].map((lbl,i) => {
-      const vals = [top.acidity, top.sweetness, top.body, top.finish];
-      return '<div class="qz-score-row"><span class="qz-score-label">' + lbl + '</span><div class="qz-score-track"><div class="qz-score-fill" style="width:' + vals[i] + '%"></div></div><span class="qz-score-val">' + vals[i] + '</span></div>';
-    }).join('');
-
-  const msg = encodeURIComponent('สวัสดีครับ สนใจสั่งซื้อ ' + top.name + ' ฿' + top.price + '/250g (แนะนำจาก AI Quiz)');
-  document.getElementById('qz-tg-btn').href = 'https://t.me/' + TELEGRAM_BOT + '?text=' + msg;
-
-  const alts = ranked.slice(1, 3);
-  document.getElementById('qz-alts-list').innerHTML = alts.map(c => {
-    const altMsg = encodeURIComponent('สวัสดีครับ สนใจสั่งซื้อ ' + c.name + ' ฿' + c.price + '/250g');
-    return '<div class="qz-alt-item" onclick="window.open(\'https://t.me/' + TELEGRAM_BOT + '?text=' + altMsg + '\',\'_blank\')">' +
-      '<div style="display:flex;align-items:center;gap:10px;">' +
-      '<span class="qz-alt-emoji">' + c.emoji + '</span>' +
-      '<div><div class="qz-alt-name">' + c.name + '</div><div class="qz-alt-origin">' + c.origin + '</div></div>' +
-      '</div>' +
-      '<div class="qz-alt-right"><span class="qz-alt-price">฿' + c.price.toLocaleString() + '</span></div>' +
-      '</div>';
-  }).join('');
-
-  document.getElementById('qz-result').classList.add('active');
-  document.getElementById('qz-step-label').textContent = 'ผลลัพธ์';
-}
-
-function qzRestart() {
-  qzAnswers.fill(null);
-  document.querySelectorAll('.qz-step').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.qz-choice').forEach(b => b.classList.remove('picked'));
-  document.querySelectorAll('.qz-next').forEach(b => b.classList.remove('ready'));
-  document.getElementById('qz-result').classList.remove('active');
-  document.getElementById('qz-fill').style.width = '0%';
-  document.getElementById('qz-pct').textContent = '0%';
-  document.getElementById('qz-step-label').textContent = 'คำถามที่ 1 / 4';
-  document.getElementById('qzs-0').classList.add('active');
 }
 
 // Nav scroll effect
