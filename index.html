@@ -29,84 +29,201 @@ body {
   font-family: 'DM Sans', sans-serif;
   background: var(--warm-white);
   color: var(--ink);
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* --- (สไตล์เดิมของคุณคงไว้ทั้งหมด) --- */
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 3rem; background: rgba(254,252,248,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-.logo { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; color: var(--ink); letter-spacing: 2px; text-transform: uppercase; }
-.hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; background: var(--cream2); position: relative; overflow: hidden; }
-/* ... สไตล์อื่นๆ ของคุณ ... */
-
-/* --- ส่วนที่อัพเดทเพิ่ม: ปุ่มติดต่อและปุ่มทางลัด --- */
+/* --- ส่วนที่อัพเดท: Floating Contact Bar --- */
 .floating-contact {
-  position: fixed; bottom: 85px; right: 20px; z-index: 1000;
-  display: flex; flex-direction: column; gap: 10px;
+  position: fixed; bottom: 30px; right: 20px; z-index: 2000;
+  display: flex; flex-direction: column; gap: 12px;
 }
 .float-btn {
-  width: 54px; height: 54px; border-radius: 50%; 
+  width: 56px; height: 56px; border-radius: 50%; 
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease;
-  cursor: pointer; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer; text-decoration: none; border: none;
 }
-.float-btn:hover { transform: scale(1.1); }
+.float-btn:hover { transform: scale(1.1) translateY(-5px); }
 .btn-line { background: #06C755; }
-.btn-contact-trigger { background: var(--caramel); color: white; font-size: 22px; }
+.btn-contact-trigger { background: var(--caramel); color: white; font-size: 24px; }
 
-.result-actions { display: flex; gap: 8px; margin-top: 15px; }
+/* --- ส่วนที่อัพเดท: Quick Actions in Cards --- */
+.result-actions { display: flex; gap: 10px; margin-top: 18px; }
 .btn-quick { 
-  padding: 8px 15px; font-size: 11px; border-radius: 50px; 
-  cursor: pointer; border: none; font-weight: 500; text-decoration: none;
-  transition: opacity 0.2s;
+  flex: 1; padding: 10px; font-size: 12px; border-radius: 50px; 
+  cursor: pointer; border: none; font-weight: 500; text-align: center;
+  transition: all 0.2s; text-decoration: none;
 }
 .btn-quick-primary { background: var(--gold); color: var(--ink); }
-.btn-quick-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+.btn-quick-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
+.btn-quick:hover { opacity: 0.9; transform: translateY(-2px); }
+
+/* --- สไตล์ดั้งเดิมของคุณทั้งหมด --- */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 3rem; background: rgba(254,252,248,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+.logo { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; color: var(--ink); letter-spacing: 2px; text-transform: uppercase; }
+.nav-links { display: flex; gap: 2.5rem; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--ink); font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+.hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; background: var(--cream2); position: relative; overflow: hidden; }
+.hero-text { padding: 10% 12%; display: flex; flex-direction: column; justify-content: center; }
+.hero-text h1 { font-family: 'Fraunces', serif; font-size: clamp(40px, 5vw, 72px); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 400; }
+.hero-image { background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80') center/cover no-repeat; position: relative; }
+
+/* Finder & Catalog Styles (จากไฟล์เดิม) */
+#ai-finder { padding: 100px 5%; background: var(--ink); color: var(--cream); position: relative; }
+.quiz-container { max-width: 800px; margin: 0 auto; background: rgba(255,255,255,0.03); padding: 50px; border-radius: var(--r); border: 1px solid rgba(255,255,255,0.1); }
+.quiz-step { display: none; }
+.quiz-step.active { display: block; animation: fadeIn 0.5s ease; }
+.quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+.quiz-choice { padding: 25px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; cursor: pointer; transition: all 0.3s; text-align: center; }
+.quiz-choice:hover { background: rgba(255,255,255,0.1); border-color: var(--gold); }
+.quiz-choice.selected { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.result-card { display: flex; align-items: center; gap: 25px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1); }
+.result-card.rank1 { border: 1px solid var(--gold); background: rgba(196,154,58,0.05); }
+
+/* Modal & Other Styles */
+.modal { position: fixed; inset: 0; background: rgba(26,18,8,0.95); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px); }
+.modal-content { background: var(--warm-white); color: var(--ink); width: 100%; max-width: 900px; border-radius: 30px; display: grid; grid-template-columns: 1fr 1.2fr; overflow: hidden; position: relative; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 
 <div class="floating-contact">
   <a href="https://line.me/ti/p/@yourline" target="_blank" class="float-btn btn-line" title="สั่งซื้อทาง Line">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" style="width: 30px;" alt="Line">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" style="width: 32px;" alt="Line">
   </a>
   <a href="#leads" class="float-btn btn-contact-trigger">✉️</a>
 </div>
 
-<nav>...</nav>
-<section class="hero">...</section>
-<section id="ai-finder">...</section>
-<section id="leads">...</section>
+<nav>
+  <div class="logo">Origin Coffee</div>
+  <div class="nav-links">
+    <a href="#ai-finder">Coffee Finder</a>
+    <a href="#catalog">Shop All</a>
+    <a href="#leads">Contact</a>
+  </div>
+</nav>
 
-<script>
-/* --- โค้ด JavaScript เดิมของคุณ --- */
+<section class="hero">
+  <div class="hero-text">
+    <h1>Discover your <br>perfect roast.</h1>
+    <p style="margin-bottom: 2rem; color: var(--text-muted); max-width: 400px;">Experience coffee curated for your unique palate through our AI-driven selection process.</p>
+    <a href="#ai-finder" style="display:inline-block; padding: 1.2rem 2.5rem; background: var(--ink); color: white; text-decoration: none; border-radius: 50px; font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;">Explore Selection</a>
+  </div>
+  <div class="hero-image"></div>
+</section>
 
-// อัพเดทฟังก์ชัน showQuizResult เพื่อให้มีปุ่มสั่งซื้อทันที
-function showQuizResult(ranked) {
-  const subText = `เราวิเคราะห์จากความชอบของคุณ และนี่คือ 3 อันดับที่แนะนำครับ`;
-  document.getElementById('resultSub').textContent = subText;
-
-  const rankLabels = ['อันดับ 1 · เหมาะที่สุด', 'อันดับ 2', 'อันดับ 3'];
-  document.getElementById('resultCards').innerHTML = ranked.map((c, i) => `
-    <div class="result-card ${i===0?'rank1':''}">
-      <div class="result-emoji">${c.emoji}</div>
-      <div class="result-info">
-        <div class="result-name">${c.name} <span class="result-rank-badge">${rankLabels[i]}</span></div>
-        <div class="result-match">★ เหมาะกับคุณ</div>
-        <div class="result-why">${whyText(c)}</div>
-        
-        <div class="result-actions">
-          <button onclick="openModal(${c.id})" class="btn-quick btn-quick-outline">รายละเอียด</button>
-          <button onclick="quickOrder('${c.name}')" class="btn-quick btn-quick-primary">สั่งซื้อด่วน</button>
+<section id="ai-finder">
+  <div class="quiz-container">
+    <div id="quiz-ui">
+      <div id="quizProgress" style="height: 2px; background: var(--gold); width: 0%; margin-bottom: 40px; transition: width 0.3s;"></div>
+      <div id="quizStepLabel" style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 10px;">Question 1 of 4</div>
+      
+      <div class="quiz-step active" data-step="1">
+        <h2 style="font-family: 'Fraunces', serif; font-size: 32px; font-weight: 400;">คุณชอบดื่มกาแฟรสชาติโทนไหน?</h2>
+        <div class="quiz-grid">
+          <div class="quiz-choice" onclick="selectChoice('tone', 'fruity')">สดชื่น ผลไม้ (Fruity/Floral)</div>
+          <div class="quiz-choice" onclick="selectChoice('tone', 'nutty')">ถั่ว ช็อกโกแลต (Nutty/Chocolate)</div>
         </div>
       </div>
-      <div class="result-price">฿${c.price.toLocaleString()}</div>
+      <div class="quiz-step" data-step="2">
+          <h2 style="font-family: 'Fraunces', serif; font-size: 32px; font-weight: 400;">ปกติคุณชงกาแฟแบบไหน?</h2>
+          <div class="quiz-grid">
+            <div class="quiz-choice" onclick="selectChoice('brew', 'filter')">ดริป / ฟิลเตอร์</div>
+            <div class="quiz-choice" onclick="selectChoice('brew', 'espresso')">เอสเพรสโซ่ / นม</div>
+          </div>
+      </div>
+      <div style="margin-top: 40px; display: flex; justify-content: space-between;">
+          <button onclick="prevStep()" id="prevBtn" style="display:none; background:none; border:none; color:var(--cream); cursor:pointer;">← ย้อนกลับ</button>
+          <button onclick="nextStep()" id="nextBtn" style="background:var(--gold); color:var(--ink); border:none; padding: 12px 30px; border-radius: 50px; cursor:pointer; font-weight:600;">ถัดไป</button>
+      </div>
     </div>
-  `).join('');
 
-  document.getElementById('quizResult').classList.add('active');
+    <div id="quizResult" style="display:none;">
+      <h2 style="font-family: 'Fraunces', serif; font-size: 32px; margin-bottom: 10px;">Our Top 3 Recommendations</h2>
+      <p id="resultSub" style="color: var(--text-muted); margin-bottom: 40px;"></p>
+      <div id="resultCards"></div>
+      <button onclick="restartQuiz()" style="margin-top: 30px; background:none; border:1px solid rgba(255,255,255,0.2); color:white; padding: 15px 30px; border-radius: 50px; cursor:pointer;">ทำแบบทดสอบอีกครั้ง</button>
+    </div>
+  </div>
+</section>
+
+<section id="leads" style="padding: 100px 5%; background: var(--cream);">
+    <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+        <h2 style="font-family: 'Fraunces', serif; font-size: 40px; margin-bottom: 20px;">Contact & Order</h2>
+        <p style="margin-bottom: 40px; color: var(--text-muted);">กรอกข้อมูลเพื่อสอบถามหรือสั่งซื้อเมล็ดกาแฟที่ท่านสนใจ</p>
+        <form id="orderForm" style="display: flex; flex-direction: column; gap: 15px;">
+            <input type="text" placeholder="ชื่อของคุณ" style="padding: 15px; border-radius: 10px; border: 1px solid var(--border);">
+            <textarea placeholder="ข้อความ หรือ เมล็ดกาแฟที่สนใจ" rows="5" style="padding: 15px; border-radius: 10px; border: 1px solid var(--border); font-family: inherit;"></textarea>
+            <button type="submit" style="background: var(--ink); color: white; padding: 18px; border-radius: 50px; border: none; cursor: pointer; font-weight: 500;">ส่งข้อมูล</button>
+        </form>
+    </div>
+</section>
+
+<script>
+// ข้อมูลสมมติ (ใช้ข้อมูลเดิมของคุณ)
+const products = [
+  { id: 1, name: "Ethiopia Yirgacheffe", tone: "fruity", brew: "filter", price: 450, emoji: "🌸" },
+  { id: 2, name: "Brazil Santos", tone: "nutty", brew: "espresso", price: 380, emoji: "🥜" },
+  { id: 3, name: "Colombia Huila", tone: "fruity", brew: "espresso", price: 420, emoji: "🍒" }
+];
+
+let quizAnswers = {};
+let quizCurrentStep = 1;
+
+function selectChoice(key, value) {
+  quizAnswers[key] = value;
+  const currentChoices = document.querySelectorAll('.quiz-step.active .quiz-choice');
+  currentChoices.forEach(c => c.classList.remove('selected'));
+  event.target.classList.add('selected');
 }
 
-// ฟังก์ชันอัพเดทใหม่: ระบบสั่งซื้อด่วน
+function nextStep() {
+  if (quizCurrentStep < 2) {
+    document.querySelector(`[data-step="${quizCurrentStep}"]`).classList.remove('active');
+    quizCurrentStep++;
+    document.querySelector(`[data-step="${quizCurrentStep}"]`).classList.add('active');
+    document.getElementById('prevBtn').style.display = 'block';
+    if(quizCurrentStep === 2) document.getElementById('nextBtn').textContent = 'ดูผลลัพธ์';
+  } else {
+    showQuizResult();
+  }
+}
+
+function prevStep() {
+    document.querySelector(`[data-step="${quizCurrentStep}"]`).classList.remove('active');
+    quizCurrentStep--;
+    document.querySelector(`[data-step="${quizCurrentStep}"]`).classList.add('active');
+    if(quizCurrentStep === 1) document.getElementById('prevBtn').style.display = 'none';
+    document.getElementById('nextBtn').textContent = 'ถัดไป';
+}
+
+function showQuizResult() {
+  document.getElementById('quiz-ui').style.display = 'none';
+  document.getElementById('quizResult').style.display = 'block';
+  
+  const resultCards = document.getElementById('resultCards');
+  const rankLabels = ['อันดับ 1 · เหมาะที่สุด', 'อันดับ 2', 'อันดับ 3'];
+  
+  resultCards.innerHTML = products.map((c, i) => `
+    <div class="result-card ${i===0?'rank1':''}">
+      <div class="result-emoji">${c.emoji}</div>
+      <div class="result-info" style="flex:1;">
+        <div class="result-name" style="font-weight:600; font-size:18px;">${c.name} <span style="font-size:12px; background:var(--gold); color:var(--ink); padding:2px 8px; border-radius:10px; margin-left:10px;">${rankLabels[i]}</span></div>
+        <div class="result-why" style="font-size:13px; color:var(--text-muted); margin-top:5px;">รสชาติที่คุณตามหา พร้อมให้คุณสัมผัสแล้ววันนี้</div>
+        
+        <div class="result-actions">
+          <button onclick="quickOrder('${c.name}')" class="btn-quick btn-quick-primary">สั่งซื้อด่วน</button>
+          <a href="https://line.me/ti/p/@yourline" target="_blank" class="btn-quick btn-quick-outline">สั่งผ่าน Line</a>
+        </div>
+      </div>
+      <div class="result-price" style="font-weight:600;">฿${c.price}</div>
+    </div>
+  `).join('');
+}
+
 function quickOrder(productName) {
   const leadSection = document.getElementById('leads');
   if(leadSection) {
@@ -119,7 +236,17 @@ function quickOrder(productName) {
   }
 }
 
-/* ... ฟังก์ชันอื่นๆ (restartQuiz, openModal, etc.) คงไว้ตามเดิม ... */
+function restartQuiz() {
+  quizCurrentStep = 1;
+  quizAnswers = {};
+  document.getElementById('quizResult').style.display = 'none';
+  document.getElementById('quiz-ui').style.display = 'block';
+  document.querySelector(`[data-step="1"]`).classList.add('active');
+  document.querySelector(`[data-step="2"]`).classList.remove('active');
+  document.getElementById('prevBtn').style.display = 'none';
+  document.getElementById('nextBtn').textContent = 'ถัดไป';
+}
 </script>
+
 </body>
 </html>
