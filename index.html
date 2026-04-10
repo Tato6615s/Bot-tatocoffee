@@ -762,7 +762,6 @@ footer {
   font-size: 12px; font-weight: 700; min-width: 22px; text-align: center;
 }
 .cart-fab.hidden { transform: translateY(100px); opacity: 0; pointer-events: none; }
-@media (max-width: 900px) { .cart-fab { display: none !important; } }
 
 /* ─── CART DRAWER ────────────────────────────────── */
 .cart-overlay {
@@ -777,11 +776,6 @@ footer {
   display: flex; flex-direction: column;
   transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
   box-shadow: -20px 0 80px rgba(26,18,8,0.25);
-}
-@media (max-width: 900px) {
-  .cart-drawer { width: 100vw; left: 0; }
-  .checkout-overlay { align-items: flex-end; padding: 0; }
-  .checkout-modal { border-radius: 28px 28px 0 0; max-height: 95vh; }
 }
 .cart-overlay.open .cart-drawer { transform: translateX(0); }
 .cart-head {
@@ -1584,24 +1578,11 @@ footer {
     <a href="#blog">📖 บทความ</a>
     <a href="#leads">📩 ติดต่อ</a>
   </div>
-  <div style="position:relative;">
-    <button id="navMenuBtn" onclick="toggleNavMenu()" title="เมนู" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:8px;border-radius:8px;transition:background 0.2s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='none'">
-      <span style="display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;"></span>
-      <span style="display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;"></span>
-      <span style="display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;"></span>
-    </button>
-    <div id="navMenuDropdown" style="display:none;position:absolute;top:calc(100% + 10px);right:0;background:var(--warm-white);border:1px solid var(--border);border-radius:16px;padding:0.6rem;min-width:200px;box-shadow:0 16px 48px rgba(61,43,15,0.15);z-index:999;">
-      <a href="#ai-finder" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">🤖 AI Finder</a>
-      <a href="#catalog" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">☕ กาแฟ</a>
-      <a href="#bundles" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">🎁 เซ็ต</a>
-      <a href="#subscription" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">♻️ สมัครสมาชิก</a>
-      <a href="#story" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">🌱 เรื่องราว</a>
-      <a href="#blog" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">📖 บทความ</a>
-      <a href="#leads" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">📩 ติดต่อ</a>
-      <div style="height:1px;background:var(--border);margin:6px 0;"></div>
-      <button onclick="closeNavMenu();openAdminLogin();" style="width:100%;display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;background:none;border:none;cursor:pointer;color:var(--caramel);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;text-align:left;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">🔐 เข้าหลังบ้าน</button>
-    </div>
-  </div>
+  <button onclick="openAdmin()" title="เมนู" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:8px;border-radius:8px;transition:background 0.2s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='none'">
+    <span style="display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;"></span>
+    <span style="display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;"></span>
+    <span style="display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;"></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -2076,123 +2057,69 @@ footer {
   </div>
 </section>
 
-<!-- 7. PROCESS -->
-<section class="section" id="process" style="background:var(--ink);overflow:hidden;position:relative;">
-  <div style="position:absolute;top:-160px;right:-160px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,58,0.08) 0%,transparent 70%);pointer-events:none;"></div>
-  <div style="text-align:center;max-width:560px;margin:0 auto 3.5rem;position:relative;z-index:1;">
-    <div class="section-eyebrow" style="color:var(--gold);">กระบวนการของเรา</div>
-    <h2 class="section-title" style="color:#fff;">จาก<em>ต้นทาง</em><br>ถึงมือคุณ</h2>
+<!-- 7. PROCESS ⚙️ -->
+<section class="section" id="process">
+  <div style="text-align:center; max-width:600px; margin:0 auto 1rem;">
+    <div class="section-eyebrow">⚙️ กระบวนการของเรา</div>
+    <h2 class="section-title">จาก<em>ต้นทาง</em>ถึงมือคุณ</h2>
   </div>
-  <div style="position:relative;z-index:1;max-width:1000px;margin:0 auto;">
-    <!-- connecting line desktop -->
-    <div style="position:absolute;top:44px;left:calc(12.5% + 20px);right:calc(12.5% + 20px);height:1px;background:linear-gradient(90deg,transparent,rgba(196,154,58,0.4),rgba(196,154,58,0.4),transparent);pointer-events:none;"></div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
-
-      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 0.5rem;">
-        <div style="width:88px;height:88px;border-radius:50%;background:rgba(196,154,58,0.1);border:1.5px solid rgba(196,154,58,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;flex-shrink:0;position:relative;z-index:1;">
-          <span style="font-size:32px;">🌱</span>
-        </div>
-        <div style="font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">01</div>
-        <div style="font-family:'Fraunces',serif;font-size:17px;color:#fff;font-weight:500;margin-bottom:0.6rem;line-height:1.3;">คัดเลือก Farm</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.75;">เยี่ยมและคัดเลือก farm โดยตรง ดูทั้งคุณภาพดิน ความสูง และวิถีของเกษตรกร</div>
-      </div>
-
-      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 0.5rem;">
-        <div style="width:88px;height:88px;border-radius:50%;background:rgba(196,154,58,0.1);border:1.5px solid rgba(196,154,58,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;flex-shrink:0;position:relative;z-index:1;">
-          <span style="font-size:32px;">☀️</span>
-        </div>
-        <div style="font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">02</div>
-        <div style="font-family:'Fraunces',serif;font-size:17px;color:#fff;font-weight:500;margin-bottom:0.6rem;line-height:1.3;">Processing</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.75;">ติดตาม natural, washed, honey — ควบคุมคุณภาพตั้งแต่ต้นทุกขั้นตอน</div>
-      </div>
-
-      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 0.5rem;">
-        <div style="width:88px;height:88px;border-radius:50%;background:rgba(196,154,58,0.1);border:1.5px solid rgba(196,154,58,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;flex-shrink:0;position:relative;z-index:1;">
-          <span style="font-size:32px;">🔥</span>
-        </div>
-        <div style="font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">03</div>
-        <div style="font-family:'Fraunces',serif;font-size:17px;color:#fff;font-weight:500;margin-bottom:0.6rem;line-height:1.3;">Roasting</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.75;">คั่วสดทุกสัปดาห์ในเชียงใหม่ ออกแบบ profile ให้เหมาะกับแต่ละ origin</div>
-      </div>
-
-      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 0.5rem;">
-        <div style="width:88px;height:88px;border-radius:50%;background:rgba(196,154,58,0.1);border:1.5px solid rgba(196,154,58,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;flex-shrink:0;position:relative;z-index:1;">
-          <span style="font-size:32px;">📦</span>
-        </div>
-        <div style="font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">04</div>
-        <div style="font-family:'Fraunces',serif;font-size:17px;color:#fff;font-weight:500;margin-bottom:0.6rem;line-height:1.3;">จัดส่ง</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.75;">บรรจุ vacuum-sealed ระบุวันคั่ว จัดส่งภายใน 48 ชม. หลังสั่ง</div>
-      </div>
-
-    </div>
+  <div class="process-grid">
+    <div class="process-step"><div class="process-num">01</div><div class="process-icon">🌱</div><div class="process-title">คัดเลือก Farm</div><div class="process-desc">เยี่ยมและคัดเลือก farm โดยตรง ดูทั้งคุณภาพดิน ความสูง และวิถีของเกษตรกร</div></div>
+    <div class="process-step"><div class="process-num">02</div><div class="process-icon">☀️</div><div class="process-title">Processing</div><div class="process-desc">ติดตามกระบวนการ natural, washed, honey — ควบคุมคุณภาพตั้งแต่ต้น</div></div>
+    <div class="process-step"><div class="process-num">03</div><div class="process-icon">🔥</div><div class="process-title">Roasting</div><div class="process-desc">คั่วสดทุกสัปดาห์ในเชียงใหม่ ออกแบบ profile ให้เหมาะกับแต่ละ origin</div></div>
+    <div class="process-step"><div class="process-num">04</div><div class="process-icon">📦</div><div class="process-title">จัดส่ง</div><div class="process-desc">บรรจุ vacuum-sealed ระบุวันคั่ว จัดส่งภายใน 48 ชั่วโมงหลังสั่ง</div></div>
   </div>
 </section>
 
-<!-- 8. BLOG / CONTENT -->
-<section class="section" id="blog" style="background:var(--cream2);">
-  <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;">
-    <div>
-      <div class="section-eyebrow">บทความ & ความรู้</div>
-      <h2 class="section-title" style="margin-bottom:0;">เรื่องกาแฟ<br>ที่<em>น่าอ่าน</em></h2>
-    </div>
-    <p style="font-size:13px;color:var(--text-muted);max-width:280px;line-height:1.7;text-align:right;">จาก Pour Over ไปจนถึง Farm Visit — เขียนให้อ่านง่าย เข้าใจได้จริง</p>
+<!-- 8. BLOG / CONTENT 📖 -->
+<section class="section" id="blog">
+  <div style="margin-bottom:3rem;">
+    <div class="section-eyebrow">📖 บทความ & ความรู้</div>
+    <h2 class="section-title">เรื่องกาแฟ<br>ที่<em>น่าอ่าน</em></h2>
+    <p class="section-sub">จาก Pour Over ไปจนถึง Farm Visit — เราเขียนให้อ่านง่าย เข้าใจได้จริง</p>
   </div>
-
-  <!-- Layout: 1 featured left + 2 stacked right -->
-  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem;">
-
-    <!-- Featured card -->
-    <div class="blog-card" style="border-radius:20px;overflow:hidden;position:relative;min-height:420px;display:flex;flex-direction:column;justify-content:flex-end;background:#1a1208;">
-      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=75&auto=format" alt="Pour Over" loading="lazy" decoding="async" width="800" height="600" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55;transition:transform 0.4s;" onerror="this.style.display='none'">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,18,8,0.92) 0%,rgba(26,18,8,0.3) 50%,transparent 100%);pointer-events:none;"></div>
-      <div style="position:relative;z-index:1;padding:1.75rem;">
-        <span style="display:inline-block;background:var(--caramel);color:#fff;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 12px;border-radius:50px;margin-bottom:0.9rem;">คู่มือ</span>
-        <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:#fff;line-height:1.3;margin-bottom:0.6rem;">วิธีชง Pour Over ที่บ้าน<br>ให้อร่อยเหมือนร้านกาแฟ</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:1rem;">อัตราส่วนน้ำต่อกาแฟ, อุณหภูมิที่เหมาะสม, เทคนิค bloom ที่หลายคนมักข้าม...</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <span style="font-size:11px;color:rgba(255,255,255,0.4);">5 นาทีอ่าน</span>
-          <span style="font-size:12px;color:var(--gold);font-weight:600;letter-spacing:0.3px;">อ่านต่อ →</span>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#f5ede0,#e8ddd0);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=75&auto=format" alt="Pour Over" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.85;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;">คู่มือ</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">วิธีชง Pour Over ที่บ้านให้อร่อยเหมือนร้านกาแฟ</div>
+        <div class="blog-card-excerpt">อัตราส่วนน้ำต่อกาแฟ, อุณหภูมิที่เหมาะสม, เทคนิค bloom ที่หลายคนมักข้าม...</div>
+        <div class="blog-card-meta">
+          <span>5 นาทีอ่าน</span>
+          <span class="blog-read-more">อ่านต่อ →</span>
         </div>
       </div>
     </div>
-
-    <!-- Right column: 2 cards stacked -->
-    <div style="display:flex;flex-direction:column;gap:1.5rem;">
-
-      <div class="blog-card" style="border-radius:18px;overflow:hidden;display:grid;grid-template-columns:120px 1fr;min-height:0;">
-        <div style="background:linear-gradient(135deg,#8b7355,#4a3520);overflow:hidden;position:relative;">
-          <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=400&q=75&auto=format" alt="Coffee Process" loading="lazy" decoding="async" width="400" height="300" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
-        </div>
-        <div style="padding:1.1rem 1.25rem;display:flex;flex-direction:column;justify-content:space-between;">
-          <div>
-            <span style="display:inline-block;background:rgba(122,140,114,0.15);color:var(--sage);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px;margin-bottom:0.6rem;border:1px solid rgba(122,140,114,0.3);">ความรู้</span>
-            <div style="font-family:'Fraunces',serif;font-size:15px;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:0.4rem;">Natural vs Washed<br>ต่างกันยังไง?</div>
-            <div style="font-size:11px;color:var(--text-muted);line-height:1.65;">กระบวนการหลังเก็บเกี่ยวมีผลมากกว่าที่คิด...</div>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.75rem;">
-            <span style="font-size:11px;color:var(--text-muted);">7 นาทีอ่าน</span>
-            <span style="font-size:12px;color:var(--caramel);font-weight:600;">อ่านต่อ →</span>
-          </div>
+    <div class="blog-card">
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#8b7355,#4a3520);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=75&auto=format" alt="Coffee Process" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--sage)">ความรู้</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">Natural vs Washed ต่างกันยังไง? ส่งผลต่อรสชาติแค่ไหน?</div>
+        <div class="blog-card-excerpt">กระบวนการหลังเก็บเกี่ยวมีผลมากกว่าที่คิด — เรียนรู้ว่าทำไม Natural ถึงหวานกว่า...</div>
+        <div class="blog-card-meta">
+          <span>7 นาทีอ่าน</span>
+          <span class="blog-read-more">อ่านต่อ →</span>
         </div>
       </div>
-
-      <div class="blog-card" style="border-radius:18px;overflow:hidden;display:grid;grid-template-columns:120px 1fr;min-height:0;">
-        <div style="background:linear-gradient(135deg,#c49a3a,#7a5a20);overflow:hidden;position:relative;">
-          <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&q=75&auto=format" alt="Doi Chang Farm" loading="lazy" decoding="async" width="400" height="300" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
-        </div>
-        <div style="padding:1.1rem 1.25rem;display:flex;flex-direction:column;justify-content:space-between;">
-          <div>
-            <span style="display:inline-block;background:rgba(184,76,26,0.1);color:var(--rust);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px;margin-bottom:0.6rem;border:1px solid rgba(184,76,26,0.25);">Farm Visit</span>
-            <div style="font-family:'Fraunces',serif;font-size:15px;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:0.4rem;">ขึ้นดอยช้าง: ชีวิตและ<br>กาแฟของชาวอาข่า</div>
-            <div style="font-size:11px;color:var(--text-muted);line-height:1.65;">เบื้องหลังกาแฟถุงหนึ่งคือชีวิตของครอบครัว...</div>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.75rem;">
-            <span style="font-size:11px;color:var(--text-muted);">10 นาทีอ่าน</span>
-            <span style="font-size:12px;color:var(--caramel);font-weight:600;">อ่านต่อ →</span>
-          </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#c49a3a,#7a5a20);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=75&auto=format" alt="Doi Chang Farm" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--rust)">Farm Visit</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">ขึ้นดอยช้าง: ชีวิตและกาแฟของชาวอาข่าที่เราทำงานด้วย</div>
+        <div class="blog-card-excerpt">เบื้องหลังกาแฟถุงหนึ่งคือชีวิตของครอบครัวเกษตรกร — นี่คือเรื่องราวของพวกเขา...</div>
+        <div class="blog-card-meta">
+          <span>10 นาทีอ่าน</span>
+          <span class="blog-read-more">อ่านต่อ →</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -2538,7 +2465,8 @@ footer {
   </div>
 </div>
 
-
+<!-- ADMIN TOGGLE BUTTON -->
+<button class="admin-toggle" onclick="openAdminLogin()" title="Admin Panel">⚙️</button>
 
 <!-- ADMIN LOGIN -->
 <div class="admin-login-overlay" id="adminLoginOverlay">
@@ -3050,6 +2978,11 @@ function addToCart(id, e) {
   }
   updateCartUI();
   showCartToast(c.name);
+  // Feature 6: show brew guide
+  setTimeout(() => {
+    const processType = getProcessType(c.process);
+    openBrewGuide(c.name, processType);
+  }, 1000);
 }
 
 function showCartToast(name) {
@@ -3249,8 +3182,8 @@ function addToCartWithSize(id) {
     overlay.classList.remove('open');
     document.body.style.overflow = '';
   }
-  // setTimeout removed
-  if(false)setTimeout(() => {
+  // Feature 6: show brew guide after adding
+  setTimeout(() => {
     const processType = getProcessType(c.process);
     openBrewGuide(c.name, processType);
   }, 1000);
@@ -4250,22 +4183,14 @@ requestAnimationFrame(() => {
 });
 
 // ── NAV ORDER DROPDOWN TOGGLE ─────────────────────────────
-function toggleNavMenu(e) {
-  const menu = document.getElementById('navMenuDropdown');
-  if (!menu) return;
-  const isOpen = menu.style.display === 'block';
-  menu.style.display = isOpen ? 'none' : 'block';
+function toggleNavOrder(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('navOrderMenu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
 }
-function closeNavMenu() {
-  const menu = document.getElementById('navMenuDropdown');
-  if (menu) menu.style.display = 'none';
-}
-document.addEventListener('click', (e) => {
-  const btn = document.getElementById('navMenuBtn');
-  const menu = document.getElementById('navMenuDropdown');
-  if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
-    menu.style.display = 'none';
-  }
+document.addEventListener('click', () => {
+  const m = document.getElementById('navOrderMenu');
+  if (m) m.style.display = 'none';
 });
 
 // ── ANALYTICS ENGINE ──────────────────────────────────────
