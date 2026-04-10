@@ -103,6 +103,23 @@ nav {
   max-width: 400px; margin-bottom: 2.5rem;
 }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-cta-channels {
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+.hero-cta-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; }
+.hero-cta-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  border-radius: 50px; padding: 6px 14px;
+  font-size: 12px; font-weight: 500; text-decoration: none;
+  transition: all 0.2s; border: 1.5px solid transparent;
+}
+.hero-cta-line { background: rgba(6,199,85,0.1); color: #06C755; border-color: rgba(6,199,85,0.3); }
+.hero-cta-line:hover { background: #06C755; color: #fff; }
+.hero-cta-tg { background: rgba(0,136,204,0.1); color: #0088cc; border-color: rgba(0,136,204,0.3); }
+.hero-cta-tg:hover { background: #0088cc; color: #fff; }
+.hero-cta-more { background: rgba(139,94,42,0.08); color: var(--caramel); border-color: var(--border); }
+.hero-cta-more:hover { background: var(--brown); color: #fff; border-color: var(--brown); }
 .btn-primary {
   background: var(--brown); color: #fff;
   border: none; border-radius: 50px;
@@ -131,16 +148,10 @@ nav {
 
 .hero-right {
   position: relative; overflow: hidden;
-  background: linear-gradient(150deg, #2a1a08 0%, #3d2b0f 50%, #5a3a18 100%);
-  display: flex; align-items: center; justify-content: center;
+  min-height: 500px;
 }
 .hero-right::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=900&q=75');
-  background-size: cover; background-position: center;
-  opacity: 0.25;
-  pointer-events: none;
+  display: none;
 }
 .hero-visual {
   width: 100%; height: 100%;
@@ -1553,7 +1564,16 @@ footer {
     <a href="#blog">บทความ</a>
     <a href="#leads">ติดต่อ</a>
   </div>
-  <button class="nav-cta" onclick="window.open('https://t.me/OrigincoffeeShop_bot','_blank')">☕ สั่งซื้อผ่าน Telegram</button>
+  <div style="position:relative;">
+    <button class="nav-cta" onclick="toggleNavOrder(event)">☕ สั่งซื้อ ▾</button>
+    <div id="navOrderMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--warm-white);border:1px solid var(--border);border-radius:14px;padding:0.5rem;min-width:200px;box-shadow:0 12px 40px rgba(61,43,15,0.15);z-index:999;">
+      <a href="https://line.me/R/oa/@origincoffee" target="_blank" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">💚 LINE OA<span style="font-size:11px;color:var(--text-muted);margin-left:auto;">เร็วที่สุด</span></a>
+      <a href="https://t.me/OrigincoffeeShop_bot" target="_blank" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">✈️ Telegram<span style="font-size:11px;color:var(--text-muted);margin-left:auto;">Bot อัตโนมัติ</span></a>
+      <a href="https://m.me/origincoffeeth" target="_blank" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">💙 Facebook</a>
+      <div style="height:1px;background:var(--border);margin:4px 0;"></div>
+      <a href="#catalog" onclick="document.getElementById('navOrderMenu').style.display='none'" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--caramel);font-size:13px;font-weight:500;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">🛒 เลือกกาแฟก่อน</a>
+    </div>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1563,8 +1583,15 @@ footer {
     <h1 class="hero-h1">กาแฟ<em>พิเศษ</em><br>จากต้นทาง<br>ถึงมือคุณ</h1>
     <p class="hero-sub">เราคัดสรรและคั่วกาแฟ specialty grade จากเกษตรกรในไทยและทั่วโลก ด้วยความเข้าใจในทุกกระบวนการตั้งแต่ farm สู่ถ้วย</p>
     <div class="hero-actions">
-      <a href="#ai-finder" class="btn-primary">🤖 ให้ AI ช่วยเลือก →</a>
-      <a href="#catalog" class="btn-ghost">ดูกาแฟทั้งหมด</a>
+      <a href="#catalog" class="btn-primary">☕ ดูกาแฟทั้งหมด →</a>
+      <a href="#ai-finder" class="btn-ghost">🤖 ให้ AI ช่วยเลือก</a>
+    </div>
+    <!-- CTA Channel Row -->
+    <div class="hero-cta-channels">
+      <span class="hero-cta-label">สั่งซื้อผ่าน</span>
+      <a href="https://line.me/R/oa/@origincoffee" target="_blank" class="hero-cta-chip hero-cta-line">💚 LINE OA</a>
+      <a href="https://t.me/OrigincoffeeShop_bot" target="_blank" class="hero-cta-chip hero-cta-tg">✈️ Telegram</a>
+      <a href="#leads" class="hero-cta-chip hero-cta-more">ช่องทางอื่น →</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -1581,25 +1608,20 @@ footer {
       </div>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-visual">
-      <div class="hero-bean-wrap">
-        <div class="hero-ring"></div>
-        <div class="hero-ring"></div>
-        <div class="hero-ring"></div>
-        <svg class="hero-bean-svg" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="100" cy="100" rx="72" ry="90" fill="url(#beanGrad)" transform="rotate(-15 100 100)"/>
-          <path d="M100 20 Q130 100 100 180" stroke="rgba(255,255,255,0.15)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <ellipse cx="100" cy="100" rx="72" ry="90" fill="none" stroke="rgba(196,154,58,0.3)" stroke-width="1.5" transform="rotate(-15 100 100)"/>
-          <defs>
-            <radialGradient id="beanGrad" cx="35%" cy="30%" r="70%">
-              <stop offset="0%" stop-color="#8b5e2a"/>
-              <stop offset="60%" stop-color="#3d2b0f"/>
-              <stop offset="100%" stop-color="#1a1208"/>
-            </radialGradient>
-          </defs>
-        </svg>
-      </div>
+  <div class="hero-right" style="position:relative;overflow:hidden;padding:0;">
+    <img
+      id="heroMainImg"
+      src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=1200&q=85"
+      alt="Specialty Coffee Roasting"
+      style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.5s;"
+      onerror="this.src='https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80'"
+    >
+    <!-- Overlay gradient for readability -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(250,245,237,0.18) 0%,transparent 40%),linear-gradient(to top,rgba(26,18,8,0.55) 0%,transparent 60%);pointer-events:none;"></div>
+    <!-- Floating score badge -->
+    <div style="position:absolute;top:2rem;right:2rem;background:rgba(26,18,8,0.75);backdrop-filter:blur(12px);border:1px solid rgba(196,154,58,0.35);border-radius:16px;padding:1rem 1.25rem;text-align:center;">
+      <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--gold);font-weight:500;line-height:1;">87+</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">SCA Score</div>
     </div>
     <div class="hero-tags">
       <span class="hero-tag">Single Origin</span>
@@ -2507,6 +2529,7 @@ footer {
   <div class="admin-body">
     <div class="admin-tabs">
       <button class="admin-tab active" onclick="switchAdminTab('coffees',this)">☕ จัดการกาแฟ</button>
+      <button class="admin-tab" onclick="switchAdminTab('analytics',this)">📊 Analytics</button>
       <button class="admin-tab" onclick="switchAdminTab('hero',this)">🏠 Hero Section</button>
       <button class="admin-tab" onclick="switchAdminTab('story',this)">📖 เรื่องราว</button>
       <button class="admin-tab" onclick="switchAdminTab('contact',this)">📞 ติดต่อ</button>
@@ -2518,6 +2541,68 @@ footer {
       <div id="coffeeAdminList"></div>
       <button class="admin-add-btn" onclick="addNewCoffee()">+ เพิ่มกาแฟใหม่</button>
       <div id="coffeesSaveMsg" class="admin-success">✅ บันทึกข้อมูลกาแฟเรียบร้อยแล้ว!</div>
+    </div>
+
+    <!-- TAB: ANALYTICS -->
+    <div class="admin-section" id="admin-analytics">
+      <!-- KPI row -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;">
+        <div class="admin-card" style="margin-bottom:0;text-align:center;">
+          <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">ยอดขายวันนี้</div>
+          <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--gold);" id="kpi-today">฿0</div>
+          <div style="font-size:11px;color:var(--sage);margin-top:4px;" id="kpi-today-diff">+0% vs เมื่อวาน</div>
+        </div>
+        <div class="admin-card" style="margin-bottom:0;text-align:center;">
+          <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">ออเดอร์เดือนนี้</div>
+          <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--gold);" id="kpi-orders">0</div>
+          <div style="font-size:11px;color:var(--sage);margin-top:4px;" id="kpi-orders-diff">+0 จากเดือนที่แล้ว</div>
+        </div>
+        <div class="admin-card" style="margin-bottom:0;text-align:center;">
+          <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">ผู้เยี่ยมชม (session)</div>
+          <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--gold);" id="kpi-visits">0</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;" id="kpi-visits-sub">ตั้งแต่เปิดเว็บ</div>
+        </div>
+        <div class="admin-card" style="margin-bottom:0;text-align:center;">
+          <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">Conversion Rate</div>
+          <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--gold);" id="kpi-cvr">0%</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;">Cart → Checkout</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+        <!-- Revenue chart -->
+        <div class="admin-card" style="margin-bottom:0;">
+          <div class="admin-card-title" style="margin-bottom:1rem;">
+            📈 ยอดขาย 7 วันย้อนหลัง
+            <button onclick="resetAnalytics()" style="font-size:11px;background:rgba(184,76,26,0.15);color:var(--rust);border:1px solid rgba(184,76,26,0.3);border-radius:8px;padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;">รีเซ็ต</button>
+          </div>
+          <canvas id="revenueChart" height="180" style="width:100%;display:block;"></canvas>
+        </div>
+
+        <!-- Top products -->
+        <div class="admin-card" style="margin-bottom:0;">
+          <div class="admin-card-title" style="margin-bottom:1rem;">🏆 กาแฟขายดี</div>
+          <div id="topProducts" style="display:flex;flex-direction:column;gap:0.6rem;"></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+        <!-- Channel breakdown -->
+        <div class="admin-card" style="margin-bottom:0;">
+          <div class="admin-card-title" style="margin-bottom:1rem;">📲 ช่องทางสั่งซื้อ</div>
+          <div id="channelStats" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
+        </div>
+
+        <!-- Order log -->
+        <div class="admin-card" style="margin-bottom:0;">
+          <div class="admin-card-title" style="margin-bottom:0.75rem;">
+            📋 ออเดอร์ล่าสุด
+            <button onclick="clearOrderLog()" style="font-size:11px;background:rgba(184,76,26,0.15);color:var(--rust);border:1px solid rgba(184,76,26,0.3);border-radius:8px;padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;">ล้าง</button>
+          </div>
+          <div id="orderLog" style="max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:0.5rem;"></div>
+          <div id="orderLogEmpty" style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;padding:2rem 0;">ยังไม่มีออเดอร์</div>
+        </div>
+      </div>
     </div>
 
     <!-- TAB: HERO -->
@@ -2756,7 +2841,10 @@ function switchAdminTab(tab, btn) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('admin-' + tab).classList.add('active');
+  const sec = document.getElementById('admin-' + tab);
+  if (sec) sec.classList.add('active');
+  if (tab === 'analytics') setTimeout(renderAnalytics, 50);
+  if (tab === 'coffees') renderCoffeeAdmin();
 }
 
 // ── COFFEE DATA ───────────────────────────────────────
@@ -4224,6 +4312,277 @@ function loadSavedData() {
 // Init
 renderCoffees('all');
 loadSavedData();
+
+// ── NAV ORDER DROPDOWN TOGGLE ─────────────────────────────
+function toggleNavOrder(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('navOrderMenu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+document.addEventListener('click', () => {
+  const m = document.getElementById('navOrderMenu');
+  if (m) m.style.display = 'none';
+});
+
+// ── ANALYTICS ENGINE ──────────────────────────────────────
+// Storage keys
+const AK = {
+  orders:   'originOrders',
+  visits:   'originVisits',
+  channels: 'originChannelStats',
+  revenue:  'originRevenue7d',
+};
+
+// Track page visit
+(function trackVisit() {
+  const v = parseInt(localStorage.getItem(AK.visits) || '0') + 1;
+  localStorage.setItem(AK.visits, v);
+})();
+
+// Record an order into analytics storage
+function recordOrderAnalytics(orderData) {
+  // orders log
+  const orders = JSON.parse(localStorage.getItem(AK.orders) || '[]');
+  const entry = {
+    id: Date.now(),
+    ts: new Date().toISOString(),
+    name: orderData.name || 'ลูกค้า',
+    items: orderData.items || [],
+    total: orderData.total || 0,
+    channel: orderData.channel || 'form',
+  };
+  orders.unshift(entry);
+  if (orders.length > 100) orders.pop();
+  localStorage.setItem(AK.orders, JSON.stringify(orders));
+
+  // channel stats
+  const ch = JSON.parse(localStorage.getItem(AK.channels) || '{}');
+  ch[entry.channel] = (ch[entry.channel] || 0) + 1;
+  localStorage.setItem(AK.channels, JSON.stringify(ch));
+
+  // revenue 7-day rolling
+  const rev = JSON.parse(localStorage.getItem(AK.revenue) || '{}');
+  const day = new Date().toLocaleDateString('th-TH');
+  rev[day] = (rev[day] || 0) + entry.total;
+  // keep only 7 days
+  const keys = Object.keys(rev);
+  if (keys.length > 7) delete rev[keys[0]];
+  localStorage.setItem(AK.revenue, JSON.stringify(rev));
+}
+
+// Hook into submitOrder to capture analytics
+const _origSubmitOrder = window.submitOrder;
+window.submitOrder = function() {
+  // gather cart data before submit
+  const name = document.getElementById('co_name')?.value || 'ลูกค้า';
+  const total = getCartTotal ? getCartTotal() : 0;
+  const items = cart.map(i => i.name);
+  recordOrderAnalytics({ name, items, total, channel: selectedChannel || 'form' });
+  if (typeof _origSubmitOrder === 'function') _origSubmitOrder.apply(this, arguments);
+};
+
+// Render analytics dashboard
+function renderAnalytics() {
+  const orders = JSON.parse(localStorage.getItem(AK.orders) || '[]');
+  const visits = parseInt(localStorage.getItem(AK.visits) || '0');
+  const ch     = JSON.parse(localStorage.getItem(AK.channels) || '{}');
+  const rev    = JSON.parse(localStorage.getItem(AK.revenue) || '{}');
+
+  // KPIs
+  const today = new Date().toLocaleDateString('th-TH');
+  const todayRev = rev[today] || 0;
+  const monthOrders = orders.filter(o => new Date(o.ts).getMonth() === new Date().getMonth()).length;
+  const totalOrders = orders.length;
+  const cvr = visits > 0 ? ((totalOrders / visits) * 100).toFixed(1) : 0;
+
+  document.getElementById('kpi-today').textContent = '฿' + todayRev.toLocaleString();
+  document.getElementById('kpi-today-diff').textContent = todayRev > 0 ? '✅ มีออเดอร์วันนี้' : 'ยังไม่มีออเดอร์วันนี้';
+  document.getElementById('kpi-orders').textContent = monthOrders;
+  document.getElementById('kpi-orders-diff').textContent = `รวมทั้งหมด ${totalOrders} ออเดอร์`;
+  document.getElementById('kpi-visits').textContent = visits.toLocaleString();
+  document.getElementById('kpi-cvr').textContent = cvr + '%';
+
+  // Revenue chart (canvas)
+  drawRevenueChart(rev);
+
+  // Top products
+  const productCount = {};
+  orders.forEach(o => (o.items||[]).forEach(name => { productCount[name] = (productCount[name]||0)+1; }));
+  const topProds = Object.entries(productCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const maxProd = topProds[0]?.[1] || 1;
+  document.getElementById('topProducts').innerHTML = topProds.length
+    ? topProds.map(([name, cnt]) => `
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="flex:1;font-size:12px;color:rgba(255,255,255,0.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${name}</div>
+          <div style="width:80px;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;">
+            <div style="height:100%;background:var(--gold);border-radius:3px;width:${Math.round((cnt/maxProd)*100)}%;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--gold);min-width:24px;text-align:right;">${cnt}</div>
+        </div>`).join('')
+    : '<div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;padding:1.5rem 0;">ยังไม่มีออเดอร์</div>';
+
+  // Channel breakdown
+  const channelLabels = { line:'💚 LINE OA', telegram:'✈️ Telegram', fb:'💙 Facebook', whatsapp:'📱 WhatsApp', form:'📋 เว็บฟอร์ม', promptpay:'🏦 PromptPay' };
+  const totalCh = Object.values(ch).reduce((a,b)=>a+b,0) || 1;
+  document.getElementById('channelStats').innerHTML = Object.entries(ch).length
+    ? Object.entries(ch).sort((a,b)=>b[1]-a[1]).map(([k,v]) => `
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="font-size:12px;color:rgba(255,255,255,0.75);width:130px;flex-shrink:0;">${channelLabels[k]||k}</div>
+          <div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;">
+            <div style="height:100%;background:var(--caramel);border-radius:3px;width:${Math.round((v/totalCh)*100)}%;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--gold);min-width:30px;text-align:right;">${v} (${Math.round((v/totalCh)*100)}%)</div>
+        </div>`).join('')
+    : '<div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;padding:1.5rem 0;">ยังไม่มีข้อมูล</div>';
+
+  // Order log
+  const logEl = document.getElementById('orderLog');
+  const emptyEl = document.getElementById('orderLogEmpty');
+  if (orders.length === 0) {
+    logEl.innerHTML = ''; emptyEl.style.display = 'block';
+  } else {
+    emptyEl.style.display = 'none';
+    logEl.innerHTML = orders.slice(0,20).map(o => {
+      const dt = new Date(o.ts);
+      const timeStr = dt.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'}) + ' · ' + dt.toLocaleDateString('th-TH',{day:'numeric',month:'short'});
+      const chLabel = channelLabels[o.channel] || o.channel;
+      return `<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(196,154,58,0.12);border-radius:10px;padding:0.65rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;">
+        <div style="min-width:0;">
+          <div style="font-size:13px;color:#fff;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.name}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;">${timeStr} · ${chLabel}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${(o.items||[]).join(', ')||'-'}</div>
+        </div>
+        <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--gold);white-space:nowrap;">฿${(o.total||0).toLocaleString()}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function drawRevenueChart(rev) {
+  const canvas = document.getElementById('revenueChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 400;
+  const H = 180;
+  canvas.width = W * (window.devicePixelRatio || 1);
+  canvas.height = H * (window.devicePixelRatio || 1);
+  ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+
+  // Build last 7 days
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    days.push(d.toLocaleDateString('th-TH'));
+  }
+  const vals = days.map(d => rev[d] || 0);
+  const maxVal = Math.max(...vals, 1);
+
+  const pad = { top: 20, right: 12, bottom: 40, left: 50 };
+  const cw = W - pad.left - pad.right;
+  const ch = H - pad.top - pad.bottom;
+  const barW = Math.max(8, cw / days.length - 8);
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Gridlines
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + (ch / 4) * i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    // y-axis labels
+    const val = Math.round(maxVal - (maxVal / 4) * i);
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.font = '10px DM Sans,sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(val >= 1000 ? (val/1000).toFixed(1)+'k' : val, pad.left - 6, y + 4);
+  }
+
+  // Bars
+  days.forEach((d, i) => {
+    const x = pad.left + (cw / days.length) * i + (cw / days.length - barW) / 2;
+    const barH = (vals[i] / maxVal) * ch;
+    const y = pad.top + ch - barH;
+
+    // Bar gradient
+    const grad = ctx.createLinearGradient(0, y, 0, y + barH);
+    grad.addColorStop(0, 'rgba(196,154,58,0.9)');
+    grad.addColorStop(1, 'rgba(139,94,42,0.4)');
+    ctx.fillStyle = vals[i] > 0 ? grad : 'rgba(255,255,255,0.05)';
+    ctx.beginPath();
+    ctx.roundRect(x, y, barW, barH || 2, 4);
+    ctx.fill();
+
+    // Value label on top
+    if (vals[i] > 0) {
+      ctx.fillStyle = 'rgba(196,154,58,0.9)';
+      ctx.font = '10px DM Sans,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(vals[i] >= 1000 ? (vals[i]/1000).toFixed(1)+'k' : vals[i], x + barW/2, y - 5);
+    }
+
+    // Day label
+    const shortDay = new Date(d.split('/').reverse().join('-')+' 00:00').toLocaleDateString('th-TH',{weekday:'short'});
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.font = '10px DM Sans,sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(shortDay || d.slice(0,5), x + barW/2, H - 10);
+  });
+}
+
+function resetAnalytics() {
+  if (!confirm('ล้างข้อมูล Analytics ทั้งหมด?')) return;
+  [AK.orders, AK.visits, AK.channels, AK.revenue].forEach(k => localStorage.removeItem(k));
+  localStorage.setItem(AK.visits, '1');
+  renderAnalytics();
+}
+
+function clearOrderLog() {
+  if (!confirm('ล้างประวัติออเดอร์?')) return;
+  localStorage.removeItem(AK.orders);
+  renderAnalytics();
+}
+
+
+
+// ── HERO IMAGE ADMIN CONTROL ─────────────────────────────
+// Inject hero image URL field into admin Hero tab
+(function injectHeroImgAdmin() {
+  window.addEventListener('DOMContentLoaded', () => {
+    const heroCard = document.querySelector('#admin-hero .admin-card');
+    if (!heroCard) return;
+    const div = document.createElement('div');
+    div.className = 'admin-field';
+    div.innerHTML = `
+      <label class="admin-label">🖼 Hero Image URL (Unsplash หรือ URL อื่นๆ)</label>
+      <input class="admin-field-input" id="heroImgUrl" placeholder="https://images.unsplash.com/photo-..." value="">
+      <div style="margin-top:6px;font-size:11px;color:rgba(255,255,255,0.3);">
+        แนะนำ: <a href="https://unsplash.com/s/photos/coffee-roasting" target="_blank" style="color:var(--gold);">Unsplash coffee</a> — คัดลอก URL รูปแล้ววางที่นี่
+      </div>`;
+    heroCard.insertBefore(div, heroCard.querySelector('button.admin-save-btn'));
+
+    // Load saved hero image
+    const saved = localStorage.getItem('originHeroImg');
+    if (saved) {
+      document.getElementById('heroImgUrl').value = saved;
+      const img = document.getElementById('heroMainImg');
+      if (img) img.src = saved;
+    }
+
+    // Patch saveHero to also save image
+    const origSave = document.querySelector('#admin-hero button.admin-save-btn');
+    if (origSave) {
+      origSave.addEventListener('click', () => {
+        const url = document.getElementById('heroImgUrl')?.value.trim();
+        if (url) {
+          localStorage.setItem('originHeroImg', url);
+          const img = document.getElementById('heroMainImg');
+          if (img) img.src = url;
+        }
+      }, true);
+    }
+  });
+})();
 </script>
 </body>
 </html>
