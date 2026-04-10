@@ -436,12 +436,13 @@ nav {
   pointer-events: none;
 }
 .leads-inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+  display: grid; grid-template-columns: 1fr;
+  max-width: 720px; margin: 0 auto;
   align-items: center; position: relative; z-index: 1;
 }
 .leads-left .section-eyebrow { color: var(--gold); }
 .leads-left .section-title { color: #fff; }
-.leads-left .section-sub { color: rgba(255,255,255,0.6); max-width: 380px; }
+.leads-left .section-sub { color: rgba(255,255,255,0.6); max-width: 520px; }
 .leads-perks { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
 .leads-perk { display: flex; align-items: flex-start; gap: 1rem; }
 .leads-perk-icon {
@@ -1003,45 +1004,112 @@ footer {
  50% { box-shadow: 0 2px 20px rgba(231,76,60,0.7); } }
 
 /* ─── 2. BUNDLE SECTION ──────────────────────────── */
-#bundles { background: var(--ink); }
-.bundles-header { text-align: center; margin-bottom: 3rem; }
-.bundles-header .section-title { color: #fff; }
-.bundles-header .section-title em { color: var(--gold); }
-.bundles-header .section-eyebrow { color: var(--gold); }
-.bundles-header .section-sub { color: rgba(255,255,255,0.5); margin: 0 auto; }
-.bundle-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+#bundles { background: var(--cream2); }
+.bundles-header { margin-bottom: 3rem; }
+.bundle-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.75rem;
+  align-items: start;
+}
+
+/* ── Card Shell ── */
 .bundle-card {
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(196,154,58,0.2);
-  border-radius: 24px; padding: 2rem 1.75rem; position: relative; overflow: hidden;
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: 24px; overflow: hidden;
   transition: all 0.3s; cursor: pointer;
+  display: flex; flex-direction: column;
+  box-shadow: 0 2px 12px rgba(61,43,15,0.06);
 }
-.bundle-card:hover { transform: translateY(-6px); border-color: rgba(196,154,58,0.5); background: rgba(196,154,58,0.06); }
-.bundle-card.featured { border-color: rgba(196,154,58,0.55); background: rgba(196,154,58,0.08); }
-.bundle-featured-tag {
-  position: absolute; top: 1.25rem; right: -1rem;
-  background: var(--gold); color: var(--ink);
-  font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
-  padding: 4px 20px 4px 14px; border-radius: 50px 0 0 50px;
+.bundle-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 56px rgba(61,43,15,0.13);
+  border-color: var(--caramel);
 }
-.bundle-emoji { font-size: 44px; margin-bottom: 1rem; display: block; }
-.bundle-name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: #fff; margin-bottom: 0.4rem; }
-.bundle-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 1.25rem; }
+.bundle-card.featured {
+  border-color: var(--caramel);
+  box-shadow: 0 8px 40px rgba(139,94,42,0.18);
+  transform: scale(1.03);
+}
+.bundle-card.featured:hover { transform: scale(1.03) translateY(-6px); }
+
+/* ── Hero Banner ── */
+.bundle-hero {
+  height: 160px; position: relative;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 4px;
+  overflow: hidden;
+}
+.bundle-hero-emoji {
+  font-size: 64px; line-height: 1;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.2));
+  transition: transform 0.3s;
+}
+.bundle-card:hover .bundle-hero-emoji { transform: scale(1.1) rotate(-4deg); }
+.bundle-hero-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  background: var(--brown); color: #fff;
+  border-radius: 50px; padding: 3px 12px;
+}
+.bundle-hero-tag.gold { background: var(--gold); color: var(--ink); }
+
+/* ── Card Body ── */
+.bundle-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.bundle-name {
+  font-family: 'Fraunces', serif; font-size: 21px; font-weight: 500;
+  color: var(--ink); margin-bottom: 0.35rem; line-height: 1.2;
+}
+.bundle-tagline {
+  font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.1rem;
+}
+
+/* ── Items list — simplified, no redundancy ── */
 .bundle-items { margin-bottom: 1.25rem; }
-.bundle-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 5px; }
-.bundle-item::before { content: '✓'; color: var(--gold); font-weight: 700; }
-.bundle-pricing { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 1.25rem; }
-.bundle-price { font-family: 'Fraunces', serif; font-size: 28px; color: var(--gold); font-weight: 500; }
-.bundle-original { font-size: 14px; color: rgba(255,255,255,0.35); text-decoration: line-through; }
-.bundle-save { font-size: 11px; background: rgba(196,154,58,0.2); color: var(--gold); border-radius: 50px; padding: 2px 10px; margin-left: auto; }
-.bundle-cta {
-  width: 100%; background: var(--caramel); color: #fff;
-  border: none; border-radius: 12px; padding: 12px;
-  font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-  cursor: pointer; transition: all 0.2s;
+.bundle-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+  font-size: 13px; color: var(--ink);
 }
-.bundle-cta:hover { background: var(--gold); }
-.bundle-card.featured .bundle-cta { background: var(--gold); color: var(--ink); }
-.bundle-card.featured .bundle-cta:hover { background: #d4aa4a; }
+.bundle-item:last-child { border-bottom: none; }
+.bundle-item-emoji { font-size: 18px; flex-shrink: 0; width: 26px; text-align: center; }
+.bundle-item-info { flex: 1; }
+.bundle-item-name { font-weight: 500; color: var(--ink); font-size: 13px; }
+.bundle-item-detail { font-size: 11px; color: var(--text-muted); }
+
+/* ── Pricing row ── */
+.bundle-pricing {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 1.1rem; margin-top: auto; padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.bundle-price {
+  font-family: 'Fraunces', serif; font-size: 28px;
+  color: var(--ink); font-weight: 500;
+}
+.bundle-original {
+  font-size: 13px; color: var(--text-muted); text-decoration: line-through;
+}
+.bundle-save {
+  font-size: 11px; font-weight: 700;
+  background: rgba(122,140,114,0.15); color: var(--sage);
+  border: 1px solid rgba(122,140,114,0.3);
+  border-radius: 50px; padding: 3px 10px; margin-left: auto;
+}
+.bundle-card.featured .bundle-save {
+  background: rgba(196,154,58,0.15); color: var(--caramel);
+  border-color: rgba(196,154,58,0.3);
+}
+
+/* ── CTA button ── */
+.bundle-cta {
+  width: 100%; background: var(--brown); color: #fff;
+  border: none; border-radius: 12px; padding: 13px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.3px;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.bundle-cta:hover { background: var(--caramel); transform: translateY(-1px); }
+.bundle-card.featured .bundle-cta { background: var(--caramel); }
+.bundle-card.featured .bundle-cta:hover { background: var(--gold); color: var(--ink); }
 
 /* ─── 3. STICKY MOBILE CTA ───────────────────────── */
 .sticky-mobile-cta {
@@ -1298,6 +1366,8 @@ footer {
   .nav-links { display: none; }
   .hero-left { padding: 3rem 2rem; }
   .bundle-grid { grid-template-columns: 1fr; }
+  .bundle-card.featured { transform: none; }
+  .bundle-card.featured:hover { transform: translateY(-4px); }
   .sub-inner { grid-template-columns: 1fr; gap: 2rem; }
   .blog-grid { grid-template-columns: 1fr 1fr; }
   body { padding-bottom: 80px; }
@@ -1309,6 +1379,7 @@ footer {
   .footer-top { grid-template-columns: 1fr; }
   .admin-row, .admin-row-3 { grid-template-columns: 1fr; }
   .blog-grid { grid-template-columns: 1fr; }
+  #leads .leads-inner > .leads-left > div[style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2,1fr) !important; }
 }
 
 /* ─── FREE SHIPPING PROGRESS BAR (Feature 2 & 5) ─── */
@@ -1692,13 +1763,13 @@ footer {
   <div class="catalog-header">
     <div>
       <div class="section-eyebrow">☕ Coffee Catalog</div>
-      <h2 class="section-title">ล็อตที่มีอยู่<br><em>ตอนนี้</em></h2>
+      <h2 class="section-title">เลือกล็อตที่<br><em>ใช่สำหรับคุณ</em></h2>
     </div>
     <div class="filter-tabs">
-      <button class="filter-tab active" onclick="filterCoffee('all',this)">ทั้งหมด</button>
-      <button class="filter-tab" onclick="filterCoffee('thai',this)">ไทย</button>
-      <button class="filter-tab" onclick="filterCoffee('africa',this)">แอฟริกา</button>
-      <button class="filter-tab" onclick="filterCoffee('latin',this)">ลาตินอเมริกา</button>
+      <button class="filter-tab active" onclick="filterCoffee('all',this)">🌐 ทั้งหมด</button>
+      <button class="filter-tab" onclick="filterCoffee('thai',this)">🇹🇭 ไทย</button>
+      <button class="filter-tab" onclick="filterCoffee('africa',this)">🌍 แอฟริกา</button>
+      <button class="filter-tab" onclick="filterCoffee('latin',this)">🌎 ลาตินอเมริกา</button>
     </div>
   </div>
   <div class="coffee-grid" id="coffeeGrid"></div>
@@ -1709,61 +1780,148 @@ footer {
 <section class="section" id="bundles">
   <div class="bundles-header">
     <div class="section-eyebrow">🎁 เซ็ตทดลอง</div>
-    <h2 class="section-title">ไม่แน่ใจจะเริ่มต้นที่ไหน?<br>ลอง<em>เซ็ตทดลอง</em>ก่อน</h2>
-    <p class="section-sub">รวมล็อตที่ดีที่สุดไว้ด้วยกัน ราคาพิเศษกว่าซื้อแยก — เหมาะสำหรับคนที่อยากสำรวจรสชาติหลายแบบ</p>
+    <h2 class="section-title">เริ่มต้นง่ายขึ้น<br>ด้วย<em>เซ็ตคัดมาแล้ว</em></h2>
+    <p class="section-sub">ซื้อหลาย lot ในราคาเดียว — ราคาพิเศษกว่าซื้อแยก เหมาะสำหรับคนอยากสำรวจก่อนตัดสินใจ</p>
   </div>
   <div class="bundle-grid">
+
+    <!-- Card 1: World Tour -->
     <div class="bundle-card">
-      <span class="bundle-emoji">🌏</span>
-      <div class="bundle-name">World Tour</div>
-      <div class="bundle-desc">สำรวจ 3 แหล่งกาแฟในครั้งเดียว — ไทย, เอธิโอเปีย, โคลอมเบีย</div>
-      <div class="bundle-items">
-        <div class="bundle-item">Doi Chang Natural 🍒</div>
-        <div class="bundle-item">Ethiopia Yirgacheffe 🌸</div>
-        <div class="bundle-item">Colombia Huila Honey 🍯</div>
+      <div class="bundle-hero" style="background: linear-gradient(135deg, #8b5e2a 0%, #4a3520 100%);">
+        <span class="bundle-hero-emoji">🌍</span>
+        <span class="bundle-hero-tag">3 แหล่งกาแฟ</span>
       </div>
-      <div class="bundle-pricing">
-        <div class="bundle-price">฿1,790</div>
-        <div class="bundle-original">฿2,050</div>
-        <div class="bundle-save">ประหยัด ฿260</div>
+      <div class="bundle-body">
+        <div class="bundle-name">World Tour</div>
+        <div class="bundle-tagline">ไทย · แอฟริกา · ลาตินอเมริกา — เปรียบเทียบ 3 สไตล์ในชุดเดียว</div>
+        <div class="bundle-items">
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🍒</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Doi Chang Natural</div>
+              <div class="bundle-item-detail">ไทย · Natural · ลิ้นจี่ & ช็อกโกแลต</div>
+            </div>
+          </div>
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🌸</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Ethiopia Yirgacheffe</div>
+              <div class="bundle-item-detail">แอฟริกา · Washed · ดอกไม้ & พีช</div>
+            </div>
+          </div>
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🍯</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Colombia Huila Honey</div>
+              <div class="bundle-item-detail">ลาตินอเมริกา · Honey · น้ำผึ้ง & วานิลลา</div>
+            </div>
+          </div>
+        </div>
+        <div class="bundle-pricing">
+          <div class="bundle-price">฿1,790</div>
+          <div class="bundle-original">฿2,050</div>
+          <div class="bundle-save">ประหยัด ฿260</div>
+        </div>
+        <button class="bundle-cta" onclick="addBundleToCart([1,2,3])">🛒 เพิ่มเซ็ตนี้ลงตะกร้า</button>
       </div>
-      <button class="bundle-cta" onclick="addBundleToCart([1,2,3])">🛒 หยิบเซ็ตนี้ใส่ตะกร้า</button>
     </div>
+
+    <!-- Card 2: Tasting 5 Lots (Featured) -->
     <div class="bundle-card featured">
-      <div class="bundle-featured-tag">⭐ แนะนำ</div>
-      <span class="bundle-emoji">🔥</span>
-      <div class="bundle-name">Tasting 5 Lots</div>
-      <div class="bundle-desc">เซ็ตครบจบ ลองได้ทั้ง 5 ล็อตที่เปิดอยู่ในตอนนี้ ก่อนตัดสินใจซื้อเต็มๆ</div>
-      <div class="bundle-items">
-        <div class="bundle-item">Doi Chang Natural 🍒</div>
-        <div class="bundle-item">Ethiopia Yirgacheffe 🌸</div>
-        <div class="bundle-item">Colombia Huila Honey 🍯</div>
-        <div class="bundle-item">Inthanon Washed 🍊</div>
-        <div class="bundle-item">Ethiopia Gedeo Anaerobic 🍇</div>
+      <div class="bundle-hero" style="background: linear-gradient(135deg, #c49a3a 0%, #8b5e2a 50%, #3d2b0f 100%);">
+        <span class="bundle-hero-emoji">🔥</span>
+        <span class="bundle-hero-tag gold">⭐ แนะนำ · ครบที่สุด</span>
       </div>
-      <div class="bundle-pricing">
-        <div class="bundle-price">฿2,890</div>
-        <div class="bundle-original">฿3,520</div>
-        <div class="bundle-save">ประหยัด ฿630</div>
+      <div class="bundle-body">
+        <div class="bundle-name">Tasting 5 Lots</div>
+        <div class="bundle-tagline">ครบทุก lot ที่เปิดอยู่ตอนนี้ — ชิมก่อน แล้วค่อยเลือก lot โปรดซื้อเต็ม</div>
+        <div class="bundle-items">
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🍒</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Doi Chang Natural</div>
+              <div class="bundle-item-detail">ไทย · Natural 88.5 pts</div>
+            </div>
+          </div>
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🌸</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Ethiopia Yirgacheffe</div>
+              <div class="bundle-item-detail">แอฟริกา · Washed 89.0 pts</div>
+            </div>
+          </div>
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🍯</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Colombia Huila Honey</div>
+              <div class="bundle-item-detail">ลาตินอเมริกา · Honey 87.5 pts</div>
+            </div>
+          </div>
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🍊</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Inthanon Washed</div>
+              <div class="bundle-item-detail">ไทย · Washed 87.0 pts</div>
+            </div>
+          </div>
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🍇</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Ethiopia Gedeo Anaerobic</div>
+              <div class="bundle-item-detail">แอฟริกา · Anaerobic 90.5 pts 🏆</div>
+            </div>
+          </div>
+        </div>
+        <div class="bundle-pricing">
+          <div class="bundle-price">฿2,890</div>
+          <div class="bundle-original">฿3,520</div>
+          <div class="bundle-save">ประหยัด ฿630</div>
+        </div>
+        <button class="bundle-cta" onclick="addBundleToCart([1,2,3,4,5])">🛒 เพิ่มเซ็ตนี้ลงตะกร้า</button>
       </div>
-      <button class="bundle-cta" onclick="addBundleToCart([1,2,3,4,5])">🛒 หยิบเซ็ตนี้ใส่ตะกร้า</button>
     </div>
+
+    <!-- Card 3: Thai Origins (Gift) -->
     <div class="bundle-card">
-      <span class="bundle-emoji">🇹🇭</span>
-      <div class="bundle-name">Thai Origins</div>
-      <div class="bundle-desc">สนับสนุนกาแฟไทย 2 แหล่ง ดอยช้าง + ดอยอินทนนท์ ต่างกระบวนการ</div>
-      <div class="bundle-items">
-        <div class="bundle-item">Doi Chang Natural 🍒</div>
-        <div class="bundle-item">Inthanon Washed 🍊</div>
-        <div class="bundle-item">บรรจุในกล่องของขวัญ 🎁</div>
+      <div class="bundle-hero" style="background: linear-gradient(135deg, #a08060 0%, #5a3a18 100%);">
+        <span class="bundle-hero-emoji">🇹🇭</span>
+        <span class="bundle-hero-tag">ของขวัญ · 2 lot</span>
       </div>
-      <div class="bundle-pricing">
-        <div class="bundle-price">฿1,190</div>
-        <div class="bundle-original">฿1,260</div>
-        <div class="bundle-save">ประหยัด ฿70</div>
+      <div class="bundle-body">
+        <div class="bundle-name">Thai Origins</div>
+        <div class="bundle-tagline">กาแฟไทย 2 ดอย ต่างสไตล์ — บรรจุกล่องของขวัญพร้อมส่ง</div>
+        <div class="bundle-items">
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🍒</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Doi Chang Natural</div>
+              <div class="bundle-item-detail">เชียงราย · Natural · หวาน & ผลไม้</div>
+            </div>
+          </div>
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🍊</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">Inthanon Washed</div>
+              <div class="bundle-item-detail">เชียงใหม่ · Washed · กรดสด & สะอาด</div>
+            </div>
+          </div>
+          <div class="bundle-item">
+            <span class="bundle-item-emoji">🎁</span>
+            <div class="bundle-item-info">
+              <div class="bundle-item-name">กล่องของขวัญ</div>
+              <div class="bundle-item-detail">พร้อมการ์ด tasting notes ในกล่อง</div>
+            </div>
+          </div>
+        </div>
+        <div class="bundle-pricing">
+          <div class="bundle-price">฿1,190</div>
+          <div class="bundle-original">฿1,260</div>
+          <div class="bundle-save">ประหยัด ฿70</div>
+        </div>
+        <button class="bundle-cta" onclick="addBundleToCart([1,4])">🛒 เพิ่มเซ็ตนี้ลงตะกร้า</button>
       </div>
-      <button class="bundle-cta" onclick="addBundleToCart([1,4])">🛒 หยิบเซ็ตนี้ใส่ตะกร้า</button>
     </div>
+
   </div>
 </section>
 
@@ -1977,65 +2135,45 @@ footer {
       <div class="section-eyebrow">📩 สั่งซื้อ & ติดต่อ</div>
       <h2 class="section-title">สั่งซื้อได้<br><em>หลายช่องทาง</em></h2>
       <p class="section-sub">เลือกช่องทางที่สะดวกที่สุดสำหรับคุณ — เราตอบกลับทุกช่องทางภายใน 1 ชั่วโมงในเวลาทำการ</p>
-      <div class="leads-perks">
-        <div class="leads-perk">
-          <div class="leads-perk-icon">💚</div>
-          <div class="leads-perk-text">
-            <strong>LINE OA / Telegram / WhatsApp</strong>
-            <span>แชทสั่งซื้อได้โดยตรง ตอบเร็วภายใน 1 ชั่วโมง</span>
-          </div>
-        </div>
-        <div class="leads-perk">
-          <div class="leads-perk-icon">💙</div>
-          <div class="leads-perk-text">
-            <strong>Facebook Messenger</strong>
-            <span>ทักหาเราผ่าน Page — Origin Coffee Roastery</span>
-          </div>
-        </div>
-        <div class="leads-perk">
-          <div class="leads-perk-icon">🏦</div>
-          <div class="leads-perk-text">
-            <strong>PromptPay / โอนเงิน</strong>
-            <span>โอนมาที่ 098-765-4321 แล้วแจ้งสลิปได้เลย</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="leads-form-card" style="display:flex;flex-direction:column;gap:1rem;">
-      <div style="text-align:center;">
-        <div style="font-size:48px;margin-bottom:0.5rem;">🛒</div>
-        <div class="leads-form-title">เลือกช่องทางสั่งซื้อ</div>
-        <p class="leads-form-sub" style="margin-bottom:1.25rem;">เพิ่มสินค้าลงตะกร้าก่อน แล้วเลือกช่องทางที่สะดวก</p>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+
+      <!-- Channel buttons grid -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-top:2rem;">
         <a href="https://line.me/R/oa/@origincoffee" target="_blank" style="text-decoration:none;">
-          <div style="background:#06C755;border-radius:14px;padding:0.9rem 1rem;display:flex;align-items:center;gap:10px;transition:all 0.2s;cursor:pointer;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-            <span style="font-size:22px;">💚</span>
-            <div><div style="font-size:13px;font-weight:600;color:#fff;">LINE OA</div><div style="font-size:11px;color:rgba(255,255,255,0.8);">@origincoffee</div></div>
+          <div style="background:#06C755;border-radius:16px;padding:1.1rem 0.75rem;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all 0.2s;cursor:pointer;text-align:center;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(6,199,85,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <span style="font-size:26px;">💚</span>
+            <div style="font-size:13px;font-weight:700;color:#fff;">LINE OA</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.75);">@origincoffee</div>
           </div>
         </a>
         <a href="https://t.me/OrigincoffeeShop_bot" target="_blank" style="text-decoration:none;">
-          <div style="background:#2AABEE;border-radius:14px;padding:0.9rem 1rem;display:flex;align-items:center;gap:10px;transition:all 0.2s;cursor:pointer;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-            <span style="font-size:22px;">✈️</span>
-            <div><div style="font-size:13px;font-weight:600;color:#fff;">Telegram</div><div style="font-size:11px;color:rgba(255,255,255,0.8);">Bot ตอบทันที</div></div>
+          <div style="background:#2AABEE;border-radius:16px;padding:1.1rem 0.75rem;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all 0.2s;cursor:pointer;text-align:center;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(42,171,238,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <span style="font-size:26px;">✈️</span>
+            <div style="font-size:13px;font-weight:700;color:#fff;">Telegram</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.75);">Bot ตอบทันที</div>
           </div>
         </a>
         <a href="https://m.me/origincoffeeth" target="_blank" style="text-decoration:none;">
-          <div style="background:#0866FF;border-radius:14px;padding:0.9rem 1rem;display:flex;align-items:center;gap:10px;transition:all 0.2s;cursor:pointer;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-            <span style="font-size:22px;">💙</span>
-            <div><div style="font-size:13px;font-weight:600;color:#fff;">Facebook</div><div style="font-size:11px;color:rgba(255,255,255,0.8);">Messenger</div></div>
+          <div style="background:#0866FF;border-radius:16px;padding:1.1rem 0.75rem;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all 0.2s;cursor:pointer;text-align:center;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(8,102,255,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <span style="font-size:26px;">💙</span>
+            <div style="font-size:13px;font-weight:700;color:#fff;">Facebook</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.75);">Messenger</div>
           </div>
         </a>
         <a href="https://wa.me/66987654321" target="_blank" style="text-decoration:none;">
-          <div style="background:#25D366;border-radius:14px;padding:0.9rem 1rem;display:flex;align-items:center;gap:10px;transition:all 0.2s;cursor:pointer;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-            <span style="font-size:22px;">📱</span>
-            <div><div style="font-size:13px;font-weight:600;color:#fff;">WhatsApp</div><div style="font-size:11px;color:rgba(255,255,255,0.8);">+66 98-765-4321</div></div>
+          <div style="background:#25D366;border-radius:16px;padding:1.1rem 0.75rem;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all 0.2s;cursor:pointer;text-align:center;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(37,211,102,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <span style="font-size:26px;">📱</span>
+            <div style="font-size:13px;font-weight:700;color:#fff;">WhatsApp</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.75);">+66 98-765-4321</div>
           </div>
         </a>
       </div>
-      <div style="border-top:1px solid var(--border);padding-top:1rem;">
-        <button class="btn-primary" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})" style="width:100%;text-align:center;justify-content:center;">☕ เลือกกาแฟ → หยิบใส่ตะกร้า</button>
-        <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:0.6rem;">มีตะกร้าสินค้า — เลือกได้หลายล็อต แล้วส่งออเดอร์ครั้งเดียว</div>
+
+      <!-- Perks compact row -->
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1.75rem;padding-top:1.75rem;border-top:1px solid rgba(255,255,255,0.1);">
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">🔔 ได้ล็อต Limited ก่อนใคร</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">⚡ ตอบกลับใน 1 ชม.</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">🏦 PromptPay 098-765-4321</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">🚚 จัดส่งทั่วประเทศ</span>
       </div>
     </div>
   </div>
