@@ -161,20 +161,7 @@ nav {
   display: flex; align-items: center; justify-content: center;
   position: relative;
 }
-.hero-bean-wrap {
-  position: relative; display: flex; align-items: center; justify-content: center;
-  width: 340px; height: 340px;
-}
-.hero-ring {
-  position: absolute; border-radius: 50%;
-  border: 1px solid rgba(196,154,58,0.2);
-  animation: pulse-ring 3s ease-in-out infinite;
-}
-.hero-ring:nth-child(1) { width: 280px; height: 280px; }
-.hero-ring:nth-child(2) { width: 340px; height: 340px; animation-delay: 0.5s; opacity: 0.6; }
-.hero-ring:nth-child(3) { width: 400px; height: 400px; animation-delay: 1s; opacity: 0.3; }
-@keyframes pulse-ring { 0%,100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.05); opacity: 0.8; } }
-.hero-bean-svg { position: relative; z-index: 2; filter: drop-shadow(0 20px 60px rgba(0,0,0,0.4)); }
+
 .hero-tags {
   position: absolute; bottom: 3rem; left: 2rem; right: 2rem;
   display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;
@@ -1136,47 +1123,6 @@ footer {
 .notify-success-text { font-family: 'Fraunces', serif; font-size: 20px; color: var(--ink); margin-bottom: 0.5rem; }
 .notify-success-sub { font-size: 13px; color: var(--text-muted); }
 
-/* ─── 6. LOYALTY SECTION ────────────────────────── */
-#loyalty {
-  background: linear-gradient(135deg, #2a1a08 0%, var(--brown) 100%);
-}
-.loyalty-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-.loyalty-title { font-family: 'Fraunces', serif; font-size: clamp(28px,3vw,42px); font-weight: 500; color: #fff; margin-bottom: 1rem; line-height: 1.2; }
-.loyalty-title em { color: var(--gold); font-style: italic; }
-.loyalty-sub { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.8; margin-bottom: 2rem; }
-.loyalty-steps { display: flex; flex-direction: column; gap: 1.25rem; }
-.loyalty-step { display: flex; align-items: center; gap: 1rem; }
-.loyalty-step-num {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: rgba(196,154,58,0.2); border: 1.5px solid rgba(196,154,58,0.4);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Fraunces', serif; font-size: 16px; color: var(--gold); flex-shrink: 0;
-}
-.loyalty-step-text { font-size: 14px; color: rgba(255,255,255,0.7); }
-.loyalty-step-text strong { color: #fff; }
-.loyalty-card {
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(196,154,58,0.25);
-  border-radius: 24px; padding: 2rem; backdrop-filter: blur(12px);
-}
-.loyalty-card-title { font-family: 'Fraunces', serif; font-size: 18px; color: var(--gold); margin-bottom: 1.25rem; }
-.loyalty-progress-wrap { margin-bottom: 1.5rem; }
-.loyalty-progress-label { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
-.loyalty-progress-track { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
-.loyalty-progress-fill {
-  height: 100%; border-radius: 4px;
-  background: linear-gradient(90deg, var(--caramel), var(--gold));
-  width: 60%; transition: width 1s ease;
-}
-.loyalty-cups { display: flex; gap: 8px; margin-top: 0.75rem; justify-content: center; }
-.loyalty-cup { font-size: 22px; }
-.loyalty-cup.earned { filter: none; }
-.loyalty-cup.pending { filter: grayscale(1); opacity: 0.3; }
-.loyalty-reward {
-  background: rgba(196,154,58,0.15); border: 1px solid rgba(196,154,58,0.3);
-  border-radius: 12px; padding: 1rem; text-align: center;
-}
-.loyalty-reward-text { font-size: 14px; color: #fff; font-weight: 500; }
-.loyalty-reward-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
 
 /* ─── 7. SOCIAL PROOF POPUP ──────────────────────── */
 .social-proof-popup {
@@ -1312,60 +1258,7 @@ footer {
   margin-left: 8px;
 }
 
-/* ─── ABANDONED CART MODAL ───────────────────────── */
-.abandon-overlay {
-  display: none; position: fixed; inset: 0; z-index: 950;
-  background: rgba(26,18,8,0.65); backdrop-filter: blur(8px);
-  align-items: center; justify-content: center; padding: 1.5rem;
-}
-.abandon-overlay.open { display: flex; }
-.abandon-modal {
-  background: var(--warm-white); border-radius: 28px;
-  width: 100%; max-width: 420px;
-  padding: 2.25rem; position: relative;
-  text-align: center;
-  animation: modal-in 0.35s cubic-bezier(0.34,1.56,0.64,1);
-}
-.abandon-icon { font-size: 52px; margin-bottom: 0.75rem; display: block; }
-.abandon-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
-.abandon-sub { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
-.abandon-cart-preview {
-  background: var(--cream2); border-radius: 14px; padding: 0.85rem 1rem;
-  margin-bottom: 1.25rem; text-align: left;
-}
-.abandon-item-row { font-size: 13px; color: var(--ink); padding: 3px 0; }
-.abandon-total { font-size: 14px; font-weight: 600; color: var(--brown); border-top: 1px solid var(--border); padding-top: 6px; margin-top: 4px; }
-.abandon-field { margin-bottom: 0.85rem; text-align: left; }
-.abandon-label { display: block; font-size: 12px; color: var(--text-muted); font-weight: 500; margin-bottom: 5px; }
-.abandon-input {
-  width: 100%; padding: 11px 14px;
-  border: 1.5px solid var(--border); border-radius: 12px;
-  font-size: 14px; font-family: 'DM Sans', sans-serif;
-  background: var(--cream2); color: var(--ink);
-  outline: none; transition: border-color 0.2s;
-}
-.abandon-input:focus { border-color: var(--caramel); background: #fff; }
-.abandon-save-btn {
-  width: 100%; background: var(--brown); color: #fff;
-  border: none; border-radius: 14px; padding: 14px;
-  font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-  cursor: pointer; transition: all 0.2s; margin-bottom: 0.75rem;
-}
-.abandon-save-btn:hover { background: var(--caramel); }
-.abandon-skip { font-size: 13px; color: var(--text-muted); cursor: pointer; text-decoration: underline; }
-.abandon-skip:hover { color: var(--ink); }
-.abandon-close {
-  position: absolute; top: 1.25rem; right: 1.25rem;
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--cream); border: 1px solid var(--border);
-  cursor: pointer; font-size: 15px; color: var(--text-muted);
-  display: flex; align-items: center; justify-content: center;
-}
-.abandon-success { display: none; }
-.abandon-success.show { display: block; }
-.abandon-success-icon { font-size: 48px; margin-bottom: 0.75rem; }
-.abandon-success-title { font-family: 'Fraunces', serif; font-size: 22px; color: var(--ink); margin-bottom: 0.5rem; }
-.abandon-success-sub { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
 
 /* ─── RESPONSIVE ─────────────────────────────────── */
 @media (max-width: 900px) {
@@ -1382,7 +1275,6 @@ footer {
   .hero-left { padding: 3rem 2rem; }
   .bundle-grid { grid-template-columns: 1fr; }
   .sub-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .loyalty-inner { grid-template-columns: 1fr; gap: 2rem; }
   .blog-grid { grid-template-columns: 1fr 1fr; }
   body { padding-bottom: 80px; }
 }
@@ -1439,39 +1331,6 @@ footer {
 }
 .grind-type-btn.active { border-color: var(--caramel); background: rgba(139,94,42,0.08); font-weight: 600; }
 
-/* ─── REFERRAL SECTION (Feature 4) ─── */
-.referral-banner {
-  background: linear-gradient(135deg, var(--brown) 0%, #5a3a18 100%);
-  border-radius: 20px; padding: 1.5rem 2rem;
-  display: flex; align-items: center; gap: 1.5rem;
-  margin: 0 5rem 3rem; flex-wrap: wrap;
-  position: relative; overflow: hidden;
-}
-.referral-banner::before {
-  content: ''; position: absolute; right: -60px; top: -60px;
-  width: 200px; height: 200px; border-radius: 50%;
-  background: rgba(196,154,58,0.1); pointer-events: none;
-}
-.referral-icon { font-size: 40px; flex-shrink: 0; }
-.referral-text { flex: 1; }
-.referral-title { font-family: 'Fraunces', serif; font-size: 20px; color: #fff; font-weight: 500; margin-bottom: 4px; }
-.referral-title em { color: var(--gold); font-style: italic; }
-.referral-sub { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
-.referral-code-wrap { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
-.referral-code-box {
-  background: rgba(255,255,255,0.1); border: 1px dashed rgba(196,154,58,0.5);
-  border-radius: 10px; padding: 8px 16px; font-family: monospace; font-size: 16px;
-  color: var(--gold); letter-spacing: 2px; font-weight: 700;
-}
-.referral-copy-btn {
-  background: var(--gold); color: var(--ink); border: none; border-radius: 10px;
-  padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer;
-  font-family: 'DM Sans', sans-serif; transition: all 0.2s; white-space: nowrap;
-}
-.referral-copy-btn:hover { background: #d4aa4a; transform: translateY(-1px); }
-@media (max-width: 900px) {
-  .referral-banner { margin: 0 2rem; }
-}
 
 /* ─── BREW GUIDE POPUP (Feature 6) ─── */
 .brew-overlay {
@@ -1530,19 +1389,6 @@ footer {
 }
 .brew-tip strong { color: var(--gold); }
 
-/* ─── RECENTLY VIEWED (Feature 7) ─── */
-.recently-viewed-section {
-  padding: 1.5rem 1.75rem 0;
-  display: none;
-}
-.recently-viewed-section.show { display: block; }
-.recently-viewed-label {
-  font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
-  color: var(--caramel); font-weight: 600; margin-bottom: 0.75rem;
-}
-.recently-viewed-list { display: flex; gap: 0.6rem; overflow-x: auto; padding-bottom: 0.5rem; }
-.recently-viewed-list::-webkit-scrollbar { height: 3px; }
-.recently-viewed-list::-webkit-scrollbar-thumb { background: var(--mist); border-radius: 2px; }
 .rv-item {
   display: flex; flex-direction: column; align-items: center; gap: 4px;
   background: var(--cream2); border: 1px solid var(--border);
@@ -1592,7 +1438,6 @@ footer {
   .modal-overlay,
   .cart-drawer,
   .brew-overlay,
-  .abandon-overlay,
   .notify-overlay,
   .sub-modal-overlay,
   .checkout-section {
@@ -1623,12 +1468,13 @@ footer {
 <nav>
   <div class="logo">Origin <em>Coffee</em></div>
   <div class="nav-links">
-    <a href="#ai-finder">AI Finder</a>
-    <a href="#catalog">กาแฟ</a>
-    <a href="#bundles">เซ็ต</a>
-    <a href="#story">เรื่องราว</a>
-    <a href="#blog">บทความ</a>
-    <a href="#leads">ติดต่อ</a>
+    <a href="#ai-finder">🤖 AI Finder</a>
+    <a href="#catalog">☕ กาแฟ</a>
+    <a href="#bundles">🎁 เซ็ต</a>
+    <a href="#subscription">♻️ สมัครสมาชิก</a>
+    <a href="#story">🌱 เรื่องราว</a>
+    <a href="#blog">📖 บทความ</a>
+    <a href="#leads">📩 ติดต่อ</a>
   </div>
   <div style="position:relative;">
     <button class="nav-cta" onclick="toggleNavOrder(event)">☕ สั่งซื้อ ▾</button>
@@ -1645,7 +1491,7 @@ footer {
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-left">
-    <div class="hero-eyebrow">Specialty Coffee Thailand</div>
+    <div class="hero-eyebrow">🌿 Specialty Coffee Thailand</div>
     <h1 class="hero-h1">กาแฟ<em>พิเศษ</em><br>จากต้นทาง<br>ถึงมือคุณ</h1>
     <p class="hero-sub">เราคัดสรรและคั่วกาแฟ specialty grade จากเกษตรกรในไทยและทั่วโลก ด้วยความเข้าใจในทุกกระบวนการตั้งแต่ farm สู่ถ้วย</p>
     <div class="hero-actions">
@@ -1662,15 +1508,15 @@ footer {
     <div class="hero-stats">
       <div>
         <span class="hero-stat-num">40+</span>
-        <span class="hero-stat-label">ล็อตต่อปี</span>
+        <span class="hero-stat-label">📦 ล็อตต่อปี</span>
       </div>
       <div>
         <span class="hero-stat-num">12</span>
-        <span class="hero-stat-label">แหล่งกาแฟ</span>
+        <span class="hero-stat-label">🌍 แหล่งกาแฟ</span>
       </div>
       <div>
         <span class="hero-stat-num">87+</span>
-        <span class="hero-stat-label">SCA Score</span>
+        <span class="hero-stat-label">🏅 SCA Score</span>
       </div>
     </div>
   </div>
@@ -1701,7 +1547,7 @@ footer {
   </div>
 </section>
 
-<!-- AI COFFEE FINDER — อันดับ 1 -->
+<!-- 1. AI COFFEE FINDER ☕🤖 -->
 <section class="section" id="ai-finder">
   <div class="finder-inner">
     <div class="finder-badge">
@@ -1817,11 +1663,11 @@ footer {
   </div>
 </section>
 
-<!-- CATALOG — อันดับ 2 -->
+<!-- 2. CATALOG ☕ -->
 <section class="section" id="catalog">
   <div class="catalog-header">
     <div>
-      <div class="section-eyebrow">Coffee Catalog</div>
+      <div class="section-eyebrow">☕ Coffee Catalog</div>
       <h2 class="section-title">ล็อตที่มีอยู่<br><em>ตอนนี้</em></h2>
     </div>
     <div class="filter-tabs">
@@ -1834,24 +1680,11 @@ footer {
   <div class="coffee-grid" id="coffeeGrid"></div>
 </section>
 
-<!-- REFERRAL BANNER (Feature 4) -->
-<div class="referral-banner" id="referralBanner">
-  <div class="referral-icon">🎁</div>
-  <div class="referral-text">
-    <div class="referral-title">แนะนำเพื่อน รับ<em>ส่วนลด 10%</em></div>
-    <div class="referral-sub">แชร์โค้ดของคุณ — เพื่อนสั่งซื้อครั้งแรก ทั้งคู่ได้ส่วนลด 10% ทันที</div>
-  </div>
-  <div class="referral-code-wrap">
-    <div class="referral-code-box" id="referralCode">ORIGIN10</div>
-    <button class="referral-copy-btn" onclick="copyReferralCode()">📋 คัดลอก</button>
-    <button class="referral-copy-btn" style="background:var(--sage);margin-left:4px;" onclick="shareReferralCode()">💚 แชร์</button>
-  </div>
-</div>
 
-<!-- BUNDLE / TASTING SETS — อันดับ 2 (ใหม่) -->
+<!-- 3. BUNDLE / TASTING SETS 🎁 -->
 <section class="section" id="bundles">
   <div class="bundles-header">
-    <div class="section-eyebrow">เซ็ตทดลอง</div>
+    <div class="section-eyebrow">🎁 เซ็ตทดลอง</div>
     <h2 class="section-title">ไม่แน่ใจจะเริ่มต้นที่ไหน?<br>ลอง<em>เซ็ตทดลอง</em>ก่อน</h2>
     <p class="section-sub">รวมล็อตที่ดีที่สุดไว้ด้วยกัน ราคาพิเศษกว่าซื้อแยก — เหมาะสำหรับคนที่อยากสำรวจรสชาติหลายแบบ</p>
   </div>
@@ -1910,11 +1743,214 @@ footer {
   </div>
 </section>
 
-<!-- LEAD CAPTURE — อันดับ 3 -->
+<!-- 4. SUBSCRIPTION ♻️ -->
+<section class="section" id="subscription">
+  <div class="sub-inner">
+    <div>
+      <div class="sub-badge">♻️ Recurring Coffee</div>
+      <h2 class="section-title">รับกาแฟใหม่<br><em>ทุกเดือน</em></h2>
+      <p class="section-sub">ไม่ต้องตัดสินใจซ้ำทุกครั้ง — เราคัดล็อตใหม่ส่งให้คุณก่อนใคร พร้อมโน้ตอธิบายรสชาติของเดือนนั้น</p>
+      <div class="sub-perks">
+        <div class="sub-perk"><span class="sub-perk-icon">🔔</span> ได้ล็อต Limited ก่อนเปิดขายทั่วไป</div>
+        <div class="sub-perk"><span class="sub-perk-icon">💸</span> ราคาสมาชิกประหยัดกว่า 10%</div>
+        <div class="sub-perk"><span class="sub-perk-icon">🚚</span> ฟรีค่าส่งทุกเดือน</div>
+        <div class="sub-perk"><span class="sub-perk-icon">📝</span> Tasting notes + ข้อมูล Farm ในทุกออเดอร์</div>
+        <div class="sub-perk"><span class="sub-perk-icon">✂️</span> หยุดพักได้ตลอดเวลา ไม่มีสัญญาผูกมัด</div>
+      </div>
+    </div>
+    <div>
+      <div class="sub-plans" id="subPlans">
+        <div class="sub-plan active" onclick="selectSubPlan(this,'250')">
+          <span class="sub-plan-emoji">☕</span>
+          <div class="sub-plan-info">
+            <div class="sub-plan-name">Classic — 250g</div>
+            <div class="sub-plan-desc">1 ล็อตต่อเดือน เหมาะสำหรับดื่มเองที่บ้าน</div>
+          </div>
+          <div class="sub-plan-price">฿620<small>/เดือน</small></div>
+        </div>
+        <div class="sub-plan" onclick="selectSubPlan(this,'500')">
+          <span class="sub-plan-emoji">🫖</span>
+          <div class="sub-plan-info">
+            <div class="sub-plan-name">Double — 500g</div>
+            <div class="sub-plan-desc">สำหรับคนดื่มเยอะ หรือ แชร์กับเพื่อนร่วมงาน</div>
+          </div>
+          <div class="sub-plan-price">฿1,100<small>/เดือน</small></div>
+        </div>
+        <div class="sub-plan" onclick="selectSubPlan(this,'duo')">
+          <span class="sub-plan-emoji">🎲</span>
+          <div class="sub-plan-info">
+            <div class="sub-plan-name">Duo Surprise — 2 ล็อต</div>
+            <div class="sub-plan-desc">เราเซอร์ไพรส์เลือก 2 ล็อตที่ดีที่สุดของเดือนให้คุณ</div>
+          </div>
+          <div class="sub-plan-price">฿1,290<small>/เดือน</small></div>
+        </div>
+      </div>
+      <div class="sub-cta">
+        <button class="btn-primary" style="width:100%;text-align:center;justify-content:center;" onclick="openSubscribeModal()">📦 สมัครสมาชิกรายเดือน →</button>
+        <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:0.6rem;">ยกเลิกได้ตลอดเวลา · ส่งทุกวันที่ 1 ของเดือน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 5. REVIEWS ⭐ -->
+<section class="section" id="reviews">
+  <div class="reviews-header">
+    <div>
+      <div class="section-eyebrow">⭐ รีวิวจากลูกค้า</div>
+      <h2 class="section-title">ลูกค้าพูดถึง<em>เรา</em></h2>
+    </div>
+    <div>
+      <div class="reviews-aggregate">
+        <div class="reviews-big-score">4.9</div>
+        <div class="reviews-score-detail">
+          <div class="reviews-stars-row">★★★★★</div>
+          <div class="reviews-count">จาก 143 รีวิว</div>
+          <div class="reviews-source">
+            <span class="review-source-badge">Google ⭐</span>
+            <span class="review-source-badge">LINE OA 💚</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-verified">✓ รีวิวจริงจากลูกค้าที่ซื้อสินค้า</div>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"กาแฟดีมาก ผมเป็น barista มา 5 ปี ไม่ค่อยประทับใจง่ายๆ แต่ lot Ethiopia นี้ให้ complexity จริงๆ ครับ"</p>
+      <div class="review-author">
+        <div class="review-avatar">พ</div>
+        <div>
+          <div class="review-name">พิชญ์ สมบัติ</div>
+          <div class="review-role">Head Barista, Nimman Café · Google Review ✓</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"ชอบที่เขาบอกข้อมูลครบมาก ทั้ง farm, process, cupping notes ทำให้เราอธิบายให้ลูกค้าได้ด้วย"</p>
+      <div class="review-author">
+        <div class="review-avatar">น</div>
+        <div>
+          <div class="review-name">นภา วิชิต</div>
+          <div class="review-role">เจ้าของร้าน, Workshop Coffee · LINE Review ✓</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">"ใช้ในโรงแรมมา 8 เดือน quality คงเส้นคงวามาก ส่งตรงเวลาทุกครั้ง แนะนำสำหรับ hospitality"</p>
+      <div class="review-author">
+        <div class="review-avatar">ต</div>
+        <div>
+          <div class="review-name">ตะวัน ชาญชัย</div>
+          <div class="review-role">F&B Manager, Boutique Hotel · Google Review ✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. BRAND STORY 🌱 -->
+<section class="section" id="story">
+  <div class="story-inner">
+    <div class="story-left">
+      <div class="section-eyebrow">🌱 เรื่องราวของเรา</div>
+      <h2 class="section-title">เริ่มจาก<br><em>ความหลงใหล</em></h2>
+      <p class="story-paragraph">เราเดินทางขึ้นดอยครั้งแรกเมื่อปี 2018 เพื่อพบกับเกษตรกรชาวไทยที่ปลูกกาแฟด้วยความตั้งใจ แต่ไม่มีทางออกสู่ตลาดที่ดีพอ — <em>นั่นคือจุดเริ่มต้น</em></p>
+      <p class="story-paragraph">วันนี้เราทำงานโดยตรงกับเกษตรกรกว่า 15 ราย ในไทย เอธิโอเปีย และโคลอมเบีย ติดตามทุกกระบวนการตั้งแต่การเก็บเกี่ยว การหมัก ไปจนถึงการคั่วในเชียงใหม่</p>
+      <div class="story-metrics">
+        <div class="story-metric"><span class="story-metric-num">15+</span><div class="story-metric-label">เกษตรกรที่ทำงานด้วย</div></div>
+        <div class="story-metric"><span class="story-metric-num">6 ปี</span><div class="story-metric-label">ประสบการณ์ Direct Trade</div></div>
+        <div class="story-metric"><span class="story-metric-num">3</span><div class="story-metric-label">ประเทศที่เราซอร์ส</div></div>
+        <div class="story-metric"><span class="story-metric-num">100%</span><div class="story-metric-label">Traceable & Transparent</div></div>
+      </div>
+    </div>
+    <div class="story-right">
+      <div class="story-timeline">
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-title">ขึ้นดอย ครั้งแรก</div><div class="timeline-desc">พบเกษตรกรชาวอาข่าที่ดอยช้าง ที่ปลูกกาแฟดี แต่ขาดตลาด — เราซื้อล็อตแรก 50 กิโล</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2020</div><div class="timeline-title">เปิด Micro-Roastery</div><div class="timeline-desc">ตั้ง roastery เล็กๆ ในเชียงใหม่ ด้วยเครื่องคั่ว Probat 12kg — เริ่มส่งให้ café แรก</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2022</div><div class="timeline-title">ขยายสู่ International Origin</div><div class="timeline-desc">เพิ่มซอร์สจาก Ethiopia Yirgacheffe และ Colombia Huila ผ่าน importer ที่เชื่อถือได้</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2024</div><div class="timeline-title">Direct-to-Consumer</div><div class="timeline-desc">เปิดช่องทางสั่งซื้อตรง ตัดตัวกลาง เพื่อให้เกษตรกรได้รับส่วนแบ่งที่เป็นธรรมขึ้น</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PROCESS ⚙️ -->
+<section class="section" id="process">
+  <div style="text-align:center; max-width:600px; margin:0 auto 1rem;">
+    <div class="section-eyebrow">⚙️ กระบวนการของเรา</div>
+    <h2 class="section-title">จาก<em>ต้นทาง</em>ถึงมือคุณ</h2>
+  </div>
+  <div class="process-grid">
+    <div class="process-step"><div class="process-num">01</div><div class="process-icon">🌱</div><div class="process-title">คัดเลือก Farm</div><div class="process-desc">เยี่ยมและคัดเลือก farm โดยตรง ดูทั้งคุณภาพดิน ความสูง และวิถีของเกษตรกร</div></div>
+    <div class="process-step"><div class="process-num">02</div><div class="process-icon">☀️</div><div class="process-title">Processing</div><div class="process-desc">ติดตามกระบวนการ natural, washed, honey — ควบคุมคุณภาพตั้งแต่ต้น</div></div>
+    <div class="process-step"><div class="process-num">03</div><div class="process-icon">🔥</div><div class="process-title">Roasting</div><div class="process-desc">คั่วสดทุกสัปดาห์ในเชียงใหม่ ออกแบบ profile ให้เหมาะกับแต่ละ origin</div></div>
+    <div class="process-step"><div class="process-num">04</div><div class="process-icon">📦</div><div class="process-title">จัดส่ง</div><div class="process-desc">บรรจุ vacuum-sealed ระบุวันคั่ว จัดส่งภายใน 48 ชั่วโมงหลังสั่ง</div></div>
+  </div>
+</section>
+
+<!-- 8. BLOG / CONTENT 📖 -->
+<section class="section" id="blog">
+  <div style="margin-bottom:3rem;">
+    <div class="section-eyebrow">📖 บทความ & ความรู้</div>
+    <h2 class="section-title">เรื่องกาแฟ<br>ที่<em>น่าอ่าน</em></h2>
+    <p class="section-sub">จาก Pour Over ไปจนถึง Farm Visit — เราเขียนให้อ่านง่าย เข้าใจได้จริง</p>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#f5ede0,#e8ddd0);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=75&auto=format" alt="Pour Over" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.85;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;">คู่มือ</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">วิธีชง Pour Over ที่บ้านให้อร่อยเหมือนร้านกาแฟ</div>
+        <div class="blog-card-excerpt">อัตราส่วนน้ำต่อกาแฟ, อุณหภูมิที่เหมาะสม, เทคนิค bloom ที่หลายคนมักข้าม...</div>
+        <div class="blog-card-meta">
+          <span>5 นาทีอ่าน</span>
+          <span class="blog-read-more">อ่านต่อ →</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#8b7355,#4a3520);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=75&auto=format" alt="Coffee Process" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--sage)">ความรู้</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">Natural vs Washed ต่างกันยังไง? ส่งผลต่อรสชาติแค่ไหน?</div>
+        <div class="blog-card-excerpt">กระบวนการหลังเก็บเกี่ยวมีผลมากกว่าที่คิด — เรียนรู้ว่าทำไม Natural ถึงหวานกว่า...</div>
+        <div class="blog-card-meta">
+          <span>7 นาทีอ่าน</span>
+          <span class="blog-read-more">อ่านต่อ →</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#c49a3a,#7a5a20);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=75&auto=format" alt="Doi Chang Farm" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--rust)">Farm Visit</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">ขึ้นดอยช้าง: ชีวิตและกาแฟของชาวอาข่าที่เราทำงานด้วย</div>
+        <div class="blog-card-excerpt">เบื้องหลังกาแฟถุงหนึ่งคือชีวิตของครอบครัวเกษตรกร — นี่คือเรื่องราวของพวกเขา...</div>
+        <div class="blog-card-meta">
+          <span>10 นาทีอ่าน</span>
+          <span class="blog-read-more">อ่านต่อ →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. LEAD CAPTURE 📩 -->
 <section class="section" id="leads">
   <div class="leads-inner">
     <div class="leads-left">
-      <div class="section-eyebrow">สั่งซื้อ & ติดต่อ</div>
+      <div class="section-eyebrow">📩 สั่งซื้อ & ติดต่อ</div>
       <h2 class="section-title">สั่งซื้อได้<br><em>หลายช่องทาง</em></h2>
       <p class="section-sub">เลือกช่องทางที่สะดวกที่สุดสำหรับคุณ — เราตอบกลับทุกช่องทางภายใน 1 ชั่วโมงในเวลาทำการ</p>
       <div class="leads-perks">
@@ -1981,248 +2017,6 @@ footer {
   </div>
 </section>
 
-<!-- BRAND STORY — อันดับ 4 -->
-<section class="section" id="story">
-  <div class="story-inner">
-    <div class="story-left">
-      <div class="section-eyebrow">เรื่องราวของเรา</div>
-      <h2 class="section-title">เริ่มจาก<br><em>ความหลงใหล</em></h2>
-      <p class="story-paragraph">เราเดินทางขึ้นดอยครั้งแรกเมื่อปี 2018 เพื่อพบกับเกษตรกรชาวไทยที่ปลูกกาแฟด้วยความตั้งใจ แต่ไม่มีทางออกสู่ตลาดที่ดีพอ — <em>นั่นคือจุดเริ่มต้น</em></p>
-      <p class="story-paragraph">วันนี้เราทำงานโดยตรงกับเกษตรกรกว่า 15 ราย ในไทย เอธิโอเปีย และโคลอมเบีย ติดตามทุกกระบวนการตั้งแต่การเก็บเกี่ยว การหมัก ไปจนถึงการคั่วในเชียงใหม่</p>
-      <div class="story-metrics">
-        <div class="story-metric"><span class="story-metric-num">15+</span><div class="story-metric-label">เกษตรกรที่ทำงานด้วย</div></div>
-        <div class="story-metric"><span class="story-metric-num">6 ปี</span><div class="story-metric-label">ประสบการณ์ Direct Trade</div></div>
-        <div class="story-metric"><span class="story-metric-num">3</span><div class="story-metric-label">ประเทศที่เราซอร์ส</div></div>
-        <div class="story-metric"><span class="story-metric-num">100%</span><div class="story-metric-label">Traceable & Transparent</div></div>
-      </div>
-    </div>
-    <div class="story-right">
-      <div class="story-timeline">
-        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-title">ขึ้นดอย ครั้งแรก</div><div class="timeline-desc">พบเกษตรกรชาวอาข่าที่ดอยช้าง ที่ปลูกกาแฟดี แต่ขาดตลาด — เราซื้อล็อตแรก 50 กิโล</div></div>
-        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2020</div><div class="timeline-title">เปิด Micro-Roastery</div><div class="timeline-desc">ตั้ง roastery เล็กๆ ในเชียงใหม่ ด้วยเครื่องคั่ว Probat 12kg — เริ่มส่งให้ café แรก</div></div>
-        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2022</div><div class="timeline-title">ขยายสู่ International Origin</div><div class="timeline-desc">เพิ่มซอร์สจาก Ethiopia Yirgacheffe และ Colombia Huila ผ่าน importer ที่เชื่อถือได้</div></div>
-        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2024</div><div class="timeline-title">Direct-to-Consumer</div><div class="timeline-desc">เปิดช่องทางสั่งซื้อตรง ตัดตัวกลาง เพื่อให้เกษตรกรได้รับส่วนแบ่งที่เป็นธรรมขึ้น</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS — อันดับ 5 -->
-<section class="section" id="process">
-  <div style="text-align:center; max-width:600px; margin:0 auto 1rem;">
-    <div class="section-eyebrow">กระบวนการของเรา</div>
-    <h2 class="section-title">จาก<em>ต้นทาง</em>ถึงมือคุณ</h2>
-  </div>
-  <div class="process-grid">
-    <div class="process-step"><div class="process-num">01</div><div class="process-icon">🌱</div><div class="process-title">คัดเลือก Farm</div><div class="process-desc">เยี่ยมและคัดเลือก farm โดยตรง ดูทั้งคุณภาพดิน ความสูง และวิถีของเกษตรกร</div></div>
-    <div class="process-step"><div class="process-num">02</div><div class="process-icon">☀️</div><div class="process-title">Processing</div><div class="process-desc">ติดตามกระบวนการ natural, washed, honey — ควบคุมคุณภาพตั้งแต่ต้น</div></div>
-    <div class="process-step"><div class="process-num">03</div><div class="process-icon">🔥</div><div class="process-title">Roasting</div><div class="process-desc">คั่วสดทุกสัปดาห์ในเชียงใหม่ ออกแบบ profile ให้เหมาะกับแต่ละ origin</div></div>
-    <div class="process-step"><div class="process-num">04</div><div class="process-icon">📦</div><div class="process-title">จัดส่ง</div><div class="process-desc">บรรจุ vacuum-sealed ระบุวันคั่ว จัดส่งภายใน 48 ชั่วโมงหลังสั่ง</div></div>
-  </div>
-</section>
-
-<!-- REVIEWS — อันดับ 6 -->
-<section class="section" id="reviews">
-  <div class="reviews-header">
-    <div>
-      <div class="section-eyebrow">รีวิวจากลูกค้า</div>
-      <h2 class="section-title">ลูกค้าพูดถึง<em>เรา</em></h2>
-    </div>
-    <div>
-      <div class="reviews-aggregate">
-        <div class="reviews-big-score">4.9</div>
-        <div class="reviews-score-detail">
-          <div class="reviews-stars-row">★★★★★</div>
-          <div class="reviews-count">จาก 143 รีวิว</div>
-          <div class="reviews-source">
-            <span class="review-source-badge">Google ⭐</span>
-            <span class="review-source-badge">LINE OA 💚</span>
-          </div>
-        </div>
-      </div>
-      <div class="review-verified">✓ รีวิวจริงจากลูกค้าที่ซื้อสินค้า</div>
-    </div>
-  </div>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"กาแฟดีมาก ผมเป็น barista มา 5 ปี ไม่ค่อยประทับใจง่ายๆ แต่ lot Ethiopia นี้ให้ complexity จริงๆ ครับ"</p>
-      <div class="review-author">
-        <div class="review-avatar">พ</div>
-        <div>
-          <div class="review-name">พิชญ์ สมบัติ</div>
-          <div class="review-role">Head Barista, Nimman Café · Google Review ✓</div>
-        </div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"ชอบที่เขาบอกข้อมูลครบมาก ทั้ง farm, process, cupping notes ทำให้เราอธิบายให้ลูกค้าได้ด้วย"</p>
-      <div class="review-author">
-        <div class="review-avatar">น</div>
-        <div>
-          <div class="review-name">นภา วิชิต</div>
-          <div class="review-role">เจ้าของร้าน, Workshop Coffee · LINE Review ✓</div>
-        </div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★☆</div>
-      <p class="review-text">"ใช้ในโรงแรมมา 8 เดือน quality คงเส้นคงวามาก ส่งตรงเวลาทุกครั้ง แนะนำสำหรับ hospitality"</p>
-      <div class="review-author">
-        <div class="review-avatar">ต</div>
-        <div>
-          <div class="review-name">ตะวัน ชาญชัย</div>
-          <div class="review-role">F&B Manager, Boutique Hotel · Google Review ✓</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SUBSCRIPTION — อันดับ 4 (ใหม่) -->
-<section class="section" id="subscription">
-  <div class="sub-inner">
-    <div>
-      <div class="sub-badge">♻️ Recurring Coffee</div>
-      <h2 class="section-title">รับกาแฟใหม่<br><em>ทุกเดือน</em></h2>
-      <p class="section-sub">ไม่ต้องตัดสินใจซ้ำทุกครั้ง — เราคัดล็อตใหม่ส่งให้คุณก่อนใคร พร้อมโน้ตอธิบายรสชาติของเดือนนั้น</p>
-      <div class="sub-perks">
-        <div class="sub-perk"><span class="sub-perk-icon">🔔</span> ได้ล็อต Limited ก่อนเปิดขายทั่วไป</div>
-        <div class="sub-perk"><span class="sub-perk-icon">💸</span> ราคาสมาชิกประหยัดกว่า 10%</div>
-        <div class="sub-perk"><span class="sub-perk-icon">🚚</span> ฟรีค่าส่งทุกเดือน</div>
-        <div class="sub-perk"><span class="sub-perk-icon">📝</span> Tasting notes + ข้อมูล Farm ในทุกออเดอร์</div>
-        <div class="sub-perk"><span class="sub-perk-icon">✂️</span> หยุดพักได้ตลอดเวลา ไม่มีสัญญาผูกมัด</div>
-      </div>
-    </div>
-    <div>
-      <div class="sub-plans" id="subPlans">
-        <div class="sub-plan active" onclick="selectSubPlan(this,'250')">
-          <span class="sub-plan-emoji">☕</span>
-          <div class="sub-plan-info">
-            <div class="sub-plan-name">Classic — 250g</div>
-            <div class="sub-plan-desc">1 ล็อตต่อเดือน เหมาะสำหรับดื่มเองที่บ้าน</div>
-          </div>
-          <div class="sub-plan-price">฿620<small>/เดือน</small></div>
-        </div>
-        <div class="sub-plan" onclick="selectSubPlan(this,'500')">
-          <span class="sub-plan-emoji">🫖</span>
-          <div class="sub-plan-info">
-            <div class="sub-plan-name">Double — 500g</div>
-            <div class="sub-plan-desc">สำหรับคนดื่มเยอะ หรือ แชร์กับเพื่อนร่วมงาน</div>
-          </div>
-          <div class="sub-plan-price">฿1,100<small>/เดือน</small></div>
-        </div>
-        <div class="sub-plan" onclick="selectSubPlan(this,'duo')">
-          <span class="sub-plan-emoji">🎲</span>
-          <div class="sub-plan-info">
-            <div class="sub-plan-name">Duo Surprise — 2 ล็อต</div>
-            <div class="sub-plan-desc">เราเซอร์ไพรส์เลือก 2 ล็อตที่ดีที่สุดของเดือนให้คุณ</div>
-          </div>
-          <div class="sub-plan-price">฿1,290<small>/เดือน</small></div>
-        </div>
-      </div>
-      <div class="sub-cta">
-        <button class="btn-primary" style="width:100%;text-align:center;justify-content:center;" onclick="openSubscribeModal()">📦 สมัครสมาชิกรายเดือน →</button>
-        <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:0.6rem;">ยกเลิกได้ตลอดเวลา · ส่งทุกวันที่ 1 ของเดือน</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LOYALTY — อันดับ 6 (ใหม่) -->
-<section class="section" id="loyalty">
-  <div class="loyalty-inner">
-    <div>
-      <div class="section-eyebrow" style="color:var(--gold)">Loyalty Program</div>
-      <h2 class="loyalty-title">ซื้อครบ 5 ครั้ง<br>รับ<em>ฟรี 1 ถุง</em></h2>
-      <p class="loyalty-sub">ไม่ต้องสมัครสมาชิก ไม่ต้องมีแอป — แค่ซื้อครบ 5 ครั้ง แจ้งกับเราผ่านช่องทางที่คุณชอบ แล้วรับกาแฟฟรี 1 ถุง (มูลค่าสูงสุด ฿890)</p>
-      <div class="loyalty-steps">
-        <div class="loyalty-step"><div class="loyalty-step-num">1</div><div class="loyalty-step-text"><strong>สั่งซื้อครบ 5 ครั้ง</strong> — นับทุกออเดอร์ทุกช่องทาง</div></div>
-        <div class="loyalty-step"><div class="loyalty-step-num">2</div><div class="loyalty-step-text"><strong>แจ้งเรา</strong> — ส่งสกรีนช็อตออเดอร์ทั้ง 5 ครั้งมาให้เรา</div></div>
-        <div class="loyalty-step"><div class="loyalty-step-num">3</div><div class="loyalty-step-text"><strong>รับกาแฟฟรี</strong> — เลือกล็อตใดก็ได้ที่มีในร้าน มูลค่าไม่เกิน ฿890</div></div>
-        <div class="loyalty-step"><div class="loyalty-step-num">4</div><div class="loyalty-step-text"><strong>รีเซ็ตนับใหม่</strong> — และสะสมต่อได้เลยไม่มีหมดอายุ</div></div>
-      </div>
-    </div>
-    <div class="loyalty-card">
-      <div class="loyalty-card-title">☕ ตัวอย่างการสะสม</div>
-      <div class="loyalty-progress-wrap">
-        <div class="loyalty-progress-label">
-          <span>สะสมแล้ว 3 / 5 ครั้ง</span>
-          <span>เหลืออีก 2 ครั้ง</span>
-        </div>
-        <div class="loyalty-progress-track">
-          <div class="loyalty-progress-fill" style="width:60%"></div>
-        </div>
-      </div>
-      <div class="loyalty-cups">
-        <span class="loyalty-cup earned">☕</span>
-        <span class="loyalty-cup earned">☕</span>
-        <span class="loyalty-cup earned">☕</span>
-        <span class="loyalty-cup pending">☕</span>
-        <span class="loyalty-cup pending">☕</span>
-      </div>
-      <div class="loyalty-reward" style="margin-top:1.5rem;">
-        <div class="loyalty-reward-text">🎁 อีก 2 ครั้งก็ได้กาแฟฟรีแล้ว!</div>
-        <div class="loyalty-reward-sub">เลือกได้เลย — ล็อตไหนก็ได้ที่มีในร้าน</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BLOG / CONTENT — อันดับ 9 (ใหม่) -->
-<section class="section" id="blog">
-  <div style="margin-bottom:3rem;">
-    <div class="section-eyebrow">บทความ & ความรู้</div>
-    <h2 class="section-title">เรื่องกาแฟ<br>ที่<em>น่าอ่าน</em></h2>
-    <p class="section-sub">จาก Pour Over ไปจนถึง Farm Visit — เราเขียนให้อ่านง่าย เข้าใจได้จริง</p>
-  </div>
-  <div class="blog-grid">
-    <div class="blog-card">
-      <div class="blog-card-img" style="background:linear-gradient(135deg,#f5ede0,#e8ddd0);overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=75&auto=format" alt="Pour Over" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.85;" onerror="this.style.display='none'">
-        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;">คู่มือ</div>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-title">วิธีชง Pour Over ที่บ้านให้อร่อยเหมือนร้านกาแฟ</div>
-        <div class="blog-card-excerpt">อัตราส่วนน้ำต่อกาแฟ, อุณหภูมิที่เหมาะสม, เทคนิค bloom ที่หลายคนมักข้าม...</div>
-        <div class="blog-card-meta">
-          <span>5 นาทีอ่าน</span>
-          <span class="blog-read-more">อ่านต่อ →</span>
-        </div>
-      </div>
-    </div>
-    <div class="blog-card">
-      <div class="blog-card-img" style="background:linear-gradient(135deg,#8b7355,#4a3520);overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=75&auto=format" alt="Coffee Process" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
-        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--sage)">ความรู้</div>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-title">Natural vs Washed ต่างกันยังไง? ส่งผลต่อรสชาติแค่ไหน?</div>
-        <div class="blog-card-excerpt">กระบวนการหลังเก็บเกี่ยวมีผลมากกว่าที่คิด — เรียนรู้ว่าทำไม Natural ถึงหวานกว่า...</div>
-        <div class="blog-card-meta">
-          <span>7 นาทีอ่าน</span>
-          <span class="blog-read-more">อ่านต่อ →</span>
-        </div>
-      </div>
-    </div>
-    <div class="blog-card">
-      <div class="blog-card-img" style="background:linear-gradient(135deg,#c49a3a,#7a5a20);overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=75&auto=format" alt="Doi Chang Farm" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
-        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--rust)">Farm Visit</div>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-title">ขึ้นดอยช้าง: ชีวิตและกาแฟของชาวอาข่าที่เราทำงานด้วย</div>
-        <div class="blog-card-excerpt">เบื้องหลังกาแฟถุงหนึ่งคือชีวิตของครอบครัวเกษตรกร — นี่คือเรื่องราวของพวกเขา...</div>
-        <div class="blog-card-meta">
-          <span>10 นาทีอ่าน</span>
-          <span class="blog-read-more">อ่านต่อ →</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -2232,15 +2026,15 @@ footer {
     </div>
     <div class="footer-col">
       <div class="footer-col-title">กาแฟ</div>
-      <a href="#">Single Origin</a><a href="#">Blends</a><a href="#">Seasonal Lots</a><a href="#">Green Bean</a>
+      <a href="#catalog">☕ Single Origin</a><a href="#catalog">🫘 Blends</a><a href="#catalog">🌿 Seasonal Lots</a><a href="#catalog">🟢 Green Bean</a>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">เรา</div>
-      <a href="#">เรื่องราว</a><a href="#">Farm Partners</a><a href="#">กระบวนการคั่ว</a>
+      <a href="#story">🌱 เรื่องราว</a><a href="#story">🤝 Farm Partners</a><a href="#process">⚙️ กระบวนการคั่ว</a>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">ติดต่อ</div>
-      <a href="#">สั่งซื้อ / ขอใบเสนอราคา</a>
+      <a href="#leads">📩 สั่งซื้อ / ขอใบเสนอราคา</a>
       <a href="https://t.me/OrigincoffeeShop_bot" target="_blank">Telegram: @OrigincoffeeShop_bot</a>
       <a href="#">IG: @origincoffee.th</a>
     </div>
@@ -2326,8 +2120,6 @@ footer {
       </div>
       <button class="cart-close" onclick="closeCart()">✕</button>
     </div>
-    <div class="recently-viewed-section" id="recentlyViewedSection">
-      <div class="recently-viewed-label">👁 ดูล่าสุด</div>
       <div class="recently-viewed-list" id="recentlyViewedList"></div>
     </div>
     <div class="cart-items" id="cartItems">
@@ -2382,30 +2174,6 @@ footer {
       <!-- Customer info -->
       <div class="checkout-section-title">ข้อมูลผู้สั่งซื้อ</div>
       <div class="checkout-row">
-        <div class="checkout-field">
-          <label class="checkout-label">ชื่อ-นามสกุล *</label>
-          <input class="checkout-input" id="co_name" placeholder="ชื่อ นามสกุล" required>
-        </div>
-        <div class="checkout-field">
-          <label class="checkout-label">เบอร์โทร *</label>
-          <input class="checkout-input" id="co_phone" placeholder="0812345678" type="tel" required>
-        </div>
-      </div>
-      <div class="checkout-field">
-        <label class="checkout-label">ที่อยู่จัดส่ง *</label>
-        <textarea class="checkout-textarea" id="co_address" placeholder="บ้านเลขที่ ซอย ถนน แขวง เขต จังหวัด รหัสไปรษณีย์" required></textarea>
-      </div>
-      <div class="checkout-field">
-        <label class="checkout-label">หมายเหตุ (ถ้ามี)</label>
-        <input class="checkout-input" id="co_note" placeholder="เช่น คั่วอ่อน, บดสำหรับ Pour Over...">
-      </div>
-      <div class="checkout-field">
-        <label class="checkout-label">🎁 โค้ดส่วนลด / โค้ด Referral (ถ้ามี)</label>
-        <div style="display:flex;gap:8px;">
-          <input class="checkout-input" id="co_referral" placeholder="เช่น OC-ABCDE หรือโค้ดจากเพื่อน" style="flex:1;">
-          <button type="button" onclick="applyReferralCode()" style="background:var(--caramel);color:#fff;border:none;border-radius:12px;padding:0 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='var(--brown)'" onmouseout="this.style.background='var(--caramel)'">ใช้โค้ด</button>
-        </div>
-        <div id="referralApplyMsg" style="font-size:12px;color:var(--sage);margin-top:6px;display:none;"></div>
       </div>
 
       <!-- GIFT OPTION -->
@@ -2535,41 +2303,6 @@ footer {
       <div class="success-title">ส่งคำสั่งซื้อเรียบร้อย!</div>
       <div class="success-sub" id="successSubText">เราจะติดต่อกลับเพื่อยืนยันคำสั่งซื้อภายใน 1 ชั่วโมงครับ</div>
       <button class="btn-primary" onclick="closeCheckout();clearCart();" style="margin:0 auto;display:block;">กลับหน้าหลัก</button>
-    </div>
-  </div>
-</div>
-
-<!-- ABANDONED CART MODAL -->
-<div class="abandon-overlay" id="abandonOverlay">
-  <div class="abandon-modal">
-    <button class="abandon-close" onclick="closeAbandonModal()">✕</button>
-    
-    <!-- Form view -->
-    <div id="abandonFormView">
-      <span class="abandon-icon">☕</span>
-      <div class="abandon-title">รอแป๊บนึงนะครับ!</div>
-      <div class="abandon-sub">ตะกร้าของคุณยังอยู่ที่นี่ — ฝากเบอร์โทรหรือ LINE ไว้ เดี๋ยวเราส่งลิงก์สั่งซื้อให้ภายใน 1 ชั่วโมง</div>
-      
-      <div class="abandon-cart-preview" id="abandonCartPreview"></div>
-      
-      <div class="abandon-field">
-        <label class="abandon-label">เบอร์โทร / LINE ID *</label>
-        <input class="abandon-input" id="abandon_contact" placeholder="0812345678 หรือ @yourline" type="tel">
-      </div>
-      <div class="abandon-field">
-        <label class="abandon-label">ชื่อเรียก (ไม่บังคับ)</label>
-        <input class="abandon-input" id="abandon_name" placeholder="ชื่อเล่นก็ได้ครับ">
-      </div>
-      
-      <button class="abandon-save-btn" onclick="submitAbandonContact()">💾 บันทึก — ส่งลิงก์ให้ฉัน</button>
-      <div><span class="abandon-skip" onclick="closeAbandonModal()">ไม่เป็นไร ออกเลย</span></div>
-    </div>
-    
-    <!-- Success view -->
-    <div class="abandon-success" id="abandonSuccess">
-      <div class="abandon-success-icon">✅</div>
-      <div class="abandon-success-title">รับทราบแล้วครับ!</div>
-      <div class="abandon-success-sub">เราจะส่งลิงก์ตะกร้าและรายการสินค้าให้คุณทาง LINE / โทรศัพท์<br>ขอบคุณที่สนใจ Origin Coffee ครับ ☕</div>
     </div>
   </div>
 </div>
@@ -3179,17 +2912,12 @@ function renderCartItems() {
 function openCart() {
   renderCartItems();
   renderUpsell();
-  renderRecentlyViewed(); // Feature 7
   document.getElementById('cartOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeCart() {
   document.getElementById('cartOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  // Trigger abandoned cart if cart has items and no contact saved yet
-  if (cart.length > 0 && !safeStorage.get('abandonContact')) {
-    setTimeout(showAbandonModal, 600);
-  }
 }
 function handleCartOverlayClick(e) {
   if (e.target === document.getElementById('cartOverlay')) closeCart();
@@ -3293,8 +3021,6 @@ function addToCartWithSize(id) {
 
 // Override openModal to include size selector
 function openModal(id) {
-  // Feature 7: track recently viewed
-  addToRecentlyViewed(id);
   const c = coffees.find(x => x.id === id);
   if (!c) return;
   if (!selectedSizes[id]) selectedSizes[id] = '250g';
@@ -3360,82 +3086,6 @@ function toggleGiftOption() {
     wrap.classList.remove('active');
     fields.classList.remove('show');
   }
-}
-
-// ── ABANDONED CART ────────────────────────────────────────
-let abandonShown = false;
-function showAbandonModal() {
-  if (abandonShown || cart.length === 0) return;
-  abandonShown = true;
-  // Build cart preview
-  const preview = document.getElementById('abandonCartPreview');
-  preview.innerHTML = cart.map(x => `
-    <div class="abandon-item-row">${x.emoji} ${x.name} × ${x.qty} — ฿${(x.price*x.qty).toLocaleString()}</div>
-  `).join('') + `<div class="abandon-total">ยอดรวม: ฿${getCartTotal().toLocaleString()}</div>`;
-  
-  document.getElementById('abandonFormView').style.display = 'block';
-  document.getElementById('abandonSuccess').classList.remove('show');
-  document.getElementById('abandonOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeAbandonModal() {
-  document.getElementById('abandonOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function submitAbandonContact() {
-  const contact = document.getElementById('abandon_contact').value.trim();
-  if (!contact) {
-    document.getElementById('abandon_contact').style.borderColor = 'var(--rust)';
-    return;
-  }
-  const name = document.getElementById('abandon_name').value.trim();
-  // Save contact so we don't ask again
-  safeStorage.set('abandonContact', contact);
-  // Build order summary message
-  const items = cart.map(x => `${x.emoji} ${x.name} × ${x.qty}`).join(', ');
-  const msg = `🛒 ลูกค้ายังค้างตะกร้า!\nชื่อ: ${name||'ไม่ระบุ'}\nติดต่อ: ${contact}\nสินค้า: ${items}\nยอด: ฿${getCartTotal().toLocaleString()}`;
-  // Send to Telegram/LINE (opens in background-friendly way)
-  const enc = encodeURIComponent(msg);
-  const tgUrl = checkoutChannelOverrides?.telegram;
-  if (tgUrl) {
-    const link = document.createElement('a');
-    link.href = `${tgUrl}&text=${enc}`;
-    link.target = '_blank';
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    setTimeout(() => link.remove(), 500);
-  }
-  // Show success
-  document.getElementById('abandonFormView').style.display = 'none';
-  document.getElementById('abandonSuccess').classList.add('show');
-  setTimeout(closeAbandonModal, 3000);
-}
-
-function buildOrderText() {
-  const name = document.getElementById('co_name').value.trim();
-  const phone = document.getElementById('co_phone').value.trim();
-  const address = document.getElementById('co_address').value.trim();
-  const note = document.getElementById('co_note').value.trim();
-  const referral = appliedReferralCode ? `\n\n🎁 Referral Code: ${appliedReferralCode} (ส่วนลด 10%)` : '';
-  const items = cart.map(x => `• ${x.emoji} ${x.name} x${x.qty} (${x.unit}) = ฿${(x.price*x.qty).toLocaleString()}`).join('\n');
-  let giftText = '';
-  if (isGift) {
-    const recipient = document.getElementById('gift_recipient')?.value.trim();
-    const giftMsg = document.getElementById('gift_message')?.value.trim();
-    giftText = `\n\n🎁 ของขวัญ (+฿50)\nผู้รับ: ${recipient||'-'}\nข้อความ: ${giftMsg||'-'}`;
-  }
-  // Feature 3: grind
-  let grindText = '';
-  if (isGrind) {
-    grindText = `\n\n☕ บดกาแฟ (+฿20)\nวิธีชง: ${selectedGrindType || 'ไม่ระบุ'}`;
-  }
-  const giftFee = isGift ? 50 : 0;
-  const grindFee = isGrind ? 20 : 0;
-  const total = getCartTotal() + giftFee + grindFee;
-  return `🛒 คำสั่งซื้อ Origin Coffee\n\nชื่อ: ${name}\nโทร: ${phone}\nที่อยู่: ${address}${note?'\nหมายเหตุ: '+note:''}${giftText}${grindText}${referral}\n\n${items}\n\n💰 ยอดรวม: ฿${total.toLocaleString()} (ยังไม่รวมค่าส่ง)`;
 }
 
 // ── CHECKOUT SYSTEM ──────────────────────────────────────
@@ -4163,69 +3813,6 @@ function selectGrindType(el, type) {
   el.classList.add('active');
 }
 
-// ── FEATURE 4: REFERRAL ──────────────────────────────────
-let appliedReferralCode = '';
-function applyReferralCode() {
-  const input = document.getElementById('co_referral');
-  const msgEl = document.getElementById('referralApplyMsg');
-  const code = input ? input.value.trim().toUpperCase() : '';
-  if (!code) { msgEl.style.display='none'; return; }
-  // Validate: must start with OC- and be 8 chars, or match any known pattern
-  const isValid = /^OC-[A-Z0-9]{5}$/.test(code) || code === 'ORIGIN10' || code === 'WELCOME10';
-  if (isValid) {
-    appliedReferralCode = code;
-    msgEl.textContent = `✅ โค้ด ${code} ใช้ได้! ส่วนลด 10% จะถูกคำนวณในการยืนยันออเดอร์`;
-    msgEl.style.color = 'var(--sage)';
-    msgEl.style.display = 'block';
-    if (input) input.style.borderColor = 'var(--sage)';
-  } else {
-    appliedReferralCode = '';
-    msgEl.textContent = `❌ โค้ดไม่ถูกต้องหรือหมดอายุแล้ว`;
-    msgEl.style.color = 'var(--rust)';
-    msgEl.style.display = 'block';
-    if (input) input.style.borderColor = 'var(--rust)';
-  }
-}
-function generateReferralCode() {
-  let code = safeStorage.get('originReferralCode');
-  if (!code) {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    code = 'OC-';
-    for (let i = 0; i < 5; i++) code += chars[Math.floor(Math.random() * chars.length)];
-    safeStorage.set('originReferralCode', code);
-  }
-  document.getElementById('referralCode').textContent = code;
-}
-function copyReferralCode() {
-  const code = document.getElementById('referralCode').textContent;
-  navigator.clipboard.writeText(code).then(() => {
-    const btn = document.querySelector('.referral-copy-btn');
-    btn.textContent = '✅ คัดลอกแล้ว!';
-    btn.style.background = 'var(--sage)';
-    setTimeout(() => { btn.textContent = '📋 คัดลอก'; btn.style.background = ''; }, 2000);
-  }).catch(() => {
-    // fallback
-    const el = document.createElement('textarea');
-    el.value = code;
-    document.body.appendChild(el); el.select();
-    document.execCommand('copy'); document.body.removeChild(el);
-    const btn = document.querySelector('.referral-copy-btn');
-    btn.textContent = '✅ คัดลอกแล้ว!';
-    setTimeout(() => { btn.textContent = '📋 คัดลอก'; }, 2000);
-  });
-}
-function shareReferralCode() {
-  const code = document.getElementById('referralCode').textContent;
-  const msg = `☕ แนะนำ Origin Coffee ให้เพื่อน!\nใช้โค้ด ${code} ตอนสั่งซื้อ — ได้ส่วนลด 10% ทันที 🎉\nดูกาแฟ specialty ได้ที่ ${window.location.href}`;
-  const enc = encodeURIComponent(msg);
-  // Try Web Share API first (mobile), fallback to LINE
-  if (navigator.share) {
-    navigator.share({ title: 'Origin Coffee — ส่วนลด 10%', text: msg }).catch(() => {});
-  } else {
-    window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}&text=${enc}`, '_blank');
-  }
-}
-
 // ── FEATURE 6: BREW GUIDE ────────────────────────────────
 const brewGuides = {
   natural: {
@@ -4373,34 +3960,6 @@ function closeBrew() {
   document.getElementById('brewOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
-// ── FEATURE 7: RECENTLY VIEWED ───────────────────────────
-let recentlyViewed = JSON.parse(safeStorage.get('originRecentlyViewed') || '[]');
-function addToRecentlyViewed(id) {
-  recentlyViewed = recentlyViewed.filter(x => x !== id);
-  recentlyViewed.unshift(id);
-  if (recentlyViewed.length > 6) recentlyViewed = recentlyViewed.slice(0, 6);
-  safeStorage.set('originRecentlyViewed', JSON.stringify(recentlyViewed));
-}
-function renderRecentlyViewed() {
-  const section = document.getElementById('recentlyViewedSection');
-  const list = document.getElementById('recentlyViewedList');
-  const items = recentlyViewed.map(id => coffees.find(c => c.id === id)).filter(Boolean);
-  if (items.length === 0) { section.classList.remove('show'); return; }
-  section.classList.add('show');
-  list.innerHTML = items.map(c => `
-    <div class="rv-item" onclick="openModal(${c.id})">
-      ${c.img
-        ? `<img src="${c.img}" alt="${c.name}" style="width:44px;height:44px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'">`
-        : `<span class="rv-emoji">${c.emoji}</span>`}
-      <div class="rv-name">${c.name.split(' ').slice(0,3).join(' ')}</div>
-      <div class="rv-price">฿${c.price.toLocaleString()}</div>
-    </div>
-  `).join('');
-}
-
-// Init referral code
-generateReferralCode();
 
 // ── LOAD SAVED DATA ON STARTUP ──────────────────────────
 function loadSavedData() {
@@ -4737,9 +4296,6 @@ function clearOrderLog() {
       if (!entry.isIntersecting) return;
       const id = entry.target.dataset.lazySection;
       try {
-        if (id === 'recently-viewed') {
-          if (typeof renderRecentlyViewed === 'function') renderRecentlyViewed();
-        }
       } catch(e) { console.warn('[lazy]', id, e); }
       observer.unobserve(entry.target); // run once
     });
@@ -4747,7 +4303,6 @@ function clearOrderLog() {
 
   // Mark sections for lazy render
   const targets = [
-    { sel: '#recently-viewed', key: 'recently-viewed' },
   ];
   targets.forEach(({ sel, key }) => {
     const el = document.querySelector(sel);
