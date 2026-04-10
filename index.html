@@ -1571,16 +1571,7 @@ footer {
     <a href="#blog">📖 บทความ</a>
     <a href="#leads">📩 ติดต่อ</a>
   </div>
-  <div style="position:relative;">
-    <button class="nav-cta" onclick="toggleNavOrder(event)">☕ สั่งซื้อ ▾</button>
-    <div id="navOrderMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--warm-white);border:1px solid var(--border);border-radius:14px;padding:0.5rem;min-width:200px;box-shadow:0 12px 40px rgba(61,43,15,0.15);z-index:999;">
-      <a href="https://line.me/R/oa/@origincoffee" target="_blank" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">💚 LINE OA<span style="font-size:11px;color:var(--text-muted);margin-left:auto;">เร็วที่สุด</span></a>
-      <a href="https://t.me/OrigincoffeeShop_bot" target="_blank" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">✈️ Telegram<span style="font-size:11px;color:var(--text-muted);margin-left:auto;">Bot อัตโนมัติ</span></a>
-      <a href="https://m.me/origincoffeeth" target="_blank" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">💙 Facebook</a>
-      <div style="height:1px;background:var(--border);margin:4px 0;"></div>
-      <a href="#catalog" onclick="document.getElementById('navOrderMenu').style.display='none'" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--caramel);font-size:13px;font-weight:500;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">🛒 เลือกกาแฟก่อน</a>
-    </div>
-  </div>
+  <button class="nav-cta" onclick="openAdmin()" title="ตั้งค่าหลังบ้าน" style="display:flex;align-items:center;gap:6px;">⚙️ ตั้งค่า</button>
 </nav>
 
 <!-- HERO -->
@@ -1593,13 +1584,7 @@ footer {
       <a href="#catalog" class="btn-primary">☕ ดูกาแฟทั้งหมด →</a>
       <a href="#ai-finder" class="btn-ghost">🤖 ให้ AI ช่วยเลือก</a>
     </div>
-    <!-- CTA Channel Row -->
-    <div class="hero-cta-channels">
-      <span class="hero-cta-label">สั่งซื้อผ่าน</span>
-      <a href="https://line.me/R/oa/@origincoffee" target="_blank" class="hero-cta-chip hero-cta-line">💚 LINE OA</a>
-      <a href="https://t.me/OrigincoffeeShop_bot" target="_blank" class="hero-cta-chip hero-cta-tg">✈️ Telegram</a>
-      <a href="#leads" class="hero-cta-chip hero-cta-more">ช่องทางอื่น →</a>
-    </div>
+
     <div class="hero-stats">
       <div>
         <span class="hero-stat-num">40+</span>
