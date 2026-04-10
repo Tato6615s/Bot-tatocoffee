@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ORIGIN COFFEE — Specialty Roastery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap&font-display=swap" rel="stylesheet">
 <style>
 :root {
   --ink: #1a1208;
@@ -943,6 +946,39 @@ footer {
 }
 .coffee-add-cart:hover { background: var(--caramel); transform: translateY(-1px); }
 
+/* ─── SKELETON LOADING ───────────────────────────── */
+.skeleton-card {
+  background: var(--cream2);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.skeleton-img {
+  height: 200px;
+  background: linear-gradient(90deg, var(--mist) 25%, var(--cream) 50%, var(--mist) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+.skeleton-body { padding: 1.5rem; }
+.skeleton-line {
+  height: 12px; border-radius: 6px; margin-bottom: 10px;
+  background: linear-gradient(90deg, var(--mist) 25%, var(--cream) 50%, var(--mist) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+.skeleton-line.short { width: 55%; }
+.skeleton-line.mid { width: 75%; }
+.skeleton-line.tall { height: 18px; width: 40%; margin-top: 16px; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* ─── PERFORMANCE: reduce-motion ────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* ─── 1. STOCK BADGE ─────────────────────────────── */
 .stock-badge {
   position: absolute; top: 1rem; right: 1rem;
@@ -1549,6 +1585,36 @@ footer {
 .sub-modal-success { display: none; text-align: center; padding: 1.5rem 0; }
 .sub-modal-success.show { display: block; }
 
+/* ─── PERFORMANCE: Mobile — disable heavy GPU effects ─── */
+@media (max-width: 768px) {
+  /* Kill backdrop-blur on mobile — biggest GPU drain */
+  nav,
+  .modal-overlay,
+  .cart-drawer,
+  .brew-overlay,
+  .abandon-overlay,
+  .notify-overlay,
+  .sub-modal-overlay,
+  .checkout-section {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  /* Use solid fallback backgrounds instead */
+  nav { background: rgba(254,252,248,0.97) !important; }
+}
+
+/* ─── PERFORMANCE: contain layout thrash ──────────────── */
+.coffee-card { contain: layout style; }
+.coffee-grid { contain: layout; }
+
+/* ─── PERFORMANCE: image aspect ratio reservations ───── */
+.coffee-card-img { aspect-ratio: 3/2; height: auto; min-height: 180px; }
+
+/* ─── ANIMATIONS ─────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
@@ -1611,10 +1677,13 @@ footer {
   <div class="hero-right" style="position:relative;overflow:hidden;padding:0;">
     <img
       id="heroMainImg"
-      src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=1200&q=85"
+      src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=900&q=80&auto=format"
       alt="Specialty Coffee Roasting"
+      fetchpriority="high"
+      decoding="async"
+      width="900" height="600"
       style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.5s;"
-      onerror="this.src='https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80'"
+      onerror="this.src='https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=75&auto=format'"
     >
     <!-- Overlay gradient for readability -->
     <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(250,245,237,0.18) 0%,transparent 40%),linear-gradient(to top,rgba(26,18,8,0.55) 0%,transparent 60%);pointer-events:none;"></div>
@@ -2111,7 +2180,7 @@ footer {
   <div class="blog-grid">
     <div class="blog-card">
       <div class="blog-card-img" style="background:linear-gradient(135deg,#f5ede0,#e8ddd0);overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=75" alt="Pour Over" style="width:100%;height:100%;object-fit:cover;opacity:0.85;" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=75&auto=format" alt="Pour Over" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.85;" onerror="this.style.display='none'">
         <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;">คู่มือ</div>
       </div>
       <div class="blog-card-body">
@@ -2125,7 +2194,7 @@ footer {
     </div>
     <div class="blog-card">
       <div class="blog-card-img" style="background:linear-gradient(135deg,#8b7355,#4a3520);overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=75" alt="Coffee Process" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=75&auto=format" alt="Coffee Process" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
         <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--sage)">ความรู้</div>
       </div>
       <div class="blog-card-body">
@@ -2139,7 +2208,7 @@ footer {
     </div>
     <div class="blog-card">
       <div class="blog-card-img" style="background:linear-gradient(135deg,#c49a3a,#7a5a20);overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=75" alt="Doi Chang Farm" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=75&auto=format" alt="Doi Chang Farm" loading="lazy" decoding="async" width="600" height="400" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
         <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--rust)">Farm Visit</div>
       </div>
       <div class="blog-card-body">
@@ -2805,8 +2874,28 @@ footer {
 </div>
 
 <script>
+// ── SAFE STORAGE: prevents crash in private/incognito mode ──
+const safeStorage = (function() {
+  let _store = {};
+  try {
+    localStorage.setItem('__test__', '1');
+    localStorage.removeItem('__test__');
+    return {
+      get: (k, d) => { try { return localStorage.getItem(k) ?? d ?? null; } catch(e) { return _store[k] ?? d ?? null; } },
+      set: (k, v) => { try { localStorage.setItem(k, v); } catch(e) { _store[k] = v; } },
+      remove: (k) => { try { localStorage.removeItem(k); } catch(e) { delete _store[k]; } }
+    };
+  } catch(e) {
+    return {
+      get: (k, d) => _store[k] ?? d ?? null,
+      set: (k, v) => { _store[k] = v; },
+      remove: (k) => { delete _store[k]; }
+    };
+  }
+})();
+
 // ── ADMIN PASSWORD ──────────────────────────────────────
-let ADMIN_PASSWORD = localStorage.getItem('originAdminPass') || 'origin2024';
+let ADMIN_PASSWORD = safeStorage.get('originAdminPass') || 'origin2024';
 
 function openAdminLogin() {
   document.getElementById('adminLoginOverlay').classList.add('open');
@@ -2848,7 +2937,7 @@ function switchAdminTab(tab, btn) {
 }
 
 // ── COFFEE DATA ───────────────────────────────────────
-let coffees = JSON.parse(localStorage.getItem('originCoffees') || 'null') || [
+let coffees = JSON.parse(safeStorage.get('originCoffees') || 'null') || [
   { id:1, region:'thai', badge:'New Lot', origin:'ดอยช้าง, เชียงราย — Thailand', name:'Doi Chang Natural', process:'Natural Process · Heirloom · 1,500m', notes:['ลิ้นจี่','เชอร์รี่แดง','ดาร์กช็อกโกแลต','กุหลาบ'], price:680, unit:'/ 250g', score:88.5, desc:'ล็อตจากหมู่บ้านชาวอาข่า บนดอยช้าง เก็บเกี่ยวด้วยมือ คัดแค่เชอร์รี่สุกแดง แล้วตากแดดบนแคร่สูง 21 วัน ให้ผลไม้และกลิ่นหอมที่ซับซ้อน', acidity:75, sweetness:88, body:72, finish:85, color:'linear-gradient(135deg, #c4a07a 0%, #8b5e2a 100%)', emoji:'🍒', img:'https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=80', soldOut:false },
   { id:2, region:'africa', badge:'Best Seller', origin:'Yirgacheffe, Ethiopia — Africa', name:'Ethiopia Yirgacheffe', process:'Washed Process · Heirloom · 1,800m', notes:['มะนาว','ชาดอกไม้','พีช','น้ำตาลทราย'], price:720, unit:'/ 250g', score:89.0, desc:'Yirgacheffe คลาสสิกจากหนึ่งใน washing station ที่เก่าแก่ที่สุดในเอธิโอเปีย กระบวนการ washed ที่แม่นยำทำให้ได้ความสะอาดและกลิ่นดอกไม้ที่เป็นเอกลักษณ์', acidity:92, sweetness:78, body:65, finish:88, color:'linear-gradient(135deg, #8b7355 0%, #4a3520 100%)', emoji:'🌸', img:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80', soldOut:false },
   { id:3, region:'latin', badge:null, origin:'Huila, Colombia — Latin America', name:'Colombia Huila Honey', process:'Honey Process · Castillo · 1,700m', notes:['แอปริคอต','น้ำผึ้ง','วานิลลา','เฮเซลนัท'], price:650, unit:'/ 250g', score:87.5, desc:'Honey process จากผู้ผลิตรายเล็กใน Huila เก็บรักษา mucilage ไว้บางส่วน ทำให้ได้ความหวานและ body ที่เต็มมากกว่า washed แต่สะอาดกว่า natural', acidity:68, sweetness:92, body:80, finish:82, color:'linear-gradient(135deg, #c49a3a 0%, #7a5a20 100%)', emoji:'🍯', img:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80', soldOut:false },
@@ -2858,7 +2947,7 @@ let coffees = JSON.parse(localStorage.getItem('originCoffees') || 'null') || [
 ];
 
 function saveCoffeesToStorage() {
-  localStorage.setItem('originCoffees', JSON.stringify(coffees));
+  safeStorage.set('originCoffees', JSON.stringify(coffees));
 }
 
 let currentFilter = 'all';
@@ -2874,42 +2963,66 @@ function getStockBadge(c) {
   return '';
 }
 
-function renderCoffees(filter) {
-  const grid = document.getElementById('coffeeGrid');
-  const filtered = filter === 'all' ? coffees : coffees.filter(c => c.region === filter);
-  grid.innerHTML = filtered.map(c => `
-    <div class="coffee-card" onclick="openModal(${c.id})">
-      <div class="coffee-card-img" style="background:${c.color};position:relative;overflow:hidden;">
-        ${c.img
-          ? `<img src="${c.img}" alt="${c.name}" style="width:100%;height:100%;object-fit:cover;opacity:0.92;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
-          : ''}
-        <span style="font-size:64px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3));${c.img?'display:none;':''};position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">${c.emoji}</span>
-        ${c.badge ? `<span class="coffee-badge${c.badge==='New Lot'?' new':c.badge==='Sold Out'?' sold':''}">${c.badge}</span>` : ''}
-        ${getStockBadge(c)}
-      </div>
-      <div class="coffee-card-body">
-        <div class="coffee-origin">${c.origin}</div>
-        <div class="coffee-name">${c.name}</div>
-        <div class="coffee-process">${c.process}</div>
-        <div class="cupping-notes">${c.notes.map(n=>`<span class="note-tag">${n}</span>`).join('')}</div>
-        <div style="margin-bottom:0.75rem;">
-          <div class="score-row"><span class="score-label">Acidity</span><div class="score-track"><div class="score-fill" style="width:${c.acidity}%"></div></div><span class="score-val">${c.acidity}</span></div>
-          <div class="score-row"><span class="score-label">Sweetness</span><div class="score-track"><div class="score-fill" style="width:${c.sweetness}%"></div></div><span class="score-val">${c.sweetness}</span></div>
-          <div class="score-row"><span class="score-label">Body</span><div class="score-track"><div class="score-fill" style="width:${c.body}%"></div></div><span class="score-val">${c.body}</span></div>
-        </div>
-        <div class="coffee-card-footer">
-          <div>
-            <div class="coffee-price">฿${c.price.toLocaleString()}</div>
-            <div class="coffee-price-unit">${c.unit} · SCA ${c.score}</div>
-          </div>
-          ${c.soldOut
-            ? `<button class="coffee-inquiry" onclick="event.stopPropagation();openNotifyModal('${c.name}')">🔔 แจ้งเตือนเมื่อมีสินค้า</button>`
-            : `<button class="coffee-add-cart" onclick="event.stopPropagation();addToCart(${c.id},event)">+ หยิบใส่ตะกร้า</button>`
-          }
-        </div>
+function renderCoffeesSkeleton(grid, count) {
+  grid.innerHTML = Array.from({length: count}, () => `
+    <div class="skeleton-card">
+      <div class="skeleton-img"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line mid" style="height:18px;margin-bottom:14px;"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line" style="width:90%;"></div>
+        <div class="skeleton-line mid"></div>
+        <div class="skeleton-line tall"></div>
       </div>
     </div>
   `).join('');
+}
+
+function renderCoffees(filter) {
+  const grid = document.getElementById('coffeeGrid');
+  if (!grid) return;
+  const filtered = filter === 'all' ? coffees : coffees.filter(c => c.region === filter);
+
+  // Show skeleton immediately so user sees content is loading
+  renderCoffeesSkeleton(grid, filtered.length || 6);
+
+  // Render real cards on next frame to avoid blocking UI thread
+  requestAnimationFrame(() => {
+    grid.innerHTML = filtered.map((c, idx) => `
+      <div class="coffee-card" onclick="openModal(${c.id})" style="animation:fadeUp 0.35s ${Math.min(idx*0.06,0.3)}s both;">
+        <div class="coffee-card-img" style="background:${c.color};position:relative;overflow:hidden;">
+          ${c.img
+            ? `<img src="${c.img}" alt="${c.name}" loading="${idx < 3 ? 'eager' : 'lazy'}" decoding="async" width="600" height="200" style="width:100%;height:100%;object-fit:cover;opacity:0.92;transition:transform 0.4s;" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
+            : ''}
+          <span style="font-size:64px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3));${c.img?'display:none;':''};position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">${c.emoji}</span>
+          ${c.badge ? `<span class="coffee-badge${c.badge==='New Lot'?' new':c.badge==='Sold Out'?' sold':''}">${c.badge}</span>` : ''}
+          ${getStockBadge(c)}
+        </div>
+        <div class="coffee-card-body">
+          <div class="coffee-origin">${c.origin}</div>
+          <div class="coffee-name">${c.name}</div>
+          <div class="coffee-process">${c.process}</div>
+          <div class="cupping-notes">${c.notes.map(n=>`<span class="note-tag">${n}</span>`).join('')}</div>
+          <div style="margin-bottom:0.75rem;">
+            <div class="score-row"><span class="score-label">Acidity</span><div class="score-track"><div class="score-fill" style="width:${c.acidity}%"></div></div><span class="score-val">${c.acidity}</span></div>
+            <div class="score-row"><span class="score-label">Sweetness</span><div class="score-track"><div class="score-fill" style="width:${c.sweetness}%"></div></div><span class="score-val">${c.sweetness}</span></div>
+            <div class="score-row"><span class="score-label">Body</span><div class="score-track"><div class="score-fill" style="width:${c.body}%"></div></div><span class="score-val">${c.body}</span></div>
+          </div>
+          <div class="coffee-card-footer">
+            <div>
+              <div class="coffee-price">฿${c.price.toLocaleString()}</div>
+              <div class="coffee-price-unit">${c.unit} · SCA ${c.score}</div>
+            </div>
+            ${c.soldOut
+              ? `<button class="coffee-inquiry" onclick="event.stopPropagation();openNotifyModal('${c.name}')">🔔 แจ้งเตือนเมื่อมีสินค้า</button>`
+              : `<button class="coffee-add-cart" onclick="event.stopPropagation();addToCart(${c.id},event)">+ หยิบใส่ตะกร้า</button>`
+            }
+          </div>
+        </div>
+      </div>
+    `).join('');
+  });
 }
 
 function filterCoffee(f, btn) {
@@ -3074,7 +3187,7 @@ function closeCart() {
   document.getElementById('cartOverlay').classList.remove('open');
   document.body.style.overflow = '';
   // Trigger abandoned cart if cart has items and no contact saved yet
-  if (cart.length > 0 && !localStorage.getItem('abandonContact')) {
+  if (cart.length > 0 && !safeStorage.get('abandonContact')) {
     setTimeout(showAbandonModal, 600);
   }
 }
@@ -3279,7 +3392,7 @@ function submitAbandonContact() {
   }
   const name = document.getElementById('abandon_name').value.trim();
   // Save contact so we don't ask again
-  localStorage.setItem('abandonContact', contact);
+  safeStorage.set('abandonContact', contact);
   // Build order summary message
   const items = cart.map(x => `${x.emoji} ${x.name} × ${x.qty}`).join(', ');
   const msg = `🛒 ลูกค้ายังค้างตะกร้า!\nชื่อ: ${name||'ไม่ระบุ'}\nติดต่อ: ${contact}\nสินค้า: ${items}\nยอด: ฿${getCartTotal().toLocaleString()}`;
@@ -3647,7 +3760,7 @@ function saveHero() {
   if (statLabels[2]) statLabels[2].textContent = s3l;
 
   // บันทึกลง localStorage
-  localStorage.setItem('originHero', JSON.stringify({ title: titleRaw, sub, s1n, s1l, s2n, s2l, s3n, s3l }));
+  safeStorage.set('originHero', JSON.stringify({ title: titleRaw, sub, s1n, s1l, s2n, s2l, s3n, s3l }));
 
   document.getElementById('heroSaveMsg').classList.add('show');
   setTimeout(() => document.getElementById('heroSaveMsg').classList.remove('show'), 3000);
@@ -3660,7 +3773,7 @@ function saveStory() {
   if (paras[0]) paras[0].innerHTML = p1;
   if (paras[1]) paras[1].innerHTML = p2;
 
-  localStorage.setItem('originStory', JSON.stringify({ p1, p2 }));
+  safeStorage.set('originStory', JSON.stringify({ p1, p2 }));
 
   document.getElementById('storySaveMsg').classList.add('show');
   setTimeout(() => document.getElementById('storySaveMsg').classList.remove('show'), 3000);
@@ -3703,7 +3816,7 @@ function saveContact() {
   const footerIG = document.querySelector('.footer-col a[href="#"]:last-of-type');
 
   // บันทึกลง localStorage
-  localStorage.setItem('originContact', JSON.stringify({ tg, lineLink, fbLink, waLink, ppNumber, ppName, ig, loc }));
+  safeStorage.set('originContact', JSON.stringify({ tg, lineLink, fbLink, waLink, ppNumber, ppName, ig, loc }));
 
   document.getElementById('contactSaveMsg').classList.add('show');
   setTimeout(() => document.getElementById('contactSaveMsg').classList.remove('show'), 3000);
@@ -3727,7 +3840,7 @@ function changePassword() {
     errEl.style.display = 'block'; return;
   }
   ADMIN_PASSWORD = nw;
-  localStorage.setItem('originAdminPass', nw);
+  safeStorage.set('originAdminPass', nw);
   document.getElementById('currentPass').value = '';
   document.getElementById('newPass').value = '';
   document.getElementById('confirmPass').value = '';
@@ -3927,7 +4040,24 @@ function showNextSocialProof() {
   spIndex++;
 }
 // Show first popup after 5s, then every 15s
-setTimeout(() => { showNextSocialProof(); setInterval(showNextSocialProof, 15000); }, 5000);
+// Social proof: pause when tab is hidden, resume when visible
+let _spInterval = null;
+function startSocialProofInterval() {
+  if (_spInterval) return;
+  _spInterval = setInterval(showNextSocialProof, 15000);
+}
+function stopSocialProofInterval() {
+  clearInterval(_spInterval);
+  _spInterval = null;
+}
+setTimeout(() => {
+  showNextSocialProof();
+  startSocialProofInterval();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopSocialProofInterval();
+    else startSocialProofInterval();
+  });
+}, 5000);
 
 // ── STICKY MOBILE CTA SYNC ────────────────────────────
 function updateStickyCount(count) {
@@ -3935,10 +4065,17 @@ function updateStickyCount(count) {
   if (badge) badge.textContent = count;
 }
 
-// Nav scroll
+// Nav scroll — throttled with rAF + passive for smooth performance
+let _scrollTicking = false;
 window.addEventListener('scroll', () => {
-  document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 20);
-});
+  if (_scrollTicking) return;
+  requestAnimationFrame(() => {
+    const nav = document.querySelector('nav');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+    _scrollTicking = false;
+  });
+  _scrollTicking = true;
+}, { passive: true });
 
 // ── FEATURE 1: SUBSCRIPTION MODAL ────────────────────────
 const subPlanData = {
@@ -4050,12 +4187,12 @@ function applyReferralCode() {
   }
 }
 function generateReferralCode() {
-  let code = localStorage.getItem('originReferralCode');
+  let code = safeStorage.get('originReferralCode');
   if (!code) {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     code = 'OC-';
     for (let i = 0; i < 5; i++) code += chars[Math.floor(Math.random() * chars.length)];
-    localStorage.setItem('originReferralCode', code);
+    safeStorage.set('originReferralCode', code);
   }
   document.getElementById('referralCode').textContent = code;
 }
@@ -4238,12 +4375,12 @@ function closeBrew() {
 }
 
 // ── FEATURE 7: RECENTLY VIEWED ───────────────────────────
-let recentlyViewed = JSON.parse(localStorage.getItem('originRecentlyViewed') || '[]');
+let recentlyViewed = JSON.parse(safeStorage.get('originRecentlyViewed') || '[]');
 function addToRecentlyViewed(id) {
   recentlyViewed = recentlyViewed.filter(x => x !== id);
   recentlyViewed.unshift(id);
   if (recentlyViewed.length > 6) recentlyViewed = recentlyViewed.slice(0, 6);
-  localStorage.setItem('originRecentlyViewed', JSON.stringify(recentlyViewed));
+  safeStorage.set('originRecentlyViewed', JSON.stringify(recentlyViewed));
 }
 function renderRecentlyViewed() {
   const section = document.getElementById('recentlyViewedSection');
@@ -4268,7 +4405,7 @@ generateReferralCode();
 // ── LOAD SAVED DATA ON STARTUP ──────────────────────────
 function loadSavedData() {
   // Hero
-  const hero = JSON.parse(localStorage.getItem('originHero') || 'null');
+  const hero = JSON.parse(safeStorage.get('originHero') || 'null');
   if (hero) {
     if (hero.title) { const h1 = document.querySelector('.hero-h1'); if(h1) h1.innerHTML = hero.title; document.getElementById('heroTitle').value = hero.title; }
     if (hero.sub) { const hs = document.querySelector('.hero-sub'); if(hs) hs.textContent = hero.sub; document.getElementById('heroSub').value = hero.sub; }
@@ -4283,7 +4420,7 @@ function loadSavedData() {
   }
 
   // Story
-  const story = JSON.parse(localStorage.getItem('originStory') || 'null');
+  const story = JSON.parse(safeStorage.get('originStory') || 'null');
   if (story) {
     const paras = document.querySelectorAll('.story-paragraph');
     if (story.p1) { if(paras[0]) paras[0].innerHTML = story.p1; document.getElementById('storyP1').value = story.p1; }
@@ -4291,7 +4428,7 @@ function loadSavedData() {
   }
 
   // Contact
-  const contact = JSON.parse(localStorage.getItem('originContact') || 'null');
+  const contact = JSON.parse(safeStorage.get('originContact') || 'null');
   if (contact) {
     if (contact.tg) { document.getElementById('telegramLink').value = contact.tg; checkoutChannelOverrides.telegram = contact.tg; document.querySelectorAll('a[href*="t.me"]').forEach(a => a.href = contact.tg); }
     if (contact.lineLink) { document.getElementById('lineLink').value = contact.lineLink; checkoutChannelOverrides.line = contact.lineLink; document.querySelectorAll('a[href*="line.me"]').forEach(a => a.href = contact.lineLink); }
@@ -4309,9 +4446,15 @@ function loadSavedData() {
   }
 }
 
-// Init
+// Init — render products first, then load saved settings deferred
 renderCoffees('all');
-loadSavedData();
+
+// Defer non-critical saved data so it doesn't block first paint
+requestAnimationFrame(() => {
+  setTimeout(() => {
+    try { loadSavedData(); } catch(e) { console.warn('[init] loadSavedData error:', e); }
+  }, 100);
+});
 
 // ── NAV ORDER DROPDOWN TOGGLE ─────────────────────────────
 function toggleNavOrder(e) {
@@ -4335,14 +4478,14 @@ const AK = {
 
 // Track page visit
 (function trackVisit() {
-  const v = parseInt(localStorage.getItem(AK.visits) || '0') + 1;
-  localStorage.setItem(AK.visits, v);
+  const v = parseInt(safeStorage.get(AK.visits) || '0') + 1;
+  safeStorage.set(AK.visits, v);
 })();
 
 // Record an order into analytics storage
 function recordOrderAnalytics(orderData) {
   // orders log
-  const orders = JSON.parse(localStorage.getItem(AK.orders) || '[]');
+  const orders = JSON.parse(safeStorage.get(AK.orders) || '[]');
   const entry = {
     id: Date.now(),
     ts: new Date().toISOString(),
@@ -4353,21 +4496,21 @@ function recordOrderAnalytics(orderData) {
   };
   orders.unshift(entry);
   if (orders.length > 100) orders.pop();
-  localStorage.setItem(AK.orders, JSON.stringify(orders));
+  safeStorage.set(AK.orders, JSON.stringify(orders));
 
   // channel stats
-  const ch = JSON.parse(localStorage.getItem(AK.channels) || '{}');
+  const ch = JSON.parse(safeStorage.get(AK.channels) || '{}');
   ch[entry.channel] = (ch[entry.channel] || 0) + 1;
-  localStorage.setItem(AK.channels, JSON.stringify(ch));
+  safeStorage.set(AK.channels, JSON.stringify(ch));
 
   // revenue 7-day rolling
-  const rev = JSON.parse(localStorage.getItem(AK.revenue) || '{}');
+  const rev = JSON.parse(safeStorage.get(AK.revenue) || '{}');
   const day = new Date().toLocaleDateString('th-TH');
   rev[day] = (rev[day] || 0) + entry.total;
   // keep only 7 days
   const keys = Object.keys(rev);
   if (keys.length > 7) delete rev[keys[0]];
-  localStorage.setItem(AK.revenue, JSON.stringify(rev));
+  safeStorage.set(AK.revenue, JSON.stringify(rev));
 }
 
 // Hook into submitOrder to capture analytics
@@ -4383,10 +4526,10 @@ window.submitOrder = function() {
 
 // Render analytics dashboard
 function renderAnalytics() {
-  const orders = JSON.parse(localStorage.getItem(AK.orders) || '[]');
-  const visits = parseInt(localStorage.getItem(AK.visits) || '0');
-  const ch     = JSON.parse(localStorage.getItem(AK.channels) || '{}');
-  const rev    = JSON.parse(localStorage.getItem(AK.revenue) || '{}');
+  const orders = JSON.parse(safeStorage.get(AK.orders) || '[]');
+  const visits = parseInt(safeStorage.get(AK.visits) || '0');
+  const ch     = JSON.parse(safeStorage.get(AK.channels) || '{}');
+  const rev    = JSON.parse(safeStorage.get(AK.revenue) || '{}');
 
   // KPIs
   const today = new Date().toLocaleDateString('th-TH');
@@ -4532,14 +4675,14 @@ function drawRevenueChart(rev) {
 
 function resetAnalytics() {
   if (!confirm('ล้างข้อมูล Analytics ทั้งหมด?')) return;
-  [AK.orders, AK.visits, AK.channels, AK.revenue].forEach(k => localStorage.removeItem(k));
-  localStorage.setItem(AK.visits, '1');
+  [AK.orders, AK.visits, AK.channels, AK.revenue].forEach(k => safeStorage.remove(k));
+  safeStorage.set(AK.visits, '1');
   renderAnalytics();
 }
 
 function clearOrderLog() {
   if (!confirm('ล้างประวัติออเดอร์?')) return;
-  localStorage.removeItem(AK.orders);
+  safeStorage.remove(AK.orders);
   renderAnalytics();
 }
 
@@ -4562,7 +4705,7 @@ function clearOrderLog() {
     heroCard.insertBefore(div, heroCard.querySelector('button.admin-save-btn'));
 
     // Load saved hero image
-    const saved = localStorage.getItem('originHeroImg');
+    const saved = safeStorage.get('originHeroImg');
     if (saved) {
       document.getElementById('heroImgUrl').value = saved;
       const img = document.getElementById('heroMainImg');
@@ -4575,7 +4718,7 @@ function clearOrderLog() {
       origSave.addEventListener('click', () => {
         const url = document.getElementById('heroImgUrl')?.value.trim();
         if (url) {
-          localStorage.setItem('originHeroImg', url);
+          safeStorage.set('originHeroImg', url);
           const img = document.getElementById('heroMainImg');
           if (img) img.src = url;
         }
@@ -4583,6 +4726,49 @@ function clearOrderLog() {
     }
   });
 })();
+
+// ── LAZY SECTION OBSERVER ─────────────────────────────────
+// Render heavy sections only when they enter the viewport
+(function initLazySections() {
+  if (!('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.dataset.lazySection;
+      try {
+        if (id === 'recently-viewed') {
+          if (typeof renderRecentlyViewed === 'function') renderRecentlyViewed();
+        }
+      } catch(e) { console.warn('[lazy]', id, e); }
+      observer.unobserve(entry.target); // run once
+    });
+  }, { rootMargin: '200px 0px' }); // trigger 200px before visible
+
+  // Mark sections for lazy render
+  const targets = [
+    { sel: '#recently-viewed', key: 'recently-viewed' },
+  ];
+  targets.forEach(({ sel, key }) => {
+    const el = document.querySelector(sel);
+    if (el) { el.dataset.lazySection = key; observer.observe(el); }
+  });
+})();
+
+// ── GLOBAL ERROR BOUNDARY ─────────────────────────────────
+// Catch uncaught JS errors and show a soft toast instead of silent failure
+window.addEventListener('error', function(e) {
+  console.error('[global error]', e.message, e.filename, e.lineno);
+  // Only show UI message for non-external script errors
+  if (e.filename && e.filename.indexOf(window.location.hostname) !== -1) {
+  console.warn('[origin] JS error:', e.message);
+  }
+});
+window.addEventListener('unhandledrejection', function(e) {
+  console.warn('[unhandled promise]', e.reason);
+});
+
+console.log('[Origin Coffee] Init complete ✅');
 </script>
 </body>
 </html>
