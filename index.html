@@ -134,6 +134,14 @@ nav {
   background: linear-gradient(150deg, #2a1a08 0%, #3d2b0f 50%, #5a3a18 100%);
   display: flex; align-items: center; justify-content: center;
 }
+.hero-right::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=900&q=75');
+  background-size: cover; background-position: center;
+  opacity: 0.25;
+  pointer-events: none;
+}
 .hero-visual {
   width: 100%; height: 100%;
   display: flex; align-items: center; justify-content: center;
@@ -336,6 +344,18 @@ nav {
 .coffee-card-img {
   height: 200px; position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
+}
+.coffee-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.45s ease;
+  display: block;
+}
+.coffee-card:hover .coffee-card-img img { transform: scale(1.07); }
+.coffee-card-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(26,18,8,0.35) 100%);
+  pointer-events: none;
 }
 .coffee-badge {
   position: absolute; top: 1rem; left: 1rem;
@@ -1151,8 +1171,13 @@ footer {
 .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(61,43,15,0.1); }
 .blog-card-img {
   height: 160px; display: flex; align-items: center; justify-content: center;
-  font-size: 64px; position: relative;
+  font-size: 64px; position: relative; overflow: hidden;
 }
+.blog-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.blog-card:hover .blog-card-img img { transform: scale(1.05); }
 .blog-tag {
   position: absolute; bottom: 1rem; left: 1rem;
   background: var(--brown); color: #fff; border-radius: 50px;
@@ -1372,7 +1397,7 @@ footer {
   background: linear-gradient(135deg, var(--brown) 0%, #5a3a18 100%);
   border-radius: 20px; padding: 1.5rem 2rem;
   display: flex; align-items: center; gap: 1.5rem;
-  margin: 0 5rem 0; flex-wrap: wrap;
+  margin: 0 5rem 3rem; flex-wrap: wrap;
   position: relative; overflow: hidden;
 }
 .referral-banner::before {
@@ -1728,6 +1753,7 @@ footer {
   <div class="referral-code-wrap">
     <div class="referral-code-box" id="referralCode">ORIGIN10</div>
     <button class="referral-copy-btn" onclick="copyReferralCode()">📋 คัดลอก</button>
+    <button class="referral-copy-btn" style="background:var(--sage);margin-left:4px;" onclick="shareReferralCode()">💚 แชร์</button>
   </div>
 </div>
 
@@ -2062,9 +2088,9 @@ footer {
   </div>
   <div class="blog-grid">
     <div class="blog-card">
-      <div class="blog-card-img" style="background:linear-gradient(135deg,#f5ede0,#e8ddd0);">
-        ☕
-        <div class="blog-tag">คู่มือ</div>
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#f5ede0,#e8ddd0);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=75" alt="Pour Over" style="width:100%;height:100%;object-fit:cover;opacity:0.85;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;">คู่มือ</div>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-title">วิธีชง Pour Over ที่บ้านให้อร่อยเหมือนร้านกาแฟ</div>
@@ -2076,9 +2102,9 @@ footer {
       </div>
     </div>
     <div class="blog-card">
-      <div class="blog-card-img" style="background:linear-gradient(135deg,#8b7355,#4a3520);">
-        🌿
-        <div class="blog-tag" style="background:var(--sage)">ความรู้</div>
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#8b7355,#4a3520);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=75" alt="Coffee Process" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--sage)">ความรู้</div>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-title">Natural vs Washed ต่างกันยังไง? ส่งผลต่อรสชาติแค่ไหน?</div>
@@ -2090,9 +2116,9 @@ footer {
       </div>
     </div>
     <div class="blog-card">
-      <div class="blog-card-img" style="background:linear-gradient(135deg,#c49a3a,#7a5a20);">
-        🏔️
-        <div class="blog-tag" style="background:var(--rust)">Farm Visit</div>
+      <div class="blog-card-img" style="background:linear-gradient(135deg,#c49a3a,#7a5a20);overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=75" alt="Doi Chang Farm" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+        <div class="blog-tag" style="position:absolute;bottom:0.75rem;left:0.75rem;background:var(--rust)">Farm Visit</div>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-title">ขึ้นดอยช้าง: ชีวิตและกาแฟของชาวอาข่าที่เราทำงานด้วย</div>
@@ -2281,6 +2307,14 @@ footer {
       <div class="checkout-field">
         <label class="checkout-label">หมายเหตุ (ถ้ามี)</label>
         <input class="checkout-input" id="co_note" placeholder="เช่น คั่วอ่อน, บดสำหรับ Pour Over...">
+      </div>
+      <div class="checkout-field">
+        <label class="checkout-label">🎁 โค้ดส่วนลด / โค้ด Referral (ถ้ามี)</label>
+        <div style="display:flex;gap:8px;">
+          <input class="checkout-input" id="co_referral" placeholder="เช่น OC-ABCDE หรือโค้ดจากเพื่อน" style="flex:1;">
+          <button type="button" onclick="applyReferralCode()" style="background:var(--caramel);color:#fff;border:none;border-radius:12px;padding:0 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='var(--brown)'" onmouseout="this.style.background='var(--caramel)'">ใช้โค้ด</button>
+        </div>
+        <div id="referralApplyMsg" style="font-size:12px;color:var(--sage);margin-top:6px;display:none;"></div>
       </div>
 
       <!-- GIFT OPTION -->
@@ -2727,12 +2761,12 @@ function switchAdminTab(tab, btn) {
 
 // ── COFFEE DATA ───────────────────────────────────────
 let coffees = JSON.parse(localStorage.getItem('originCoffees') || 'null') || [
-  { id:1, region:'thai', badge:'New Lot', origin:'ดอยช้าง, เชียงราย — Thailand', name:'Doi Chang Natural', process:'Natural Process · Heirloom · 1,500m', notes:['ลิ้นจี่','เชอร์รี่แดง','ดาร์กช็อกโกแลต','กุหลาบ'], price:680, unit:'/ 250g', score:88.5, desc:'ล็อตจากหมู่บ้านชาวอาข่า บนดอยช้าง เก็บเกี่ยวด้วยมือ คัดแค่เชอร์รี่สุกแดง แล้วตากแดดบนแคร่สูง 21 วัน ให้ผลไม้และกลิ่นหอมที่ซับซ้อน', acidity:75, sweetness:88, body:72, finish:85, color:'linear-gradient(135deg, #c4a07a 0%, #8b5e2a 100%)', emoji:'🍒', soldOut:false },
-  { id:2, region:'africa', badge:'Best Seller', origin:'Yirgacheffe, Ethiopia — Africa', name:'Ethiopia Yirgacheffe', process:'Washed Process · Heirloom · 1,800m', notes:['มะนาว','ชาดอกไม้','พีช','น้ำตาลทราย'], price:720, unit:'/ 250g', score:89.0, desc:'Yirgacheffe คลาสสิกจากหนึ่งใน washing station ที่เก่าแก่ที่สุดในเอธิโอเปีย กระบวนการ washed ที่แม่นยำทำให้ได้ความสะอาดและกลิ่นดอกไม้ที่เป็นเอกลักษณ์', acidity:92, sweetness:78, body:65, finish:88, color:'linear-gradient(135deg, #8b7355 0%, #4a3520 100%)', emoji:'🌸', soldOut:false },
-  { id:3, region:'latin', badge:null, origin:'Huila, Colombia — Latin America', name:'Colombia Huila Honey', process:'Honey Process · Castillo · 1,700m', notes:['แอปริคอต','น้ำผึ้ง','วานิลลา','เฮเซลนัท'], price:650, unit:'/ 250g', score:87.5, desc:'Honey process จากผู้ผลิตรายเล็กใน Huila เก็บรักษา mucilage ไว้บางส่วน ทำให้ได้ความหวานและ body ที่เต็มมากกว่า washed แต่สะอาดกว่า natural', acidity:68, sweetness:92, body:80, finish:82, color:'linear-gradient(135deg, #c49a3a 0%, #7a5a20 100%)', emoji:'🍯', soldOut:false },
-  { id:4, region:'thai', badge:null, origin:'ดอยอินทนนท์, เชียงใหม่ — Thailand', name:'Inthanon Washed', process:'Washed Process · Typica · 1,600m', notes:['ส้มสด','มาลิก','ไวน์ขาว','อัลมอนด์'], price:580, unit:'/ 250g', score:87.0, desc:'จากสหกรณ์บนดอยอินทนนท์ ความสูงกว่า 1,600 เมตร กระบวนการ washed แบบ traditional ทำให้ได้กรดที่สว่างและสะอาด เหมาะสำหรับ pour over', acidity:85, sweetness:72, body:68, finish:80, color:'linear-gradient(135deg, #a08060 0%, #5a3a18 100%)', emoji:'🍊', soldOut:false },
-  { id:5, region:'africa', badge:'Limited', origin:'Gedeo Zone, Ethiopia — Africa', name:'Ethiopia Gedeo Anaerobic', process:'Anaerobic Natural · Heirloom · 2,000m', notes:['บลูเบอร์รี่','กานพลู','ไวน์แดง','โกโก้'], price:890, unit:'/ 250g', score:90.5, desc:'ล็อต experimental ที่ใช้ fermentation แบบ anaerobic เป็นเวลา 72 ชั่วโมง ก่อนตากแดด ให้ผลที่เข้มข้น ซับซ้อน และแปลกตาที่สุดในคอลเลกชั่นนี้', acidity:70, sweetness:85, body:88, finish:92, color:'linear-gradient(135deg, #6b3a6b 0%, #3a1a3a 100%)', emoji:'🍇', soldOut:false },
-  { id:6, region:'latin', badge:'Sold Out', origin:'Antioquia, Colombia — Latin America', name:'Colombia Gesha Washed', process:'Washed Process · Gesha · 1,900m', notes:['มะลิ','มะม่วง','มะงั่ว','ชาเขียว'], price:1200, unit:'/ 250g', score:92.0, desc:'Gesha variety หายากจาก Antioquia ปลูกที่ความสูงเกือบ 2,000 เมตร ให้กลิ่นดอกไม้และผลไม้ที่หอมละเอียด — น่าเสียดายที่ล็อตนี้หมดแล้ว', acidity:90, sweetness:82, body:60, finish:95, color:'linear-gradient(135deg, #7a9a7a 0%, #3a5a3a 100%)', emoji:'🌺', soldOut:true }
+  { id:1, region:'thai', badge:'New Lot', origin:'ดอยช้าง, เชียงราย — Thailand', name:'Doi Chang Natural', process:'Natural Process · Heirloom · 1,500m', notes:['ลิ้นจี่','เชอร์รี่แดง','ดาร์กช็อกโกแลต','กุหลาบ'], price:680, unit:'/ 250g', score:88.5, desc:'ล็อตจากหมู่บ้านชาวอาข่า บนดอยช้าง เก็บเกี่ยวด้วยมือ คัดแค่เชอร์รี่สุกแดง แล้วตากแดดบนแคร่สูง 21 วัน ให้ผลไม้และกลิ่นหอมที่ซับซ้อน', acidity:75, sweetness:88, body:72, finish:85, color:'linear-gradient(135deg, #c4a07a 0%, #8b5e2a 100%)', emoji:'🍒', img:'https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=80', soldOut:false },
+  { id:2, region:'africa', badge:'Best Seller', origin:'Yirgacheffe, Ethiopia — Africa', name:'Ethiopia Yirgacheffe', process:'Washed Process · Heirloom · 1,800m', notes:['มะนาว','ชาดอกไม้','พีช','น้ำตาลทราย'], price:720, unit:'/ 250g', score:89.0, desc:'Yirgacheffe คลาสสิกจากหนึ่งใน washing station ที่เก่าแก่ที่สุดในเอธิโอเปีย กระบวนการ washed ที่แม่นยำทำให้ได้ความสะอาดและกลิ่นดอกไม้ที่เป็นเอกลักษณ์', acidity:92, sweetness:78, body:65, finish:88, color:'linear-gradient(135deg, #8b7355 0%, #4a3520 100%)', emoji:'🌸', img:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80', soldOut:false },
+  { id:3, region:'latin', badge:null, origin:'Huila, Colombia — Latin America', name:'Colombia Huila Honey', process:'Honey Process · Castillo · 1,700m', notes:['แอปริคอต','น้ำผึ้ง','วานิลลา','เฮเซลนัท'], price:650, unit:'/ 250g', score:87.5, desc:'Honey process จากผู้ผลิตรายเล็กใน Huila เก็บรักษา mucilage ไว้บางส่วน ทำให้ได้ความหวานและ body ที่เต็มมากกว่า washed แต่สะอาดกว่า natural', acidity:68, sweetness:92, body:80, finish:82, color:'linear-gradient(135deg, #c49a3a 0%, #7a5a20 100%)', emoji:'🍯', img:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80', soldOut:false },
+  { id:4, region:'thai', badge:null, origin:'ดอยอินทนนท์, เชียงใหม่ — Thailand', name:'Inthanon Washed', process:'Washed Process · Typica · 1,600m', notes:['ส้มสด','มาลิก','ไวน์ขาว','อัลมอนด์'], price:580, unit:'/ 250g', score:87.0, desc:'จากสหกรณ์บนดอยอินทนนท์ ความสูงกว่า 1,600 เมตร กระบวนการ washed แบบ traditional ทำให้ได้กรดที่สว่างและสะอาด เหมาะสำหรับ pour over', acidity:85, sweetness:72, body:68, finish:80, color:'linear-gradient(135deg, #a08060 0%, #5a3a18 100%)', emoji:'🍊', img:'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80', soldOut:false },
+  { id:5, region:'africa', badge:'Limited', origin:'Gedeo Zone, Ethiopia — Africa', name:'Ethiopia Gedeo Anaerobic', process:'Anaerobic Natural · Heirloom · 2,000m', notes:['บลูเบอร์รี่','กานพลู','ไวน์แดง','โกโก้'], price:890, unit:'/ 250g', score:90.5, desc:'ล็อต experimental ที่ใช้ fermentation แบบ anaerobic เป็นเวลา 72 ชั่วโมง ก่อนตากแดด ให้ผลที่เข้มข้น ซับซ้อน และแปลกตาที่สุดในคอลเลกชั่นนี้', acidity:70, sweetness:85, body:88, finish:92, color:'linear-gradient(135deg, #6b3a6b 0%, #3a1a3a 100%)', emoji:'🍇', img:'https://images.unsplash.com/photo-1459755486867-b55449bb39ff?w=600&q=80', soldOut:false },
+  { id:6, region:'latin', badge:'Sold Out', origin:'Antioquia, Colombia — Latin America', name:'Colombia Gesha Washed', process:'Washed Process · Gesha · 1,900m', notes:['มะลิ','มะม่วง','มะงั่ว','ชาเขียว'], price:1200, unit:'/ 250g', score:92.0, desc:'Gesha variety หายากจาก Antioquia ปลูกที่ความสูงเกือบ 2,000 เมตร ให้กลิ่นดอกไม้และผลไม้ที่หอมละเอียด — น่าเสียดายที่ล็อตนี้หมดแล้ว', acidity:90, sweetness:82, body:60, finish:95, color:'linear-gradient(135deg, #7a9a7a 0%, #3a5a3a 100%)', emoji:'🌺', img:'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=600&q=80', soldOut:true }
 ];
 
 function saveCoffeesToStorage() {
@@ -2757,8 +2791,11 @@ function renderCoffees(filter) {
   const filtered = filter === 'all' ? coffees : coffees.filter(c => c.region === filter);
   grid.innerHTML = filtered.map(c => `
     <div class="coffee-card" onclick="openModal(${c.id})">
-      <div class="coffee-card-img" style="background:${c.color}">
-        <span style="font-size:64px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))">${c.emoji}</span>
+      <div class="coffee-card-img" style="background:${c.color};position:relative;overflow:hidden;">
+        ${c.img
+          ? `<img src="${c.img}" alt="${c.name}" style="width:100%;height:100%;object-fit:cover;opacity:0.92;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
+          : ''}
+        <span style="font-size:64px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3));${c.img?'display:none;':''};position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">${c.emoji}</span>
         ${c.badge ? `<span class="coffee-badge${c.badge==='New Lot'?' new':c.badge==='Sold Out'?' sold':''}">${c.badge}</span>` : ''}
         ${getStockBadge(c)}
       </div>
@@ -2911,9 +2948,16 @@ function renderCartItems() {
     </div>`;
     return;
   }
-  el.innerHTML = cart.map(item => `
+  el.innerHTML = cart.map(item => {
+    const coffee = coffees.find(c => c.id === item.id);
+    const hasImg = coffee && coffee.img;
+    return `
     <div class="cart-item">
-      <div class="cart-item-emoji" style="background:${item.color}">${item.emoji}</div>
+      <div class="cart-item-emoji" style="background:${item.color};overflow:hidden;border-radius:12px;">
+        ${hasImg
+          ? `<img src="${coffee.img}" alt="${item.name}" style="width:52px;height:52px;object-fit:cover;" onerror="this.style.display='none'">`
+          : item.emoji}
+      </div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-origin">${item.unit}</div>
@@ -2928,7 +2972,7 @@ function renderCartItems() {
         <button class="cart-item-remove" onclick="removeFromCart(${item.id})">🗑</button>
       </div>
     </div>
-  `).join('');
+  `}).join('');
 }
 
 function openCart() {
@@ -2983,7 +3027,9 @@ function renderUpsell() {
 
   itemsEl.innerHTML = suggestions.map(c => `
     <div class="upsell-item" onclick="upsellAdd(${c.id})">
-      <span class="upsell-emoji">${c.emoji}</span>
+      ${c.img
+        ? `<img src="${c.img}" alt="${c.name}" class="upsell-emoji" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" onerror="this.outerHTML='<span class=upsell-emoji>${c.emoji}</span>'">`
+        : `<span class="upsell-emoji">${c.emoji}</span>`}
       <div class="upsell-info">
         <div class="upsell-name">${c.name}</div>
         <div class="upsell-note">${c.notes.slice(0,2).join(' · ')}</div>
@@ -3054,8 +3100,11 @@ function openModal(id) {
   const sz = selectedSizes[id];
   const curPrice = Math.round(c.price * sizeMults[sz]);
   document.getElementById('modalContent').innerHTML = `
-    <div class="coffee-card-img" style="background:${c.color};border-radius:16px;margin-bottom:1.25rem;height:160px;display:flex;align-items:center;justify-content:center;">
-      <span style="font-size:72px">${c.emoji}</span>
+    <div class="coffee-card-img" style="background:${c.color};border-radius:16px;margin-bottom:1.25rem;height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      ${c.img
+        ? `<img src="${c.img}" alt="${c.name}" style="width:100%;height:100%;object-fit:cover;opacity:0.93;" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
+        : ''}
+      <span style="font-size:72px;${c.img?'display:none;':''};position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">${c.emoji}</span>
     </div>
     <div class="modal-origin">${c.origin}</div>
     <div class="modal-name">${c.name}</div>
@@ -3169,6 +3218,7 @@ function buildOrderText() {
   const phone = document.getElementById('co_phone').value.trim();
   const address = document.getElementById('co_address').value.trim();
   const note = document.getElementById('co_note').value.trim();
+  const referral = appliedReferralCode ? `\n\n🎁 Referral Code: ${appliedReferralCode} (ส่วนลด 10%)` : '';
   const items = cart.map(x => `• ${x.emoji} ${x.name} x${x.qty} (${x.unit}) = ฿${(x.price*x.qty).toLocaleString()}`).join('\n');
   let giftText = '';
   if (isGift) {
@@ -3184,7 +3234,7 @@ function buildOrderText() {
   const giftFee = isGift ? 50 : 0;
   const grindFee = isGrind ? 20 : 0;
   const total = getCartTotal() + giftFee + grindFee;
-  return `🛒 คำสั่งซื้อ Origin Coffee\n\nชื่อ: ${name}\nโทร: ${phone}\nที่อยู่: ${address}${note?'\nหมายเหตุ: '+note:''}${giftText}${grindText}\n\n${items}\n\n💰 ยอดรวม: ฿${total.toLocaleString()} (ยังไม่รวมค่าส่ง)`;
+  return `🛒 คำสั่งซื้อ Origin Coffee\n\nชื่อ: ${name}\nโทร: ${phone}\nที่อยู่: ${address}${note?'\nหมายเหตุ: '+note:''}${giftText}${grindText}${referral}\n\n${items}\n\n💰 ยอดรวม: ฿${total.toLocaleString()} (ยังไม่รวมค่าส่ง)`;
 }
 
 // ── CHECKOUT SYSTEM ──────────────────────────────────────
@@ -3204,6 +3254,12 @@ function openCheckout() {
   document.getElementById('grindOptionWrap')?.classList.remove('active');
   document.getElementById('grindFields')?.classList.remove('show');
   document.querySelectorAll('.grind-type-btn').forEach(b => b.classList.remove('active'));
+
+  appliedReferralCode = '';
+  const refInput = document.getElementById('co_referral');
+  const refMsg = document.getElementById('referralApplyMsg');
+  if (refInput) { refInput.value = ''; refInput.style.borderColor = ''; }
+  if (refMsg) refMsg.style.display = 'none';
 
   renderCheckoutSummary();
   document.getElementById('checkoutForm').style.display = 'block';
@@ -3388,6 +3444,11 @@ function renderCoffeeAdmin() {
         <label class="admin-label">สี Gradient (CSS)</label>
         <input class="admin-field-input" id="c_color_${c.id}" value="${c.color}">
       </div>
+      <div class="admin-field">
+        <label class="admin-label">🖼 รูปภาพจริง (URL จาก Unsplash หรืออื่นๆ) — แนะนำขนาด 600×400px</label>
+        <input class="admin-field-input" id="c_img_${c.id}" value="${c.img||''}" placeholder="https://images.unsplash.com/photo-...?w=600&q=80">
+        ${c.img ? `<img src="${c.img}" alt="preview" style="width:100%;height:80px;object-fit:cover;border-radius:8px;margin-top:6px;opacity:0.8;">` : ''}
+      </div>
     </div>
   `).join('');
 }
@@ -3412,6 +3473,7 @@ function saveCoffee(id) {
     sweetness: parseInt(document.getElementById(`c_sweetness_${id}`).value)||0,
     body: parseInt(document.getElementById(`c_body_${id}`).value)||0,
     color: document.getElementById(`c_color_${id}`).value,
+    img: document.getElementById(`c_img_${id}`)?.value.trim() || coffees[idx].img || '',
   };
   saveCoffeesToStorage();
   renderCoffeeAdmin();
@@ -3439,7 +3501,7 @@ function addNewCoffee() {
     desc: 'คำอธิบายกาแฟ',
     acidity: 70, sweetness: 75, body: 70, finish: 75,
     color: 'linear-gradient(135deg, #c4a07a 0%, #8b5e2a 100%)',
-    emoji: '☕', soldOut: false
+    emoji: '☕', img: '', soldOut: false
   });
   saveCoffeesToStorage();
   renderCoffeeAdmin();
@@ -3682,7 +3744,9 @@ function showResult() {
   const rankLabels = ['อันดับ 1 · เหมาะที่สุด', 'อันดับ 2', 'อันดับ 3'];
   document.getElementById('resultCards').innerHTML = ranked.map((c, i) => `
     <div class="result-card ${i===0?'rank1':''}" onclick="openModal(${c.id})">
-      <div class="result-emoji">${c.emoji}</div>
+      ${c.img
+        ? `<img src="${c.img}" alt="${c.name}" style="width:52px;height:52px;object-fit:cover;border-radius:10px;flex-shrink:0;" onerror="this.outerHTML='<div class=result-emoji>${c.emoji}</div>'">`
+        : `<div class="result-emoji">${c.emoji}</div>`}
       <div class="result-info">
         <div class="result-name">
           ${c.name}
@@ -3732,9 +3796,6 @@ function selectSubPlan(el, size) {
   document.querySelectorAll('.sub-plan').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
   window._selectedSubPlan = size || '250';
-}
-function openSubscribeModal() {
-  alert('ระบบ Subscription กำลังเปิดตัว! สนใจสมัครก่อนใคร ทักมาที่ LINE OA หรือ Telegram ของเรา ☕');
 }
 
 // ── NOTIFY ME MODAL ───────────────────────────────────
@@ -3878,6 +3939,28 @@ function selectGrindType(el, type) {
 }
 
 // ── FEATURE 4: REFERRAL ──────────────────────────────────
+let appliedReferralCode = '';
+function applyReferralCode() {
+  const input = document.getElementById('co_referral');
+  const msgEl = document.getElementById('referralApplyMsg');
+  const code = input ? input.value.trim().toUpperCase() : '';
+  if (!code) { msgEl.style.display='none'; return; }
+  // Validate: must start with OC- and be 8 chars, or match any known pattern
+  const isValid = /^OC-[A-Z0-9]{5}$/.test(code) || code === 'ORIGIN10' || code === 'WELCOME10';
+  if (isValid) {
+    appliedReferralCode = code;
+    msgEl.textContent = `✅ โค้ด ${code} ใช้ได้! ส่วนลด 10% จะถูกคำนวณในการยืนยันออเดอร์`;
+    msgEl.style.color = 'var(--sage)';
+    msgEl.style.display = 'block';
+    if (input) input.style.borderColor = 'var(--sage)';
+  } else {
+    appliedReferralCode = '';
+    msgEl.textContent = `❌ โค้ดไม่ถูกต้องหรือหมดอายุแล้ว`;
+    msgEl.style.color = 'var(--rust)';
+    msgEl.style.display = 'block';
+    if (input) input.style.borderColor = 'var(--rust)';
+  }
+}
 function generateReferralCode() {
   let code = localStorage.getItem('originReferralCode');
   if (!code) {
@@ -3905,6 +3988,17 @@ function copyReferralCode() {
     btn.textContent = '✅ คัดลอกแล้ว!';
     setTimeout(() => { btn.textContent = '📋 คัดลอก'; }, 2000);
   });
+}
+function shareReferralCode() {
+  const code = document.getElementById('referralCode').textContent;
+  const msg = `☕ แนะนำ Origin Coffee ให้เพื่อน!\nใช้โค้ด ${code} ตอนสั่งซื้อ — ได้ส่วนลด 10% ทันที 🎉\nดูกาแฟ specialty ได้ที่ ${window.location.href}`;
+  const enc = encodeURIComponent(msg);
+  // Try Web Share API first (mobile), fallback to LINE
+  if (navigator.share) {
+    navigator.share({ title: 'Origin Coffee — ส่วนลด 10%', text: msg }).catch(() => {});
+  } else {
+    window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}&text=${enc}`, '_blank');
+  }
 }
 
 // ── FEATURE 6: BREW GUIDE ────────────────────────────────
@@ -4071,7 +4165,9 @@ function renderRecentlyViewed() {
   section.classList.add('show');
   list.innerHTML = items.map(c => `
     <div class="rv-item" onclick="openModal(${c.id})">
-      <span class="rv-emoji">${c.emoji}</span>
+      ${c.img
+        ? `<img src="${c.img}" alt="${c.name}" style="width:44px;height:44px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'">`
+        : `<span class="rv-emoji">${c.emoji}</span>`}
       <div class="rv-name">${c.name.split(' ').slice(0,3).join(' ')}</div>
       <div class="rv-price">฿${c.price.toLocaleString()}</div>
     </div>
