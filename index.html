@@ -338,59 +338,83 @@ nav {
 .coffee-card {
   background: var(--warm-white); border-radius: var(--r);
   overflow: hidden; border: 1px solid var(--border);
-  transition: all 0.3s; cursor: pointer;
-  position: relative;
+  transition: all 0.3s; cursor: pointer; position: relative;
+  display: flex; flex-direction: column;
 }
-.coffee-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(61,43,15,0.12); }
-.coffee-card-img {
-  height: 200px; position: relative; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
+.coffee-card:hover { transform: translateY(-5px); box-shadow: 0 24px 64px rgba(61,43,15,0.14); }
+
+/* ── Emoji Hero Banner ── */
+.coffee-card-hero {
+  height: 160px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
 }
-.coffee-card-img img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.45s ease;
-  display: block;
+.coffee-card-hero-emoji {
+  font-size: 62px; line-height: 1;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.25));
+  transition: transform 0.3s ease;
 }
-.coffee-card:hover .coffee-card-img img { transform: scale(1.07); }
-.coffee-card-img::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, rgba(26,18,8,0.35) 100%);
-  pointer-events: none;
+.coffee-card:hover .coffee-card-hero-emoji { transform: scale(1.12) rotate(-3deg); }
+.coffee-card-hero-score {
+  font-family: 'Fraunces', serif; font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.9); letter-spacing: 0.5px;
+  background: rgba(0,0,0,0.22); border-radius: 50px;
+  padding: 3px 10px;
 }
 .coffee-badge {
-  position: absolute; top: 1rem; left: 1rem;
+  position: absolute; top: 0.85rem; left: 0.85rem;
   background: var(--brown); color: #fff; border-radius: 50px;
-  padding: 4px 12px; font-size: 10px; letter-spacing: 1px;
-  text-transform: uppercase; font-weight: 500;
+  padding: 3px 11px; font-size: 10px; letter-spacing: 1px;
+  text-transform: uppercase; font-weight: 600;
 }
 .coffee-badge.new { background: var(--sage); }
 .coffee-badge.sold { background: var(--text-muted); }
-.coffee-card-body { padding: 1.5rem; }
-.coffee-origin { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--caramel); margin-bottom: 0.4rem; }
-.coffee-name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem; line-height: 1.2; }
-.coffee-process { font-size: 12px; color: var(--text-muted); margin-bottom: 1rem; }
-.cupping-notes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+
+/* ── Card Body ── */
+.coffee-card-body { padding: 1.25rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.coffee-card-top { margin-bottom: 0.9rem; }
+.coffee-origin {
+  font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase;
+  color: var(--caramel); margin-bottom: 0.3rem;
+  display: flex; align-items: center; gap: 5px;
+}
+.coffee-name {
+  font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500;
+  color: var(--ink); line-height: 1.2; margin-bottom: 0.3rem;
+}
+.coffee-process {
+  font-size: 11px; color: var(--text-muted); line-height: 1.5;
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* ── Cupping Notes ── */
+.cupping-notes { display: flex; flex-wrap: wrap; gap: 5px; margin: 0.85rem 0; }
 .note-tag {
   background: var(--cream); border: 1px solid var(--mist); border-radius: 50px;
   padding: 3px 10px; font-size: 11px; color: var(--bark);
 }
-.coffee-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 0.5rem; }
+
+/* ── Score Bars ── */
+.score-section { margin-bottom: 1rem; }
+.score-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.score-label { font-size: 10px; color: var(--text-muted); width: 58px; flex-shrink: 0; }
+.score-track { flex: 1; height: 3px; background: var(--mist); border-radius: 2px; overflow: hidden; }
+.score-fill { height: 100%; background: linear-gradient(90deg, var(--caramel), var(--gold)); border-radius: 2px; }
+.score-val { font-size: 10px; color: var(--caramel); width: 24px; text-align: right; font-weight: 600; }
+
+/* ── Card Footer ── */
+.coffee-card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid var(--border); padding-top: 1rem; margin-top: auto;
+}
 .coffee-price { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: var(--ink); }
-.coffee-price-unit { font-size: 11px; color: var(--text-muted); font-family: 'DM Sans', sans-serif; }
+.coffee-price-unit { font-size: 11px; color: var(--text-muted); }
 .coffee-inquiry {
   background: var(--cream); border: 1.5px solid var(--border); border-radius: 50px;
-  padding: 8px 18px; font-size: 12px; color: var(--brown); font-weight: 500;
+  padding: 8px 16px; font-size: 11px; color: var(--brown); font-weight: 500;
   cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s;
 }
 .coffee-inquiry:hover { background: var(--brown); color: #fff; border-color: var(--brown); }
-
-/* Score bar */
-.score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.score-label { font-size: 11px; color: var(--text-muted); width: 60px; flex-shrink: 0; }
-.score-track { flex: 1; height: 4px; background: var(--mist); border-radius: 2px; overflow: hidden; }
-.score-fill { height: 100%; background: linear-gradient(90deg, var(--caramel), var(--gold)); border-radius: 2px; }
-.score-val { font-size: 11px; color: var(--text-muted); width: 28px; text-align: right; }
 
 /* ─── LEAD CAPTURE ─────────────────────────────── */
 #leads {
@@ -976,7 +1000,7 @@ footer {
   animation: stock-pulse 2s ease-in-out infinite;
   box-shadow: 0 2px 12px rgba(231,76,60,0.4);
 }
-@keyframes stock-pulse { 0%,100% { box-shadow: 0 2px 12px rgba(231,76,60,0.4); } 50% { box-shadow: 0 2px 20px rgba(231,76,60,0.7); } }
+ 50% { box-shadow: 0 2px 20px rgba(231,76,60,0.7); } }
 
 /* ─── 2. BUNDLE SECTION ──────────────────────────── */
 #bundles { background: var(--ink); }
@@ -1453,7 +1477,7 @@ footer {
 .coffee-grid { contain: layout; }
 
 /* ─── PERFORMANCE: image aspect ratio reservations ───── */
-.coffee-card-img { aspect-ratio: 3/2; height: auto; min-height: 180px; }
+.coffee-card-hero { height: 140px; }
 
 /* ─── ANIMATIONS ─────────────────────────────────────── */
 @keyframes fadeUp {
@@ -2671,12 +2695,12 @@ function switchAdminTab(tab, btn) {
 
 // ── COFFEE DATA ───────────────────────────────────────
 let coffees = JSON.parse(safeStorage.get('originCoffees') || 'null') || [
-  { id:1, region:'thai', badge:'New Lot', origin:'ดอยช้าง, เชียงราย — Thailand', name:'Doi Chang Natural', process:'Natural Process · Heirloom · 1,500m', notes:['ลิ้นจี่','เชอร์รี่แดง','ดาร์กช็อกโกแลต','กุหลาบ'], price:680, unit:'/ 250g', score:88.5, desc:'ล็อตจากหมู่บ้านชาวอาข่า บนดอยช้าง เก็บเกี่ยวด้วยมือ คัดแค่เชอร์รี่สุกแดง แล้วตากแดดบนแคร่สูง 21 วัน ให้ผลไม้และกลิ่นหอมที่ซับซ้อน', acidity:75, sweetness:88, body:72, finish:85, color:'linear-gradient(135deg, #c4a07a 0%, #8b5e2a 100%)', emoji:'🍒', img:'https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600&q=80', soldOut:false },
-  { id:2, region:'africa', badge:'Best Seller', origin:'Yirgacheffe, Ethiopia — Africa', name:'Ethiopia Yirgacheffe', process:'Washed Process · Heirloom · 1,800m', notes:['มะนาว','ชาดอกไม้','พีช','น้ำตาลทราย'], price:720, unit:'/ 250g', score:89.0, desc:'Yirgacheffe คลาสสิกจากหนึ่งใน washing station ที่เก่าแก่ที่สุดในเอธิโอเปีย กระบวนการ washed ที่แม่นยำทำให้ได้ความสะอาดและกลิ่นดอกไม้ที่เป็นเอกลักษณ์', acidity:92, sweetness:78, body:65, finish:88, color:'linear-gradient(135deg, #8b7355 0%, #4a3520 100%)', emoji:'🌸', img:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80', soldOut:false },
-  { id:3, region:'latin', badge:null, origin:'Huila, Colombia — Latin America', name:'Colombia Huila Honey', process:'Honey Process · Castillo · 1,700m', notes:['แอปริคอต','น้ำผึ้ง','วานิลลา','เฮเซลนัท'], price:650, unit:'/ 250g', score:87.5, desc:'Honey process จากผู้ผลิตรายเล็กใน Huila เก็บรักษา mucilage ไว้บางส่วน ทำให้ได้ความหวานและ body ที่เต็มมากกว่า washed แต่สะอาดกว่า natural', acidity:68, sweetness:92, body:80, finish:82, color:'linear-gradient(135deg, #c49a3a 0%, #7a5a20 100%)', emoji:'🍯', img:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80', soldOut:false },
-  { id:4, region:'thai', badge:null, origin:'ดอยอินทนนท์, เชียงใหม่ — Thailand', name:'Inthanon Washed', process:'Washed Process · Typica · 1,600m', notes:['ส้มสด','มาลิก','ไวน์ขาว','อัลมอนด์'], price:580, unit:'/ 250g', score:87.0, desc:'จากสหกรณ์บนดอยอินทนนท์ ความสูงกว่า 1,600 เมตร กระบวนการ washed แบบ traditional ทำให้ได้กรดที่สว่างและสะอาด เหมาะสำหรับ pour over', acidity:85, sweetness:72, body:68, finish:80, color:'linear-gradient(135deg, #a08060 0%, #5a3a18 100%)', emoji:'🍊', img:'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80', soldOut:false },
-  { id:5, region:'africa', badge:'Limited', origin:'Gedeo Zone, Ethiopia — Africa', name:'Ethiopia Gedeo Anaerobic', process:'Anaerobic Natural · Heirloom · 2,000m', notes:['บลูเบอร์รี่','กานพลู','ไวน์แดง','โกโก้'], price:890, unit:'/ 250g', score:90.5, desc:'ล็อต experimental ที่ใช้ fermentation แบบ anaerobic เป็นเวลา 72 ชั่วโมง ก่อนตากแดด ให้ผลที่เข้มข้น ซับซ้อน และแปลกตาที่สุดในคอลเลกชั่นนี้', acidity:70, sweetness:85, body:88, finish:92, color:'linear-gradient(135deg, #6b3a6b 0%, #3a1a3a 100%)', emoji:'🍇', img:'https://images.unsplash.com/photo-1459755486867-b55449bb39ff?w=600&q=80', soldOut:false },
-  { id:6, region:'latin', badge:'Sold Out', origin:'Antioquia, Colombia — Latin America', name:'Colombia Gesha Washed', process:'Washed Process · Gesha · 1,900m', notes:['มะลิ','มะม่วง','มะงั่ว','ชาเขียว'], price:1200, unit:'/ 250g', score:92.0, desc:'Gesha variety หายากจาก Antioquia ปลูกที่ความสูงเกือบ 2,000 เมตร ให้กลิ่นดอกไม้และผลไม้ที่หอมละเอียด — น่าเสียดายที่ล็อตนี้หมดแล้ว', acidity:90, sweetness:82, body:60, finish:95, color:'linear-gradient(135deg, #7a9a7a 0%, #3a5a3a 100%)', emoji:'🌺', img:'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=600&q=80', soldOut:true }
+  { id:1, region:'thai', badge:'New Lot', origin:'ดอยช้าง, เชียงราย — Thailand', name:'Doi Chang Natural', process:'Natural Process · Heirloom · 1,500m', notes:['ลิ้นจี่','เชอร์รี่แดง','ดาร์กช็อกโกแลต','กุหลาบ'], price:680, unit:'/ 250g', score:88.5, desc:'ล็อตจากหมู่บ้านชาวอาข่า บนดอยช้าง เก็บเกี่ยวด้วยมือ คัดแค่เชอร์รี่สุกแดง แล้วตากแดดบนแคร่สูง 21 วัน ให้ผลไม้และกลิ่นหอมที่ซับซ้อน', acidity:75, sweetness:88, body:72, finish:85, color:'linear-gradient(135deg, #c4a07a 0%, #8b5e2a 100%)', emoji:'🍒', soldOut:false },
+  { id:2, region:'africa', badge:'Best Seller', origin:'Yirgacheffe, Ethiopia — Africa', name:'Ethiopia Yirgacheffe', process:'Washed Process · Heirloom · 1,800m', notes:['มะนาว','ชาดอกไม้','พีช','น้ำตาลทราย'], price:720, unit:'/ 250g', score:89.0, desc:'Yirgacheffe คลาสสิกจากหนึ่งใน washing station ที่เก่าแก่ที่สุดในเอธิโอเปีย กระบวนการ washed ที่แม่นยำทำให้ได้ความสะอาดและกลิ่นดอกไม้ที่เป็นเอกลักษณ์', acidity:92, sweetness:78, body:65, finish:88, color:'linear-gradient(135deg, #8b7355 0%, #4a3520 100%)', emoji:'🌸', soldOut:false },
+  { id:3, region:'latin', badge:null, origin:'Huila, Colombia — Latin America', name:'Colombia Huila Honey', process:'Honey Process · Castillo · 1,700m', notes:['แอปริคอต','น้ำผึ้ง','วานิลลา','เฮเซลนัท'], price:650, unit:'/ 250g', score:87.5, desc:'Honey process จากผู้ผลิตรายเล็กใน Huila เก็บรักษา mucilage ไว้บางส่วน ทำให้ได้ความหวานและ body ที่เต็มมากกว่า washed แต่สะอาดกว่า natural', acidity:68, sweetness:92, body:80, finish:82, color:'linear-gradient(135deg, #c49a3a 0%, #7a5a20 100%)', emoji:'🍯', soldOut:false },
+  { id:4, region:'thai', badge:null, origin:'ดอยอินทนนท์, เชียงใหม่ — Thailand', name:'Inthanon Washed', process:'Washed Process · Typica · 1,600m', notes:['ส้มสด','มาลิก','ไวน์ขาว','อัลมอนด์'], price:580, unit:'/ 250g', score:87.0, desc:'จากสหกรณ์บนดอยอินทนนท์ ความสูงกว่า 1,600 เมตร กระบวนการ washed แบบ traditional ทำให้ได้กรดที่สว่างและสะอาด เหมาะสำหรับ pour over', acidity:85, sweetness:72, body:68, finish:80, color:'linear-gradient(135deg, #a08060 0%, #5a3a18 100%)', emoji:'🍊', soldOut:false },
+  { id:5, region:'africa', badge:'Limited', origin:'Gedeo Zone, Ethiopia — Africa', name:'Ethiopia Gedeo Anaerobic', process:'Anaerobic Natural · Heirloom · 2,000m', notes:['บลูเบอร์รี่','กานพลู','ไวน์แดง','โกโก้'], price:890, unit:'/ 250g', score:90.5, desc:'ล็อต experimental ที่ใช้ fermentation แบบ anaerobic เป็นเวลา 72 ชั่วโมง ก่อนตากแดด ให้ผลที่เข้มข้น ซับซ้อน และแปลกตาที่สุดในคอลเลกชั่นนี้', acidity:70, sweetness:85, body:88, finish:92, color:'linear-gradient(135deg, #6b3a6b 0%, #3a1a3a 100%)', emoji:'🍇', soldOut:false },
+  { id:6, region:'latin', badge:'Sold Out', origin:'Antioquia, Colombia — Latin America', name:'Colombia Gesha Washed', process:'Washed Process · Gesha · 1,900m', notes:['มะลิ','มะม่วง','มะงั่ว','ชาเขียว'], price:1200, unit:'/ 250g', score:92.0, desc:'Gesha variety หายากจาก Antioquia ปลูกที่ความสูงเกือบ 2,000 เมตร ให้กลิ่นดอกไม้และผลไม้ที่หอมละเอียด — น่าเสียดายที่ล็อตนี้หมดแล้ว', acidity:90, sweetness:82, body:60, finish:95, color:'linear-gradient(135deg, #7a9a7a 0%, #3a5a3a 100%)', emoji:'🌺', soldOut:true }
 ];
 
 function saveCoffeesToStorage() {
@@ -2724,32 +2748,46 @@ function renderCoffees(filter) {
   requestAnimationFrame(() => {
     grid.innerHTML = filtered.map((c, idx) => `
       <div class="coffee-card" onclick="openModal(${c.id})" style="animation:fadeUp 0.35s ${Math.min(idx*0.06,0.3)}s both;">
-        <div class="coffee-card-img" style="background:${c.color};position:relative;overflow:hidden;">
-          ${c.img
-            ? `<img src="${c.img}" alt="${c.name}" loading="${idx < 3 ? 'eager' : 'lazy'}" decoding="async" width="600" height="200" style="width:100%;height:100%;object-fit:cover;opacity:0.92;transition:transform 0.4s;" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
-            : ''}
-          <span style="font-size:64px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3));${c.img?'display:none;':''};position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">${c.emoji}</span>
+
+        <!-- ── Emoji Hero ── -->
+        <div class="coffee-card-hero" style="background:${c.color};">
+          <span class="coffee-card-hero-emoji">${c.emoji}</span>
+          <span class="coffee-card-hero-score">SCA ${c.score}</span>
           ${c.badge ? `<span class="coffee-badge${c.badge==='New Lot'?' new':c.badge==='Sold Out'?' sold':''}">${c.badge}</span>` : ''}
           ${getStockBadge(c)}
         </div>
+
+        <!-- ── Card Body ── -->
         <div class="coffee-card-body">
-          <div class="coffee-origin">${c.origin}</div>
-          <div class="coffee-name">${c.name}</div>
-          <div class="coffee-process">${c.process}</div>
-          <div class="cupping-notes">${c.notes.map(n=>`<span class="note-tag">${n}</span>`).join('')}</div>
-          <div style="margin-bottom:0.75rem;">
-            <div class="score-row"><span class="score-label">Acidity</span><div class="score-track"><div class="score-fill" style="width:${c.acidity}%"></div></div><span class="score-val">${c.acidity}</span></div>
-            <div class="score-row"><span class="score-label">Sweetness</span><div class="score-track"><div class="score-fill" style="width:${c.sweetness}%"></div></div><span class="score-val">${c.sweetness}</span></div>
-            <div class="score-row"><span class="score-label">Body</span><div class="score-track"><div class="score-fill" style="width:${c.body}%"></div></div><span class="score-val">${c.body}</span></div>
+
+          <!-- 1. Origin + Name + Process -->
+          <div class="coffee-card-top">
+            <div class="coffee-origin">📍 ${c.origin}</div>
+            <div class="coffee-name">${c.name}</div>
+            <div class="coffee-process">⚗️ ${c.process}</div>
           </div>
+
+          <!-- 2. Cupping Notes -->
+          <div class="cupping-notes">
+            ${c.notes.map(n=>`<span class="note-tag">${n}</span>`).join('')}
+          </div>
+
+          <!-- 3. Score Bars -->
+          <div class="score-section">
+            <div class="score-row"><span class="score-label">🍋 Acidity</span><div class="score-track"><div class="score-fill" style="width:${c.acidity}%"></div></div><span class="score-val">${c.acidity}</span></div>
+            <div class="score-row"><span class="score-label">🍬 Sweet</span><div class="score-track"><div class="score-fill" style="width:${c.sweetness}%"></div></div><span class="score-val">${c.sweetness}</span></div>
+            <div class="score-row"><span class="score-label">☁️ Body</span><div class="score-track"><div class="score-fill" style="width:${c.body}%"></div></div><span class="score-val">${c.body}</span></div>
+          </div>
+
+          <!-- 4. Price + CTA -->
           <div class="coffee-card-footer">
             <div>
               <div class="coffee-price">฿${c.price.toLocaleString()}</div>
-              <div class="coffee-price-unit">${c.unit} · SCA ${c.score}</div>
+              <div class="coffee-price-unit">${c.unit}</div>
             </div>
             ${c.soldOut
-              ? `<button class="coffee-inquiry" onclick="event.stopPropagation();openNotifyModal('${c.name}')">🔔 แจ้งเตือนเมื่อมีสินค้า</button>`
-              : `<button class="coffee-add-cart" onclick="event.stopPropagation();addToCart(${c.id},event)">+ หยิบใส่ตะกร้า</button>`
+              ? `<button class="coffee-inquiry" onclick="event.stopPropagation();openNotifyModal('${c.name}')">🔔 แจ้งเตือน</button>`
+              : `<button class="coffee-add-cart" onclick="event.stopPropagation();addToCart(${c.id},event)">🛒 ใส่ตะกร้า</button>`
             }
           </div>
         </div>
@@ -2884,7 +2922,7 @@ function renderCartItems() {
   }
   el.innerHTML = cart.map(item => {
     const coffee = coffees.find(c => c.id === item.id);
-    const hasImg = coffee && coffee.img;
+    const hasImg = false;
     return `
     <div class="cart-item">
       <div class="cart-item-emoji" style="background:${item.color};overflow:hidden;border-radius:12px;">
@@ -2956,9 +2994,7 @@ function renderUpsell() {
 
   itemsEl.innerHTML = suggestions.map(c => `
     <div class="upsell-item" onclick="upsellAdd(${c.id})">
-      ${c.img
-        ? `<img src="${c.img}" alt="${c.name}" class="upsell-emoji" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" onerror="this.outerHTML='<span class=upsell-emoji>${c.emoji}</span>'">`
-        : `<span class="upsell-emoji">${c.emoji}</span>`}
+      <span class="upsell-emoji">${c.emoji}</span>
       <div class="upsell-info">
         <div class="upsell-name">${c.name}</div>
         <div class="upsell-note">${c.notes.slice(0,2).join(' · ')}</div>
@@ -3027,11 +3063,10 @@ function openModal(id) {
   const sz = selectedSizes[id];
   const curPrice = Math.round(c.price * sizeMults[sz]);
   document.getElementById('modalContent').innerHTML = `
-    <div class="coffee-card-img" style="background:${c.color};border-radius:16px;margin-bottom:1.25rem;height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
-      ${c.img
-        ? `<img src="${c.img}" alt="${c.name}" style="width:100%;height:100%;object-fit:cover;opacity:0.93;" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
-        : ''}
-      <span style="font-size:72px;${c.img?'display:none;':''};position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">${c.emoji}</span>
+    <div class="coffee-card-hero" style="background:${c.color};border-radius:16px;margin-bottom:1.5rem;height:200px;">
+      <span class="coffee-card-hero-emoji" style="font-size:72px;">${c.emoji}</span>
+      <span class="coffee-card-hero-score">SCA ${c.score}</span>
+      ${c.badge ? `<span class="coffee-badge${c.badge==='New Lot'?' new':c.badge==='Sold Out'?' sold':''}">${c.badge}</span>` : ''}
     </div>
     <div class="modal-origin">${c.origin}</div>
     <div class="modal-name">${c.name}</div>
@@ -3595,9 +3630,7 @@ function showResult() {
   const rankLabels = ['อันดับ 1 · เหมาะที่สุด', 'อันดับ 2', 'อันดับ 3'];
   document.getElementById('resultCards').innerHTML = ranked.map((c, i) => `
     <div class="result-card ${i===0?'rank1':''}" onclick="openModal(${c.id})">
-      ${c.img
-        ? `<img src="${c.img}" alt="${c.name}" style="width:52px;height:52px;object-fit:cover;border-radius:10px;flex-shrink:0;" onerror="this.outerHTML='<div class=result-emoji>${c.emoji}</div>'">`
-        : `<div class="result-emoji">${c.emoji}</div>`}
+      <div class="result-emoji">${c.emoji}</div>
       <div class="result-info">
         <div class="result-name">
           ${c.name}
