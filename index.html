@@ -1164,6 +1164,137 @@ footer {
 .blog-card-meta { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
 .blog-read-more { color: var(--caramel); font-weight: 600; letter-spacing: 0.3px; }
 
+/* ─── SIZE SELECTOR ──────────────────────────────── */
+.size-selector { display: flex; gap: 8px; flex-wrap: wrap; margin: 0.75rem 0 1rem; }
+.size-btn {
+  padding: 7px 16px; border-radius: 50px;
+  border: 1.5px solid var(--border); background: var(--cream2);
+  font-size: 12px; font-weight: 500; color: var(--text-muted);
+  cursor: pointer; transition: all 0.18s; font-family: 'DM Sans', sans-serif;
+}
+.size-btn:hover { border-color: var(--caramel); color: var(--ink); }
+.size-btn.active { border-color: var(--caramel); background: rgba(139,94,42,0.1); color: var(--brown); }
+.size-price-tag { font-size: 11px; color: var(--caramel); font-weight: 600; }
+.modal-size-wrap { margin: 1rem 0; }
+.modal-size-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--caramel); margin-bottom: 8px; display: block; }
+
+/* ─── UPSELL IN CART ─────────────────────────────── */
+.cart-upsell {
+  margin: 0 1.75rem 1rem;
+  background: linear-gradient(135deg, #faf5ed 0%, #f5ede0 100%);
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 1rem 1.1rem; display: none;
+}
+.cart-upsell.show { display: block; }
+.cart-upsell-label {
+  font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--caramel); font-weight: 600; margin-bottom: 0.75rem;
+}
+.upsell-items { display: flex; flex-direction: column; gap: 0.6rem; }
+.upsell-item {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 12px; padding: 8px 10px; cursor: pointer;
+  transition: all 0.2s;
+}
+.upsell-item:hover { border-color: var(--caramel); transform: translateX(2px); }
+.upsell-emoji { font-size: 22px; flex-shrink: 0; }
+.upsell-info { flex: 1; }
+.upsell-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.upsell-note { font-size: 11px; color: var(--text-muted); }
+.upsell-price { font-size: 13px; font-weight: 600; color: var(--brown); white-space: nowrap; }
+.upsell-add-btn {
+  background: var(--brown); color: #fff; border: none;
+  border-radius: 50px; padding: 5px 12px; font-size: 11px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500;
+  white-space: nowrap; transition: background 0.2s;
+}
+.upsell-add-btn:hover { background: var(--caramel); }
+
+/* ─── GIFT OPTION ────────────────────────────────── */
+.gift-option-wrap {
+  border: 1.5px solid var(--border); border-radius: 14px;
+  padding: 1rem 1.1rem; margin-bottom: 1rem;
+  transition: border-color 0.2s; cursor: pointer;
+}
+.gift-option-wrap.active { border-color: var(--caramel); background: rgba(139,94,42,0.04); }
+.gift-toggle-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.gift-checkbox {
+  width: 20px; height: 20px; border-radius: 6px;
+  border: 2px solid var(--border); background: var(--cream2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; transition: all 0.2s; flex-shrink: 0;
+  cursor: pointer;
+}
+.gift-checkbox.checked { background: var(--brown); border-color: var(--brown); }
+.gift-toggle-label { font-size: 13px; font-weight: 600; color: var(--ink); }
+.gift-toggle-sub { font-size: 11px; color: var(--text-muted); }
+.gift-fields { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.gift-fields.show { display: block; }
+.gift-price-badge {
+  display: inline-block; background: rgba(196,154,58,0.15);
+  border: 1px solid rgba(196,154,58,0.3); border-radius: 50px;
+  padding: 2px 10px; font-size: 11px; color: var(--caramel); font-weight: 600;
+  margin-left: 8px;
+}
+
+/* ─── ABANDONED CART MODAL ───────────────────────── */
+.abandon-overlay {
+  display: none; position: fixed; inset: 0; z-index: 950;
+  background: rgba(26,18,8,0.65); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center; padding: 1.5rem;
+}
+.abandon-overlay.open { display: flex; }
+.abandon-modal {
+  background: var(--warm-white); border-radius: 28px;
+  width: 100%; max-width: 420px;
+  padding: 2.25rem; position: relative;
+  text-align: center;
+  animation: modal-in 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.abandon-icon { font-size: 52px; margin-bottom: 0.75rem; display: block; }
+.abandon-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+.abandon-sub { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+.abandon-cart-preview {
+  background: var(--cream2); border-radius: 14px; padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem; text-align: left;
+}
+.abandon-item-row { font-size: 13px; color: var(--ink); padding: 3px 0; }
+.abandon-total { font-size: 14px; font-weight: 600; color: var(--brown); border-top: 1px solid var(--border); padding-top: 6px; margin-top: 4px; }
+.abandon-field { margin-bottom: 0.85rem; text-align: left; }
+.abandon-label { display: block; font-size: 12px; color: var(--text-muted); font-weight: 500; margin-bottom: 5px; }
+.abandon-input {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--border); border-radius: 12px;
+  font-size: 14px; font-family: 'DM Sans', sans-serif;
+  background: var(--cream2); color: var(--ink);
+  outline: none; transition: border-color 0.2s;
+}
+.abandon-input:focus { border-color: var(--caramel); background: #fff; }
+.abandon-save-btn {
+  width: 100%; background: var(--brown); color: #fff;
+  border: none; border-radius: 14px; padding: 14px;
+  font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; transition: all 0.2s; margin-bottom: 0.75rem;
+}
+.abandon-save-btn:hover { background: var(--caramel); }
+.abandon-skip { font-size: 13px; color: var(--text-muted); cursor: pointer; text-decoration: underline; }
+.abandon-skip:hover { color: var(--ink); }
+.abandon-close {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--cream); border: 1px solid var(--border);
+  cursor: pointer; font-size: 15px; color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+}
+.abandon-success { display: none; }
+.abandon-success.show { display: block; }
+.abandon-success-icon { font-size: 48px; margin-bottom: 0.75rem; }
+.abandon-success-title { font-family: 'Fraunces', serif; font-size: 22px; color: var(--ink); margin-bottom: 0.5rem; }
+.abandon-success-sub { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
 /* ─── RESPONSIVE ─────────────────────────────────── */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
@@ -1881,6 +2012,12 @@ footer {
         <div class="cart-empty-sub">เลือกกาแฟที่ชอบแล้วกด "หยิบใส่ตะกร้า"</div>
       </div>
     </div>
+    <!-- UPSELL SECTION -->
+    <div class="cart-upsell" id="cartUpsell">
+      <div class="cart-upsell-label">☕ คนที่ซื้อล็อตนี้มักซื้อด้วย</div>
+      <div class="upsell-items" id="upsellItems"></div>
+    </div>
+
     <div class="cart-foot">
       <div class="cart-summary">
         <div>
@@ -1926,6 +2063,28 @@ footer {
       <div class="checkout-field">
         <label class="checkout-label">หมายเหตุ (ถ้ามี)</label>
         <input class="checkout-input" id="co_note" placeholder="เช่น คั่วอ่อน, บดสำหรับ Pour Over...">
+      </div>
+
+      <!-- GIFT OPTION -->
+      <div class="checkout-section-title">ตัวเลือกพิเศษ</div>
+      <div class="gift-option-wrap" id="giftOptionWrap" onclick="toggleGiftOption()">
+        <div class="gift-toggle-row">
+          <div class="gift-checkbox" id="giftCheckbox">🎁</div>
+          <div>
+            <div class="gift-toggle-label">ส่งเป็นของขวัญ <span class="gift-price-badge">+฿50</span></div>
+            <div class="gift-toggle-sub">กล่องของขวัญพร้อมการ์ด — เหมาะสำหรับ Coffee Lover ☕</div>
+          </div>
+        </div>
+        <div class="gift-fields" id="giftFields">
+          <div class="checkout-field">
+            <label class="checkout-label">ชื่อผู้รับของขวัญ</label>
+            <input class="checkout-input" id="gift_recipient" placeholder="ชื่อคนที่คุณอยากมอบให้">
+          </div>
+          <div class="checkout-field">
+            <label class="checkout-label">ข้อความในการ์ด (ไม่เกิน 80 ตัวอักษร)</label>
+            <input class="checkout-input" id="gift_message" placeholder="เช่น สุขสันต์วันเกิดนะ รักคุณเสมอ ☕" maxlength="80">
+          </div>
+        </div>
       </div>
 
       <!-- Channel selector -->
@@ -2010,6 +2169,41 @@ footer {
       <div class="success-title">ส่งคำสั่งซื้อเรียบร้อย!</div>
       <div class="success-sub" id="successSubText">เราจะติดต่อกลับเพื่อยืนยันคำสั่งซื้อภายใน 1 ชั่วโมงครับ</div>
       <button class="btn-primary" onclick="closeCheckout();clearCart();" style="margin:0 auto;display:block;">กลับหน้าหลัก</button>
+    </div>
+  </div>
+</div>
+
+<!-- ABANDONED CART MODAL -->
+<div class="abandon-overlay" id="abandonOverlay">
+  <div class="abandon-modal">
+    <button class="abandon-close" onclick="closeAbandonModal()">✕</button>
+    
+    <!-- Form view -->
+    <div id="abandonFormView">
+      <span class="abandon-icon">☕</span>
+      <div class="abandon-title">รอแป๊บนึงนะครับ!</div>
+      <div class="abandon-sub">ตะกร้าของคุณยังอยู่ที่นี่ — ฝากเบอร์โทรหรือ LINE ไว้ เดี๋ยวเราส่งลิงก์สั่งซื้อให้ภายใน 1 ชั่วโมง</div>
+      
+      <div class="abandon-cart-preview" id="abandonCartPreview"></div>
+      
+      <div class="abandon-field">
+        <label class="abandon-label">เบอร์โทร / LINE ID *</label>
+        <input class="abandon-input" id="abandon_contact" placeholder="0812345678 หรือ @yourline" type="tel">
+      </div>
+      <div class="abandon-field">
+        <label class="abandon-label">ชื่อเรียก (ไม่บังคับ)</label>
+        <input class="abandon-input" id="abandon_name" placeholder="ชื่อเล่นก็ได้ครับ">
+      </div>
+      
+      <button class="abandon-save-btn" onclick="submitAbandonContact()">💾 บันทึก — ส่งลิงก์ให้ฉัน</button>
+      <div><span class="abandon-skip" onclick="closeAbandonModal()">ไม่เป็นไร ออกเลย</span></div>
+    </div>
+    
+    <!-- Success view -->
+    <div class="abandon-success" id="abandonSuccess">
+      <div class="abandon-success-icon">✅</div>
+      <div class="abandon-success-title">รับทราบแล้วครับ!</div>
+      <div class="abandon-success-sub">เราจะส่งลิงก์ตะกร้าและรายการสินค้าให้คุณทาง LINE / โทรศัพท์<br>ขอบคุณที่สนใจ Origin Coffee ครับ ☕</div>
     </div>
   </div>
 </div>
@@ -2301,32 +2495,6 @@ function filterCoffee(f, btn) {
   renderCoffees(f);
 }
 
-function openModal(id) {
-  const c = coffees.find(x => x.id === id);
-  if (!c) return;
-  document.getElementById('modalContent').innerHTML = `
-    <div class="coffee-card-img" style="background:${c.color};border-radius:16px;margin-bottom:1.25rem;height:160px;display:flex;align-items:center;justify-content:center;">
-      <span style="font-size:72px">${c.emoji}</span>
-    </div>
-    <div class="modal-origin">${c.origin}</div>
-    <div class="modal-name">${c.name}</div>
-    <p style="font-size:13px;color:var(--text-muted);margin-bottom:0.5rem;">${c.process}</p>
-    <p style="font-size:14px;color:var(--ink);line-height:1.8;margin-bottom:1rem;">${c.desc}</p>
-    <div class="modal-section-title">Cupping Notes</div>
-    <div class="modal-notes">${c.notes.map(n=>`<span class="note-tag">${n}</span>`).join('')}</div>
-    <div class="modal-section-title">Flavor Profile</div>
-    <div class="score-row"><span class="score-label">Acidity</span><div class="score-track"><div class="score-fill" style="width:${c.acidity}%"></div></div><span class="score-val">${c.acidity}</span></div>
-    <div class="score-row"><span class="score-label">Sweetness</span><div class="score-track"><div class="score-fill" style="width:${c.sweetness}%"></div></div><span class="score-val">${c.sweetness}</span></div>
-    <div class="score-row"><span class="score-label">Body</span><div class="score-track"><div class="score-fill" style="width:${c.body}%"></div></div><span class="score-val">${c.body}</span></div>
-    <div class="score-row"><span class="score-label">Finish</span><div class="score-track"><div class="score-fill" style="width:${c.finish}%"></div></div><span class="score-val">${c.finish}</span></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border);">
-      <div><span style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;">฿${c.price.toLocaleString()}</span><span style="font-size:12px;color:var(--text-muted);margin-left:6px;">${c.unit} · SCA ${c.score}</span></div>
-      <button class="btn-primary" onclick="${c.soldOut ? `openNotifyModal('${c.name}');closeModal()` : `addToCart(${c.id});closeModal()`}">${c.soldOut ? '🔔 แจ้งเตือนเมื่อมีสินค้า' : '🛒 หยิบใส่ตะกร้า →'}</button>
-    </div>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
 function closeModal(e) {
   if (e && e.target !== document.getElementById('modalOverlay')) return;
   document.getElementById('modalOverlay').classList.remove('open');
@@ -2455,21 +2623,257 @@ function renderCartItems() {
 
 function openCart() {
   renderCartItems();
+  renderUpsell();
   document.getElementById('cartOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeCart() {
   document.getElementById('cartOverlay').classList.remove('open');
   document.body.style.overflow = '';
+  // Trigger abandoned cart if cart has items and no contact saved yet
+  if (cart.length > 0 && !localStorage.getItem('abandonContact')) {
+    setTimeout(showAbandonModal, 600);
+  }
 }
 function handleCartOverlayClick(e) {
   if (e.target === document.getElementById('cartOverlay')) closeCart();
 }
 function clearCart() { cart = []; updateCartUI(); }
 
+// ── UPSELL ENGINE ─────────────────────────────────────────
+// Pairs: if you have coffeeId X in cart, suggest Y
+const upsellPairs = {
+  1: [2, 5],   // Doi Chang → Ethiopia Yirgacheffe, Gedeo
+  2: [1, 3],   // Ethiopia → Doi Chang, Colombia Honey
+  3: [2, 4],   // Colombia Honey → Ethiopia, Inthanon
+  4: [1, 3],   // Inthanon → Doi Chang, Colombia
+  5: [2, 3],   // Gedeo Anaerobic → Ethiopia, Colombia
+};
+
+function renderUpsell() {
+  const upsellEl = document.getElementById('cartUpsell');
+  const itemsEl = document.getElementById('upsellItems');
+  if (cart.length === 0) { upsellEl.classList.remove('show'); return; }
+
+  const cartIds = cart.map(x => x.id);
+  const suggestedIds = new Set();
+  cartIds.forEach(id => {
+    (upsellPairs[id] || []).forEach(sid => {
+      if (!cartIds.includes(sid)) suggestedIds.add(sid);
+    });
+  });
+
+  const suggestions = [...suggestedIds]
+    .map(id => coffees.find(c => c.id === id))
+    .filter(c => c && !c.soldOut)
+    .slice(0, 2);
+
+  if (suggestions.length === 0) { upsellEl.classList.remove('show'); return; }
+
+  itemsEl.innerHTML = suggestions.map(c => `
+    <div class="upsell-item" onclick="upsellAdd(${c.id})">
+      <span class="upsell-emoji">${c.emoji}</span>
+      <div class="upsell-info">
+        <div class="upsell-name">${c.name}</div>
+        <div class="upsell-note">${c.notes.slice(0,2).join(' · ')}</div>
+      </div>
+      <span class="upsell-price">฿${c.price.toLocaleString()}</span>
+      <button class="upsell-add-btn" onclick="event.stopPropagation();upsellAdd(${c.id})">+ เพิ่ม</button>
+    </div>
+  `).join('');
+  upsellEl.classList.add('show');
+}
+
+function upsellAdd(id) {
+  addToCart(id);
+  renderCartItems();
+  renderUpsell();
+}
+
+// ── SIZE SELECTOR ─────────────────────────────────────────
+const sizeMults = { '250g': 1, '500g': 1.85, '1kg': 3.4 };
+const sizeLabels = { '250g': '250g', '500g': '500g −8%', '1kg': '1kg −15%' };
+let selectedSizes = {}; // { coffeeId: '250g' }
+
+function selectSize(coffeeId, size) {
+  selectedSizes[coffeeId] = size;
+  document.querySelectorAll(`[data-size-id="${coffeeId}"] .size-btn`).forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-size-id="${coffeeId}"] [data-size="${size}"]`)?.classList.add('active');
+  // Update displayed price
+  const c = coffees.find(x => x.id === coffeeId);
+  if (!c) return;
+  const newPrice = Math.round(c.price * sizeMults[size]);
+  const priceEl = document.getElementById(`modal-price-${coffeeId}`);
+  const unitEl = document.getElementById(`modal-unit-${coffeeId}`);
+  if (priceEl) priceEl.textContent = `฿${newPrice.toLocaleString()}`;
+  if (unitEl) unitEl.textContent = `/ ${size} · SCA ${c.score}`;
+}
+
+function addToCartWithSize(id) {
+  const c = coffees.find(x => x.id === id);
+  if (!c || c.soldOut) return;
+  const size = selectedSizes[id] || '250g';
+  const mult = sizeMults[size];
+  const finalPrice = Math.round(c.price * mult);
+  const finalUnit = `/ ${size}`;
+  const existing = cart.find(x => x.id === id && x.unit === finalUnit);
+  if (existing) existing.qty += 1;
+  else cart.push({ id: c.id, name: c.name, origin: c.origin, price: finalPrice, unit: finalUnit, emoji: c.emoji, color: c.color, qty: 1 });
+  updateCartUI();
+  showCartToast(c.name + ' ' + size);
+  const overlay = document.getElementById('modalOverlay');
+  if (overlay.classList.contains('open')) {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// Override openModal to include size selector
+function openModal(id) {
+  const c = coffees.find(x => x.id === id);
+  if (!c) return;
+  if (!selectedSizes[id]) selectedSizes[id] = '250g';
+  const sz = selectedSizes[id];
+  const curPrice = Math.round(c.price * sizeMults[sz]);
+  document.getElementById('modalContent').innerHTML = `
+    <div class="coffee-card-img" style="background:${c.color};border-radius:16px;margin-bottom:1.25rem;height:160px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:72px">${c.emoji}</span>
+    </div>
+    <div class="modal-origin">${c.origin}</div>
+    <div class="modal-name">${c.name}</div>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:0.5rem;">${c.process}</p>
+    <p style="font-size:14px;color:var(--ink);line-height:1.8;margin-bottom:1rem;">${c.desc}</p>
+    <div class="modal-section-title">Cupping Notes</div>
+    <div class="modal-notes">${c.notes.map(n=>`<span class="note-tag">${n}</span>`).join('')}</div>
+    <div class="modal-section-title">Flavor Profile</div>
+    <div class="score-row"><span class="score-label">Acidity</span><div class="score-track"><div class="score-fill" style="width:${c.acidity}%"></div></div><span class="score-val">${c.acidity}</span></div>
+    <div class="score-row"><span class="score-label">Sweetness</span><div class="score-track"><div class="score-fill" style="width:${c.sweetness}%"></div></div><span class="score-val">${c.sweetness}</span></div>
+    <div class="score-row"><span class="score-label">Body</span><div class="score-track"><div class="score-fill" style="width:${c.body}%"></div></div><span class="score-val">${c.body}</span></div>
+    <div class="score-row"><span class="score-label">Finish</span><div class="score-track"><div class="score-fill" style="width:${c.finish}%"></div></div><span class="score-val">${c.finish}</span></div>
+    ${!c.soldOut ? `
+    <div class="modal-size-wrap" style="margin:1rem 0;">
+      <span class="modal-size-label">เลือกขนาด</span>
+      <div class="size-selector" data-size-id="${c.id}">
+        ${Object.entries(sizeLabels).map(([k,v]) => `
+          <button class="size-btn ${k === sz ? 'active' : ''}" data-size="${k}" onclick="selectSize(${c.id},'${k}')">
+            ${v}<br><span class="size-price-tag">฿${Math.round(c.price * sizeMults[k]).toLocaleString()}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+    ` : ''}
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border);">
+      <div>
+        <span id="modal-price-${c.id}" style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;">฿${curPrice.toLocaleString()}</span>
+        <span id="modal-unit-${c.id}" style="font-size:12px;color:var(--text-muted);margin-left:6px;">/ ${sz} · SCA ${c.score}</span>
+      </div>
+      <button class="btn-primary" onclick="${c.soldOut ? `openNotifyModal('${c.name}');closeModal()` : `addToCartWithSize(${c.id})`}">${c.soldOut ? '🔔 แจ้งเตือนเมื่อมีสินค้า' : '🛒 หยิบใส่ตะกร้า →'}</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// ── GIFT OPTION ───────────────────────────────────────────
+let isGift = false;
+function toggleGiftOption() {
+  isGift = !isGift;
+  const cb = document.getElementById('giftCheckbox');
+  const wrap = document.getElementById('giftOptionWrap');
+  const fields = document.getElementById('giftFields');
+  if (isGift) {
+    cb.classList.add('checked');
+    cb.textContent = '✓';
+    wrap.classList.add('active');
+    fields.classList.add('show');
+  } else {
+    cb.classList.remove('checked');
+    cb.textContent = '🎁';
+    wrap.classList.remove('active');
+    fields.classList.remove('show');
+  }
+}
+
+// ── ABANDONED CART ────────────────────────────────────────
+let abandonShown = false;
+function showAbandonModal() {
+  if (abandonShown || cart.length === 0) return;
+  abandonShown = true;
+  // Build cart preview
+  const preview = document.getElementById('abandonCartPreview');
+  preview.innerHTML = cart.map(x => `
+    <div class="abandon-item-row">${x.emoji} ${x.name} × ${x.qty} — ฿${(x.price*x.qty).toLocaleString()}</div>
+  `).join('') + `<div class="abandon-total">ยอดรวม: ฿${getCartTotal().toLocaleString()}</div>`;
+  
+  document.getElementById('abandonFormView').style.display = 'block';
+  document.getElementById('abandonSuccess').classList.remove('show');
+  document.getElementById('abandonOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAbandonModal() {
+  document.getElementById('abandonOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function submitAbandonContact() {
+  const contact = document.getElementById('abandon_contact').value.trim();
+  if (!contact) {
+    document.getElementById('abandon_contact').style.borderColor = 'var(--rust)';
+    return;
+  }
+  const name = document.getElementById('abandon_name').value.trim();
+  // Save contact so we don't ask again
+  localStorage.setItem('abandonContact', contact);
+  // Build order summary message
+  const items = cart.map(x => `${x.emoji} ${x.name} × ${x.qty}`).join(', ');
+  const msg = `🛒 ลูกค้ายังค้างตะกร้า!\nชื่อ: ${name||'ไม่ระบุ'}\nติดต่อ: ${contact}\nสินค้า: ${items}\nยอด: ฿${getCartTotal().toLocaleString()}`;
+  // Send to Telegram/LINE (opens in background-friendly way)
+  const enc = encodeURIComponent(msg);
+  const tgUrl = checkoutChannelOverrides?.telegram;
+  if (tgUrl) {
+    const link = document.createElement('a');
+    link.href = `${tgUrl}&text=${enc}`;
+    link.target = '_blank';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => link.remove(), 500);
+  }
+  // Show success
+  document.getElementById('abandonFormView').style.display = 'none';
+  document.getElementById('abandonSuccess').classList.add('show');
+  setTimeout(closeAbandonModal, 3000);
+}
+
+// Override buildOrderText to include gift info
+function buildOrderText() {
+  const name = document.getElementById('co_name').value.trim();
+  const phone = document.getElementById('co_phone').value.trim();
+  const address = document.getElementById('co_address').value.trim();
+  const note = document.getElementById('co_note').value.trim();
+  const items = cart.map(x => `• ${x.emoji} ${x.name} x${x.qty} (${x.unit}) = ฿${(x.price*x.qty).toLocaleString()}`).join('\n');
+  let giftText = '';
+  if (isGift) {
+    const recipient = document.getElementById('gift_recipient')?.value.trim();
+    const giftMsg = document.getElementById('gift_message')?.value.trim();
+    giftText = `\n\n🎁 ของขวัญ (+฿50)\nผู้รับ: ${recipient||'-'}\nข้อความ: ${giftMsg||'-'}`;
+  }
+  const giftFee = isGift ? 50 : 0;
+  const total = getCartTotal() + giftFee;
+  return `🛒 คำสั่งซื้อ Origin Coffee\n\nชื่อ: ${name}\nโทร: ${phone}\nที่อยู่: ${address}${note?'\nหมายเหตุ: '+note:''}${giftText}\n\n${items}\n\n💰 ยอดรวม: ฿${total.toLocaleString()} (ยังไม่รวมค่าส่ง)`;
+}
+
 // ── CHECKOUT SYSTEM ──────────────────────────────────────
 function openCheckout() {
   closeCart();
+  // Reset gift state
+  isGift = false;
+  const cb = document.getElementById('giftCheckbox');
+  if (cb) { cb.classList.remove('checked'); cb.textContent = '🎁'; }
+  document.getElementById('giftOptionWrap')?.classList.remove('active');
+  document.getElementById('giftFields')?.classList.remove('show');
+
   renderCheckoutSummary();
   document.getElementById('checkoutForm').style.display = 'block';
   document.getElementById('checkoutSuccess').classList.remove('show');
@@ -2486,14 +2890,16 @@ function closeCheckout() {
 
 function renderCheckoutSummary() {
   const el = document.getElementById('checkoutSummary');
+  const giftFee = isGift ? 50 : 0;
   el.innerHTML = cart.map(item => `
     <div class="checkout-order-row">
-      <span>${item.emoji} ${item.name} × ${item.qty}</span>
+      <span>${item.emoji} ${item.name} × ${item.qty} (${item.unit})</span>
       <span>฿${(item.price * item.qty).toLocaleString()}</span>
     </div>
-  `).join('') + `<div class="checkout-order-row total">
+  `).join('') + (isGift ? `<div class="checkout-order-row"><span>🎁 กล่องของขวัญ + การ์ด</span><span>฿50</span></div>` : '') +
+  `<div class="checkout-order-row total">
     <span>ยอดรวม (ยังไม่รวมค่าส่ง)</span>
-    <span>฿${getCartTotal().toLocaleString()}</span>
+    <span>฿${(getCartTotal() + giftFee).toLocaleString()}</span>
   </div>`;
 }
 
@@ -2505,15 +2911,6 @@ function selectChannel(ch) {
   pp.classList.toggle('show', ch === 'promptpay');
   const icons = { line:'💚 ส่งผ่าน LINE OA', telegram:'✈️ ส่งผ่าน Telegram', fb:'💙 ส่งผ่าน Facebook', whatsapp:'📱 ส่งผ่าน WhatsApp', form:'📋 ส่งคำสั่งซื้อ', promptpay:'🏦 แจ้งการโอนเงิน' };
   document.getElementById('submitBtnText').textContent = icons[ch] || 'ส่งคำสั่งซื้อ';
-}
-
-function buildOrderText() {
-  const name = document.getElementById('co_name').value.trim();
-  const phone = document.getElementById('co_phone').value.trim();
-  const address = document.getElementById('co_address').value.trim();
-  const note = document.getElementById('co_note').value.trim();
-  const items = cart.map(x => `• ${x.emoji} ${x.name} x${x.qty} = ฿${(x.price*x.qty).toLocaleString()}`).join('\n');
-  return `🛒 คำสั่งซื้อ Origin Coffee\n\nชื่อ: ${name}\nโทร: ${phone}\nที่อยู่: ${address}${note?'\nหมายเหตุ: '+note:''}\n\n${items}\n\n💰 ยอดรวม: ฿${getCartTotal().toLocaleString()}\n(ยังไม่รวมค่าส่ง)`;
 }
 
 function submitOrder() {
