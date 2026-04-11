@@ -3006,6 +3006,9 @@ const siteReviews = JSON.parse(localStorage.getItem('originReviews') || 'null') 
 
 
 
+<!-- ADMIN FLOATING BUTTON -->
+<button class="admin-toggle" onclick="openAdminLogin()" title="เข้าหลังบ้าน">⚙️</button>
+
 <!-- ADMIN LOGIN -->
 <div class="admin-login-overlay" id="adminLoginOverlay">
   <div class="admin-login-card">
@@ -3033,6 +3036,7 @@ const siteReviews = JSON.parse(localStorage.getItem('originReviews') || 'null') 
       <button class="admin-tab" onclick="switchAdminTab('reviews',this)">💬 รีวิว</button>
       <button class="admin-tab" onclick="switchAdminTab('contact',this)">📞 ติดต่อ</button>
       <button class="admin-tab" onclick="switchAdminTab('security',this)">🔒 ความปลอดภัย</button>
+      <button class="admin-tab" onclick="switchAdminTab('backup',this)">💾 Backup/Restore</button>
     </div>
 
     <!-- TAB: COFFEES -->
@@ -3256,6 +3260,30 @@ const siteReviews = JSON.parse(localStorage.getItem('originReviews') || 'null') 
         <div id="passErrMsg" class="admin-success" style="background:rgba(184,76,26,0.15);border-color:rgba(184,76,26,0.4);color:#e07050;display:none;"></div>
       </div>
     </div>
+
+    <!-- TAB: BACKUP -->
+    <div class="admin-section" id="admin-backup">
+      <div class="admin-card">
+        <div class="admin-card-title">💾 Export ข้อมูลทั้งหมด</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:1.25rem;">
+          เนื่องจากข้อมูลถูกเก็บใน browser — ดาวน์โหลด backup ไว้เสมอเพื่อกันข้อมูลหาย<br>
+          แล้ว import กลับมาได้ทุกเมื่อ
+        </p>
+        <button class="admin-save-btn" onclick="exportBackup()" style="margin-bottom:1rem;">📥 Export JSON (ดาวน์โหลด backup)</button>
+        <div style="border-top:1px solid rgba(196,154,58,0.15);padding-top:1.25rem;margin-top:0.5rem;">
+          <div class="admin-card-title" style="margin-bottom:0.75rem;font-size:15px;">📤 Import / Restore</div>
+          <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:0.75rem;">เลือกไฟล์ backup JSON ที่ export ไว้ — ข้อมูลทั้งหมดจะถูกแทนที่</p>
+          <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="importBackup(this)">
+          <button class="admin-save-btn" onclick="document.getElementById('importFileInput').click()" style="background:rgba(196,154,58,0.15);border:1.5px solid rgba(196,154,58,0.35);color:var(--gold);">📂 เลือกไฟล์ Backup</button>
+          <div id="importMsg" style="margin-top:0.75rem;font-size:12px;color:var(--sage);display:none;">✅ Import เรียบร้อย! รีเฟรชหน้าเว็บเพื่อดูการเปลี่ยนแปลง</div>
+        </div>
+        <div style="border-top:1px solid rgba(196,154,58,0.15);padding-top:1.25rem;margin-top:1rem;">
+          <div class="admin-card-title" style="margin-bottom:0.75rem;font-size:15px;color:var(--rust);">⚠️ รีเซ็ตข้อมูลทั้งหมด</div>
+          <button onclick="if(confirm('ล้างข้อมูลทั้งหมดกลับเป็น default?')){['originCoffees','originReviews','originHero','originHeroImg','originStory','originContact','originAdminPass'].forEach(k=>safeStorage.remove(k));location.reload();}" style="background:rgba(184,76,26,0.15);border:1.5px solid rgba(184,76,26,0.35);color:var(--rust);border-radius:10px;padding:10px 20px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">🗑 รีเซ็ตกลับ Default</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -4610,15 +4638,21 @@ function loadSavedData() {
   }
 }
 
-// Init — render products first, then load saved settings deferred
-renderCoffees('all');
-
-// Defer non-critical saved data so it doesn't block first paint
-requestAnimationFrame(() => {
-  setTimeout(() => {
-    try { loadSavedData(); } catch(e) { console.warn('[init] loadSavedData error:', e); }
-  }, 100);
-});
+// Init — render products, ensure DOM is ready
+function _initApp() {
+  try { renderCoffees('all'); } catch(e) { console.warn('[init] renderCoffees error:', e); }
+  // Defer non-critical saved data so it doesn't block first paint
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      try { loadSavedData(); } catch(e) { console.warn('[init] loadSavedData error:', e); }
+    }, 100);
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _initApp);
+} else {
+  _initApp();
+}
 
 // ── NAV ORDER DROPDOWN TOGGLE ─────────────────────────────
 function toggleNavMenu(e) {
@@ -5088,24 +5122,21 @@ function saveAdminReviews() {
 }
 
 // โหลดรีวิวที่บันทึกไว้เมื่อเปิด admin
-const _origSwitchAdminTab = typeof switchAdminTab === 'function' ? switchAdminTab : null;
-document.addEventListener('DOMContentLoaded', () => {
+(function() {
   const saved = safeStorage.get('originReviews');
   if (saved) {
     try { adminReviewsData = JSON.parse(saved); } catch(e) {}
   }
-});
-// render เมื่อเปิด tab reviews
-const _patchTab = setInterval(() => {
-  if (typeof switchAdminTab === 'function') {
-    const origFn = switchAdminTab;
-    window.switchAdminTab = function(tab, btn) {
-      origFn(tab, btn);
-      if (tab === 'reviews') renderAdminReviewsList();
-    };
-    clearInterval(_patchTab);
-  }
-}, 100);
+})();
+
+// Patch switchAdminTab to render reviews list and backup tab when opened
+(function() {
+  const _origSwitch = window.switchAdminTab;
+  window.switchAdminTab = function(tab, btn) {
+    _origSwitch(tab, btn);
+    if (tab === 'reviews') renderAdminReviewsList();
+  };
+})();
 
 
 // ══════════════════════════════════════════════════════════
@@ -5446,6 +5477,47 @@ function goStage(idx, clickedBtn) {
 // Start auto-advance
 storyAutoTimer = setTimeout(() => goStage(1, null), 6000);
 
+
+// ── BACKUP / RESTORE ─────────────────────────────────────
+function exportBackup() {
+  const data = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    coffees: JSON.parse(safeStorage.get('originCoffees') || 'null') || coffees,
+    reviews: JSON.parse(safeStorage.get('originReviews') || 'null') || [],
+    hero: JSON.parse(safeStorage.get('originHero') || 'null') || {},
+    story: JSON.parse(safeStorage.get('originStory') || 'null') || {},
+    contact: JSON.parse(safeStorage.get('originContact') || 'null') || {},
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'origin-coffee-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importBackup(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.coffees) safeStorage.set('originCoffees', JSON.stringify(data.coffees));
+      if (data.reviews) safeStorage.set('originReviews', JSON.stringify(data.reviews));
+      if (data.hero) safeStorage.set('originHero', JSON.stringify(data.hero));
+      if (data.story) safeStorage.set('originStory', JSON.stringify(data.story));
+      if (data.contact) safeStorage.set('originContact', JSON.stringify(data.contact));
+      document.getElementById('importMsg').style.display = 'block';
+      setTimeout(() => location.reload(), 1500);
+    } catch(err) {
+      alert('ไฟล์ไม่ถูกต้อง กรุณาเลือกไฟล์ backup JSON ที่ export จากระบบนี้');
+    }
+  };
+  reader.readAsText(file);
+}
 
 console.log('[Origin Coffee] Init complete ✅');
 </script>
