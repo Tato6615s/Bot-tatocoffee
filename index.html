@@ -1,34 +1,67 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ORIGIN COFFEE — Specialty Roastery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════════
-   DESIGN SYSTEM — Luxury Editorial Dark
+   THEME SYSTEM — Dark & Light
 ══════════════════════════════════════════ */
 :root {
+  --gold:   #c49a3a;
+  --gold2:  #e8c06a;
+  --rust:   #a63d1e;
+  --sage:   #6b7d64;
+  --r: 16px;
+  --r2: 24px;
+}
+
+/* Dark Theme (default) */
+[data-theme="dark"] {
   --ink:    #0e0b07;
   --ink2:   #1a1510;
   --ink3:   #252018;
-  --gold:   #c49a3a;
-  --gold2:  #e8c06a;
   --cream:  #f5ede0;
   --cream2: #faf6ef;
   --mist:   #d4c8b4;
-  --rust:   #a63d1e;
-  --sage:   #6b7d64;
   --text:   rgba(245,237,224,0.85);
   --text2:  rgba(245,237,224,0.5);
   --text3:  rgba(245,237,224,0.28);
   --border: rgba(196,154,58,0.18);
-  --r: 16px;
-  --r2: 24px;
+  --nav-bg: rgba(14,11,7,0.88);
+  --modal-bg: rgba(14,11,7,0.9);
+  --overlay-bg: rgba(14,11,7,0.7);
+  --input-bg: rgba(255,255,255,0.05);
+  --card-bg: rgba(255,255,255,0.03);
+  --ticker-before: linear-gradient(90deg,#0e0b07,transparent);
+  --ticker-after: linear-gradient(-90deg,#0e0b07,transparent);
 }
+
+/* Light Theme */
+[data-theme="light"] {
+  --ink:    #faf7f2;
+  --ink2:   #f0ebe0;
+  --ink3:   #e8e0d0;
+  --cream:  #2a2010;
+  --cream2: #1a1008;
+  --mist:   #5a4a30;
+  --text:   rgba(42,32,16,0.88);
+  --text2:  rgba(42,32,16,0.55);
+  --text3:  rgba(42,32,16,0.3);
+  --border: rgba(196,154,58,0.28);
+  --nav-bg: rgba(250,247,242,0.92);
+  --modal-bg: rgba(250,247,242,0.95);
+  --overlay-bg: rgba(250,247,242,0.6);
+  --input-bg: rgba(0,0,0,0.04);
+  --card-bg: rgba(0,0,0,0.03);
+  --ticker-before: linear-gradient(90deg,#f0ebe0,transparent);
+  --ticker-after: linear-gradient(-90deg,#f0ebe0,transparent);
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
 body{
@@ -37,18 +70,20 @@ body{
   color:var(--text);
   overflow-x:hidden;
   line-height:1.6;
+  transition:background .35s,color .35s;
 }
 /* Grain overlay */
 body::before{
   content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
-  opacity:0.035;
+  opacity:0.03;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size:160px;
 }
 
-/* ── Typography ── */
-.serif{font-family:'Cormorant Garamond',serif}
-h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif}
+/* ── Typography — CLASSIC ── */
+.serif{font-family:'Playfair Display',serif}
+h1,h2,h3,.serif{font-family:'Playfair Display',serif}
+.lora{font-family:'Lora',serif}
 .eyebrow{
   font-family:'Outfit',sans-serif;
   font-size:10px;font-weight:600;letter-spacing:3px;
@@ -56,6 +91,23 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif}
   display:flex;align-items:center;gap:10px;
 }
 .eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);display:block}
+
+/* ── Theme Toggle ── */
+.theme-toggle{
+  width:40px;height:22px;border-radius:11px;
+  background:var(--border);border:1.5px solid var(--border);
+  cursor:pointer;position:relative;transition:all .3s;
+  flex-shrink:0;
+}
+[data-theme="dark"] .theme-toggle{background:rgba(196,154,58,.3)}
+[data-theme="light"] .theme-toggle{background:rgba(196,154,58,.4)}
+.theme-toggle::after{
+  content:'';position:absolute;top:2px;left:2px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--gold);transition:transform .3s;
+}
+[data-theme="light"] .theme-toggle::after{transform:translateX(18px)}
+.theme-toggle-wrap{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
 
 /* ── Buttons ── */
 .btn{
@@ -87,14 +139,14 @@ nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
   padding:1.25rem 2.5rem;
   display:flex;justify-content:space-between;align-items:center;
-  background:rgba(14,11,7,.82);backdrop-filter:blur(16px);
+  background:var(--nav-bg);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   transition:all .3s;
 }
 .nav-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:17px;font-weight:600;letter-spacing:3px;
-  text-transform:uppercase;color:var(--cream);
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--cream2);
 }
 .nav-logo span{color:var(--gold);font-style:italic}
 .nav-links{display:flex;gap:2rem;align-items:center}
@@ -103,6 +155,7 @@ nav{
   color:var(--text2);text-decoration:none;transition:color .2s;
 }
 .nav-links a:hover{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:1rem}
 .nav-cart-btn{
   position:relative;background:transparent;border:1.5px solid var(--border);
   color:var(--text);border-radius:50px;padding:8px 18px;
@@ -123,7 +176,7 @@ nav{
 }
 
 /* ══════════════════════════════════════════
-   HERO — Strategy 1: Trust via Story
+   HERO
 ══════════════════════════════════════════ */
 .hero{
   min-height:100vh;
@@ -132,7 +185,6 @@ nav{
   padding-top:80px;
   position:relative;overflow:hidden;
 }
-/* Ambient glow */
 .hero::before{
   content:'';position:absolute;
   top:-20%;right:-10%;
@@ -153,25 +205,27 @@ nav{
 }
 .hero-h1{
   font-size:clamp(44px,5.5vw,82px);
-  font-weight:500;line-height:1.05;
+  font-weight:700;line-height:1.05;
   color:var(--cream2);margin:1.25rem 0 1.5rem;
+  font-family:'Playfair Display',serif;
 }
 .hero-h1 em{color:var(--gold);font-style:italic}
 .hero-sub{
   font-size:15px;color:var(--text2);line-height:1.85;
   max-width:400px;margin-bottom:2.5rem;font-weight:300;
+  font-family:'Lora',serif;
 }
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
 
-/* Trust bar — Strategy 1 */
+/* Trust bar */
 .trust-bar{
   display:flex;gap:2rem;padding-top:2rem;
   border-top:1px solid var(--border);
 }
 .trust-item{text-align:left}
 .trust-num{
-  font-family:'Cormorant Garamond',serif;
-  font-size:28px;font-weight:500;color:var(--gold);display:block;
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:600;color:var(--gold);display:block;
 }
 .trust-label{font-size:11px;color:var(--text2);letter-spacing:.5px}
 
@@ -179,10 +233,9 @@ nav{
   position:relative;display:flex;align-items:center;justify-content:center;
   min-height:100vh;overflow:hidden;
 }
-/* Big decorative coffee card */
 .hero-coffee-card{
   position:relative;z-index:1;
-  background:rgba(255,255,255,.03);
+  background:var(--card-bg);
   border:1px solid var(--border);
   border-radius:var(--r2);
   padding:2.5rem;
@@ -202,18 +255,16 @@ nav{
 .lot-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
 .hero-coffee-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:32px;font-weight:500;color:var(--cream2);
+  font-family:'Playfair Display',serif;
+  font-size:32px;font-weight:700;color:var(--cream2);
   line-height:1.1;margin-bottom:.5rem;
 }
 .hero-coffee-origin{font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem}
-/* Flavor wheel */
 .flavor-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem}
 .flavor-tag{
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  background:var(--input-bg);border:1px solid var(--border);
   border-radius:50px;padding:5px 12px;font-size:12px;color:var(--text2);
 }
-/* SCA score */
 .sca-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
 .sca-circle{
   width:62px;height:62px;border-radius:50%;
@@ -221,16 +272,14 @@ nav{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   flex-shrink:0;
 }
-.sca-num{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:600;line-height:1}
+.sca-num{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);font-weight:700;line-height:1}
 .sca-text{font-size:8px;color:var(--text2);letter-spacing:1px}
-/* Roast date — Strategy 1 transparency */
 .roast-row{
   display:flex;align-items:center;gap:8px;
   font-size:11px;color:var(--text2);
   padding-top:1rem;border-top:1px solid var(--border);
 }
 .roast-fresh{color:var(--sage);font-weight:600}
-/* Stock — Strategy 2 FOMO */
 .stock-bar{
   background:rgba(196,154,58,.12);border:1px solid rgba(196,154,58,.25);
   border-radius:var(--r);padding:.75rem 1rem;
@@ -241,10 +290,9 @@ nav{
 .stock-text{font-size:12px;color:var(--text)}
 .stock-text strong{color:var(--gold)}
 
-/* Floating cards decoration */
 .hero-float-1{
   position:absolute;top:15%;left:-40px;
-  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  background:var(--card-bg);border:1px solid var(--border);
   border-radius:var(--r);padding:1rem 1.25rem;
   font-size:12px;color:var(--text2);
   animation:float1 6s ease-in-out infinite;
@@ -253,7 +301,7 @@ nav{
 }
 .hero-float-2{
   position:absolute;bottom:22%;right:-20px;
-  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  background:var(--card-bg);border:1px solid var(--border);
   border-radius:var(--r);padding:1rem 1.25rem;
   font-size:12px;color:var(--text2);
   animation:float2 7s ease-in-out infinite;
@@ -271,7 +319,7 @@ nav{
 }
 
 /* ══════════════════════════════════════════
-   SOCIAL PROOF TICKER — Strategy 3
+   SOCIAL PROOF TICKER
 ══════════════════════════════════════════ */
 .proof-ticker{
   background:rgba(196,154,58,.08);
@@ -281,8 +329,8 @@ nav{
 .proof-ticker::before,.proof-ticker::after{
   content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;
 }
-.proof-ticker::before{left:0;background:linear-gradient(90deg,var(--ink),transparent)}
-.proof-ticker::after{right:0;background:linear-gradient(-90deg,var(--ink),transparent)}
+.proof-ticker::before{left:0;background:var(--ticker-before)}
+.proof-ticker::after{right:0;background:var(--ticker-after)}
 .ticker-track{
   display:flex;gap:4rem;white-space:nowrap;
   animation:ticker 28s linear infinite;
@@ -296,7 +344,7 @@ nav{
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ══════════════════════════════════════════
-   TRANSPARENCY STRIP — Strategy 1
+   TRANSPARENCY STRIP
 ══════════════════════════════════════════ */
 .transparency-strip{
   padding:4rem 0;
@@ -317,11 +365,11 @@ nav{
 .trans-item:hover{background:var(--ink3)}
 .trans-icon{font-size:28px;margin-bottom:.75rem;display:block}
 .trans-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
-.trans-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream2);font-weight:500}
+.trans-val{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream2);font-weight:600}
 @media(max-width:768px){.trans-grid{grid-template-columns:1fr 1fr}}
 
 /* ══════════════════════════════════════════
-   CATALOG — Strategy 1+2+4
+   CATALOG
 ══════════════════════════════════════════ */
 #catalog{background:var(--ink2)}
 .catalog-top{
@@ -350,7 +398,7 @@ nav{
 }
 .coffee-card:hover{
   transform:translateY(-6px);
-  box-shadow:0 32px 64px rgba(0,0,0,.5);
+  box-shadow:0 32px 64px rgba(0,0,0,.2);
   border-color:rgba(196,154,58,.4);
 }
 .coffee-hero{
@@ -365,9 +413,8 @@ nav{
   border:1px solid var(--border);border-radius:10px;
   padding:4px 10px;text-align:center;
 }
-.sca-score{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);font-weight:600;line-height:1}
+.sca-score{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);font-weight:700;line-height:1}
 .sca-pts{font-size:8px;color:var(--text2);letter-spacing:1px}
-/* FOMO badge */
 .fomo-badge{
   position:absolute;top:.85rem;left:.85rem;
   background:linear-gradient(135deg,#a63d1e,#c94f24);
@@ -378,7 +425,6 @@ nav{
 .badge-sold{background:#444;color:var(--text2)}
 .badge-limited{background:linear-gradient(135deg,#8b3a6e,#a8458a)}
 
-/* Roast freshness — Strategy 1 */
 .roast-indicator{
   position:absolute;bottom:.85rem;left:.85rem;right:.85rem;
   background:rgba(14,11,7,.75);backdrop-filter:blur(4px);
@@ -390,137 +436,120 @@ nav{
 .roast-date-val{color:var(--sage);font-weight:600}
 
 .coffee-body{padding:1.25rem 1.5rem 1.5rem;flex:1;display:flex;flex-direction:column}
-.coffee-region{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
-.coffee-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--cream2);margin-bottom:.25rem}
-.coffee-process{font-size:11px;color:var(--text2);margin-bottom:.85rem}
-.notes-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1rem}
+.coffee-region{font-size:10px;color:var(--text2);letter-spacing:1px;margin-bottom:.35rem}
+.coffee-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream2);margin-bottom:.25rem}
+.coffee-process{font-size:11px;color:var(--text2);margin-bottom:.75rem;font-family:'Lora',serif;font-style:italic}
+.notes-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:.85rem}
 .note{
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  border-radius:50px;padding:3px 10px;font-size:10px;color:var(--text2);
-}
-/* Score bars */
-.score-bars{margin-bottom:1rem}
-.score-row2{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.score-lbl{font-size:10px;color:var(--text2);width:54px;flex-shrink:0}
-.score-track{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
-.score-fill2{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-.score-num{font-size:10px;color:var(--gold);width:22px;text-align:right;font-weight:600}
-
-.coffee-footer{
-  display:flex;justify-content:space-between;align-items:center;
-  border-top:1px solid var(--border);padding-top:1rem;margin-top:auto;
-}
-.coffee-price{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--cream2);font-weight:500}
-.coffee-price-unit{font-size:10px;color:var(--text2)}
-.add-btn{
-  background:var(--gold);color:var(--ink);
-  border:none;border-radius:50px;padding:9px 18px;
-  font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
-  cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;
-}
-.add-btn:hover{background:var(--gold2);transform:translateY(-1px)}
-.sold-btn{
-  background:rgba(255,255,255,.06);color:var(--text2);
-  border:1px solid var(--border);border-radius:50px;padding:9px 18px;
-  font-size:11px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;
-  transition:all .2s;text-transform:uppercase;letter-spacing:.8px;
-}
-.sold-btn:hover{border-color:var(--gold);color:var(--gold)}
-
-/* Strategy 2: FOMO stock */
-.stock-indicator{
-  display:flex;align-items:center;gap:6px;
-  font-size:11px;color:var(--text2);margin-bottom:.75rem;
-}
-.stock-dots{display:flex;gap:3px}
-.sdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.12)}
-.sdot.filled{background:var(--gold)}
-.sdot.low{background:#a63d1e}
-
-/* ══════════════════════════════════════════
-   JOURNEY QUIZ — Strategy 4
-══════════════════════════════════════════ */
-#quiz{background:var(--ink);position:relative;overflow:hidden}
-#quiz::before{
-  content:'';position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(196,154,58,.06) 0%,transparent 70%);
-  pointer-events:none;
-}
-.quiz-inner{max-width:720px;margin:0 auto;position:relative;z-index:1;text-align:center}
-.section-eyebrow{margin-bottom:1rem}
-.section-title{
-  font-size:clamp(32px,4vw,52px);font-weight:500;
-  color:var(--cream2);line-height:1.1;margin-bottom:1rem;
-}
-.section-title em{color:var(--gold);font-style:italic}
-.section-sub{font-size:15px;color:var(--text2);line-height:1.8;max-width:480px;margin:0 auto 3rem}
-/* Step indicator */
-.quiz-steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:2.5rem}
-.qstep-circle{
-  width:36px;height:36px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;font-family:'Outfit',sans-serif;
-  border:2px solid rgba(255,255,255,.15);color:var(--text2);
-  background:transparent;transition:all .3s;
-}
-.qstep-circle.done{background:var(--gold);border-color:var(--gold);color:var(--ink)}
-.qstep-circle.active{background:rgba(196,154,58,.2);border-color:var(--gold);color:var(--gold)}
-.qstep-line{width:48px;height:2px;background:rgba(255,255,255,.1);transition:background .3s}
-.qstep-line.done{background:var(--gold)}
-/* Quiz panel */
-.quiz-panel{
-  background:rgba(255,255,255,.03);border:1px solid var(--border);
-  border-radius:var(--r2);padding:2.5rem;text-align:left;
-}
-.quiz-q{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--cream2);margin-bottom:1.5rem;font-weight:500}
-.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.quiz-opt{
-  background:rgba(255,255,255,.04);border:1.5px solid rgba(196,154,58,.15);
-  border-radius:var(--r);padding:1.1rem 1.25rem;text-align:left;
-  cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;
-}
-.quiz-opt:hover{border-color:var(--gold);background:rgba(196,154,58,.08)}
-.quiz-opt .qo-icon{font-size:24px;margin-bottom:.5rem;display:block}
-.quiz-opt .qo-name{font-size:14px;font-weight:600;color:var(--cream2);margin-bottom:2px}
-.quiz-opt .qo-sub{font-size:11px;color:var(--text2)}
-/* Quiz result */
-.quiz-result{
-  background:rgba(196,154,58,.07);border:1.5px solid rgba(196,154,58,.3);
-  border-radius:var(--r2);padding:2.5rem;text-align:center;display:none;
-}
-.qr-icon{font-size:56px;margin-bottom:1rem;display:block}
-.qr-name{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--cream2);font-weight:500;margin-bottom:.5rem}
-.qr-desc{font-size:14px;color:var(--text2);line-height:1.75;max-width:420px;margin:0 auto 1.5rem}
-.qr-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
-
-/* ══════════════════════════════════════════
-   SOCIAL PROOF — Strategy 3
-══════════════════════════════════════════ */
-#reviews{background:var(--ink2)}
-.reviews-header{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;
-}
-.agg-score-wrap{display:flex;align-items:center;gap:1.25rem}
-.big-score{
-  font-family:'Cormorant Garamond',serif;
-  font-size:64px;font-weight:500;color:var(--cream2);line-height:1;
-}
-.stars-big{color:var(--gold);font-size:20px;letter-spacing:3px}
-.reviews-count{font-size:12px;color:var(--text2);margin-top:4px}
-.review-source-pills{display:flex;gap:6px;margin-top:.5rem}
-.rpill{
-  font-size:10px;background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
+  font-size:11px;background:var(--input-bg);
+  border:1px solid var(--border);
   border-radius:50px;padding:3px 10px;color:var(--text2);
 }
+.stock-indicator{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:11px;color:var(--text2);margin-bottom:.85rem;
+}
+.stock-dots{display:flex;gap:3px}
+.sdot{width:8px;height:8px;border-radius:50%;background:var(--border)}
+.sdot.filled{background:var(--sage)}
+.sdot.filled.low{background:#a63d1e}
+.score-bars{margin-top:auto;border-top:1px solid var(--border);padding-top:.85rem;display:flex;flex-direction:column;gap:.4rem}
+.score-row2{display:flex;align-items:center;gap:.5rem;font-size:11px}
+.score-lbl{width:70px;color:var(--text2);flex-shrink:0}
+.score-track{flex:1;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.score-fill2{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width .5s ease}
+.score-num{color:var(--gold);font-size:10px;width:24px;text-align:right}
+.coffee-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.85rem 1.5rem 1.5rem;border-top:1px solid var(--border);
+}
+.coffee-price{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream2);font-weight:600}
+.coffee-price small{font-family:'Outfit',sans-serif;font-size:10px;color:var(--text2)}
+.add-btn{
+  background:var(--gold);color:var(--ink);border:none;
+  border-radius:50px;padding:7px 16px;
+  font-size:11px;font-weight:700;cursor:pointer;
+  font-family:'Outfit',sans-serif;transition:all .2s;
+  letter-spacing:.5px;
+}
+.add-btn:hover{background:var(--gold2)}
+.sold-btn{
+  background:transparent;color:var(--text2);
+  border:1px solid var(--border);
+  border-radius:50px;padding:7px 16px;
+  font-size:11px;cursor:pointer;
+  font-family:'Outfit',sans-serif;transition:all .2s;
+}
 
+/* ══════════════════════════════════════════
+   SECTION COMMON
+══════════════════════════════════════════ */
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,3.5vw,46px);font-weight:700;
+  color:var(--cream2);line-height:1.1;margin-bottom:.75rem;
+}
+.section-title em{color:var(--gold);font-style:italic}
+.section-sub{font-size:14px;color:var(--text2);line-height:1.85;margin-bottom:2rem;font-family:'Lora',serif}
+
+/* ══════════════════════════════════════════
+   QUIZ
+══════════════════════════════════════════ */
+#quiz{background:var(--ink)}
+.quiz-inner{max-width:680px;margin:0 auto;text-align:center}
+.quiz-steps{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:2.5rem 0 2rem}
+.qstep-circle{
+  width:36px;height:36px;border-radius:50%;
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;color:var(--text2);
+  transition:all .3s;
+}
+.qstep-circle.active{border-color:var(--gold);color:var(--gold);background:rgba(196,154,58,.1)}
+.qstep-circle.done{border-color:var(--sage);background:var(--sage);color:#fff}
+.qstep-line{flex:1;height:1px;background:var(--border);max-width:60px}
+.qstep-line.done{background:var(--sage)}
+.quiz-panel{margin-bottom:1.5rem}
+.quiz-q{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream2);margin-bottom:1.5rem;font-weight:600}
+.quiz-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.quiz-opt{
+  background:var(--ink2);border:1.5px solid var(--border);
+  border-radius:var(--r);padding:1.5rem 1rem;
+  cursor:pointer;transition:all .2s;text-align:left;
+  font-family:'Outfit',sans-serif;
+}
+.quiz-opt:hover{border-color:var(--gold);background:rgba(196,154,58,.06)}
+.qo-icon{font-size:28px;display:block;margin-bottom:.5rem}
+.qo-name{font-family:'Playfair Display',serif;font-size:15px;color:var(--cream2);margin-bottom:3px;font-weight:600}
+.qo-sub{font-size:12px;color:var(--text2)}
+.quiz-result{
+  background:var(--ink2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:2.5rem;
+  text-align:center;display:none;
+}
+.qr-icon{font-size:52px;display:block;margin-bottom:1rem}
+.qr-name{font-family:'Playfair Display',serif;font-size:26px;color:var(--cream2);margin-bottom:.5rem;font-weight:700}
+.qr-desc{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:1.5rem;font-family:'Lora',serif}
+.qr-btns{display:flex;gap:1rem;justify-content:center}
+
+/* ══════════════════════════════════════════
+   REVIEWS
+══════════════════════════════════════════ */
+#reviews{background:var(--ink2)}
+.reviews-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.5rem;flex-wrap:wrap;gap:1.5rem}
+.agg-score-wrap{display:flex;align-items:center;gap:1.25rem}
+.big-score{font-family:'Playfair Display',serif;font-size:56px;color:var(--gold);font-weight:700;line-height:1}
+.stars-big{color:var(--gold);font-size:18px;letter-spacing:3px}
+.reviews-count{font-size:12px;color:var(--text2);margin-top:2px}
+.review-source-pills{display:flex;gap:6px;flex-wrap:wrap}
+.rpill{
+  font-size:10px;background:var(--input-bg);
+  border:1px solid var(--border);
+  border-radius:50px;padding:3px 10px;color:var(--text2);
+}
 .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2rem}
 @media(max-width:900px){.reviews-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:580px){.reviews-grid{grid-template-columns:1fr}}
-
 .review-card{
   background:var(--ink3);border:1px solid var(--border);
   border-radius:var(--r2);padding:1.5rem;
@@ -529,13 +558,13 @@ nav{
 }
 .review-card:hover{border-color:rgba(196,154,58,.35)}
 .rev-stars{color:var(--gold);font-size:14px;letter-spacing:2px}
-.rev-text{font-size:14px;color:var(--text);line-height:1.75;flex:1}
+.rev-text{font-size:14px;color:var(--text);line-height:1.75;flex:1;font-family:'Lora',serif}
 .rev-author{display:flex;align-items:center;gap:.75rem;padding-top:.75rem;border-top:1px solid var(--border)}
 .rev-avatar{
   width:36px;height:36px;border-radius:50%;
   background:linear-gradient(135deg,#8b5e2a,#c49a3a);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;font-size:16px;color:#fff;font-weight:600;
+  font-family:'Playfair Display',serif;font-size:16px;color:#fff;font-weight:700;
   flex-shrink:0;
 }
 .rev-name{font-size:13px;font-weight:600;color:var(--cream2)}
@@ -548,7 +577,7 @@ nav{
   background:var(--ink2);border:1px solid var(--border);
   border-radius:var(--r);padding:.85rem 1.1rem;
   display:flex;align-items:center;gap:.85rem;
-  box-shadow:0 16px 48px rgba(0,0,0,.5);
+  box-shadow:0 16px 48px rgba(0,0,0,.3);
   max-width:270px;
   transform:translateX(-130%);transition:transform .5s cubic-bezier(.34,1.56,.64,1);
   pointer-events:none;
@@ -560,17 +589,11 @@ nav{
 .live-popup-time{font-size:10px;color:var(--text2);display:block;margin-top:2px}
 
 /* ══════════════════════════════════════════
-   SUBSCRIPTION — Strategy 5
+   SUBSCRIPTION
 ══════════════════════════════════════════ */
 #subscription{
   background:var(--ink);
   position:relative;overflow:hidden;
-}
-#subscription::before{
-  content:'';position:absolute;top:-80px;right:-80px;
-  width:400px;height:400px;border-radius:50%;
-  background:radial-gradient(circle,rgba(107,125,100,.08) 0%,transparent 70%);
-  pointer-events:none;
 }
 .sub-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
 @media(max-width:900px){.sub-inner{grid-template-columns:1fr;gap:2.5rem}}
@@ -581,13 +604,12 @@ nav{
   font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
   color:var(--sage);margin-bottom:1.25rem;
 }
-.sub-title{font-size:clamp(28px,3.5vw,46px);font-weight:500;color:var(--cream2);line-height:1.1;margin-bottom:1rem}
+.sub-title{font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--cream2);line-height:1.1;margin-bottom:1rem;font-family:'Playfair Display',serif}
 .sub-title em{color:var(--gold);font-style:italic}
-.sub-desc{font-size:14px;color:var(--text2);line-height:1.85;margin-bottom:2rem}
+.sub-desc{font-size:14px;color:var(--text2);line-height:1.85;margin-bottom:2rem;font-family:'Lora',serif}
 .sub-perks{display:flex;flex-direction:column;gap:.85rem;margin-bottom:2rem}
 .sub-perk{display:flex;align-items:center;gap:.85rem;font-size:13px;color:var(--text)}
 .sub-perk-icon{width:32px;height:32px;border-radius:8px;background:rgba(196,154,58,.12);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-/* Plan cards */
 .sub-plans{display:flex;flex-direction:column;gap:1rem}
 .sub-plan{
   background:var(--ink2);border:1.5px solid var(--border);
@@ -605,45 +627,36 @@ nav{
 }
 .plan-emoji{font-size:28px;flex-shrink:0}
 .plan-info{flex:1}
-.plan-name{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream2);font-weight:500}
+.plan-name{font-family:'Playfair Display',serif;font-size:18px;color:var(--cream2);font-weight:600}
 .plan-desc{font-size:12px;color:var(--text2)}
-.plan-price{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:500;text-align:right;flex-shrink:0}
+.plan-price{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);font-weight:600;text-align:right;flex-shrink:0}
 .plan-price small{font-family:'Outfit',sans-serif;font-size:10px;color:var(--text2);display:block;text-align:right}
 .sub-cta{margin-top:1.5rem;display:flex;gap:.75rem;flex-wrap:wrap}
 .sub-note{font-size:11px;color:var(--text2);margin-top:.75rem}
 
 /* ══════════════════════════════════════════
-   LINE CHECKOUT — Strategy 6 Thai Market
+   LINE CHECKOUT / ORDER
 ══════════════════════════════════════════ */
 #order{
-  background:linear-gradient(160deg,#1a1510 0%,#0e0b07 50%,#111009 100%);
+  background:var(--ink2);
   position:relative;overflow:hidden;
-}
-#order::before{
-  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-  background:radial-gradient(ellipse at 30% 50%,rgba(196,154,58,.08) 0%,transparent 60%);
-  pointer-events:none;
 }
 .order-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
 @media(max-width:900px){.order-inner{grid-template-columns:1fr;gap:2.5rem}}
-.order-left .section-title{color:var(--cream2)}
-.order-left .section-sub{max-width:420px;margin:0 0 2rem}
-/* Channel cards */
 .channel-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
 .channel-card{
-  background:rgba(255,255,255,.04);border:1.5px solid var(--border);
+  background:var(--card-bg);border:1.5px solid var(--border);
   border-radius:var(--r);padding:1.25rem 1rem;text-align:center;
   cursor:pointer;transition:all .2s;text-decoration:none;display:block;
 }
-.channel-card:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.07)}
+.channel-card:hover{border-color:rgba(255,255,255,.25);background:var(--input-bg)}
 .channel-card.line-card{border-color:rgba(6,199,85,.35);background:rgba(6,199,85,.06)}
 .channel-card.line-card:hover{border-color:#06C755;background:rgba(6,199,85,.12)}
 .ch-icon{font-size:28px;margin-bottom:.5rem;display:block}
 .ch-name{font-size:12px;font-weight:700;color:var(--cream2);margin-bottom:3px}
 .ch-desc{font-size:10px;color:var(--text2);line-height:1.4}
-/* Promptpay box */
 .promptpay-card{
-  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  background:var(--card-bg);border:1px solid var(--border);
   border-radius:var(--r);padding:1.5rem;text-align:center;
 }
 .pp-qr{
@@ -651,13 +664,12 @@ nav{
   padding:10px;margin:0 auto .85rem;
   display:flex;align-items:center;justify-content:center;font-size:50px;
 }
-.pp-num{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream2);margin-bottom:4px}
+.pp-num{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream2);margin-bottom:4px}
 .pp-name{font-size:11px;color:var(--text2)}
-/* Process steps */
 .process-steps{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
 .proc-step{
   display:flex;align-items:flex-start;gap:1rem;
-  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  background:var(--card-bg);border:1px solid var(--border);
   border-radius:var(--r);padding:1rem 1.25rem;
 }
 .proc-num{
@@ -667,23 +679,21 @@ nav{
   font-size:12px;font-weight:700;color:var(--gold);flex-shrink:0;
 }
 .proc-title{font-size:13px;font-weight:600;color:var(--cream2);margin-bottom:2px}
-.proc-desc{font-size:12px;color:var(--text2);line-height:1.5}
+.proc-desc{font-size:12px;color:var(--text2);line-height:1.5;font-family:'Lora',serif}
 .proc-time{font-size:11px;color:var(--sage);font-weight:600;margin-top:3px}
 
 /* ══════════════════════════════════════════
-   STORY SECTION — Strategy 1
+   STORY
 ══════════════════════════════════════════ */
-#story{background:var(--ink2)}
+#story{background:var(--ink)}
 .story-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
 @media(max-width:900px){.story-inner{grid-template-columns:1fr;gap:3rem}}
-.story-image-wrap{position:relative}
 .story-big-num{
-  font-family:'Cormorant Garamond',serif;
-  font-size:160px;font-weight:600;
+  font-family:'Playfair Display',serif;
+  font-size:160px;font-weight:700;
   color:rgba(196,154,58,.07);
   position:absolute;top:-40px;left:-20px;
-  line-height:1;pointer-events:none;
-  user-select:none;
+  line-height:1;pointer-events:none;user-select:none;
 }
 .story-timeline{position:relative;padding-left:2rem;margin-top:2rem}
 .story-timeline::before{
@@ -695,21 +705,21 @@ nav{
 .tl-dot{
   position:absolute;left:-2rem;top:4px;
   width:10px;height:10px;border-radius:50%;
-  background:var(--gold);border:2px solid var(--ink2);
+  background:var(--gold);border:2px solid var(--ink);
   box-shadow:0 0 0 3px rgba(196,154,58,.2);
   margin-left:-4px;
 }
 .tl-year{font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
-.tl-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream2);font-weight:500;margin-bottom:5px}
-.tl-desc{font-size:13px;color:var(--text2);line-height:1.7}
-.story-para{font-size:15px;color:var(--text2);line-height:1.9;margin-bottom:1.25rem;font-weight:300}
+.tl-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream2);font-weight:600;margin-bottom:5px}
+.tl-desc{font-size:13px;color:var(--text2);line-height:1.7;font-family:'Lora',serif}
+.story-para{font-size:15px;color:var(--text2);line-height:1.9;margin-bottom:1.25rem;font-weight:300;font-family:'Lora',serif}
 .story-para em{color:var(--gold);font-style:italic}
 .story-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem}
 .metric-card{
-  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  background:var(--card-bg);border:1px solid var(--border);
   border-radius:var(--r);padding:1.25rem;
 }
-.metric-num{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);display:block}
+.metric-num{font-family:'Playfair Display',serif;font-size:32px;color:var(--gold);display:block;font-weight:700}
 .metric-label{font-size:11px;color:var(--text2);margin-top:3px}
 
 /* ══════════════════════════════════════════
@@ -724,9 +734,9 @@ footer{
   gap:3rem;margin-bottom:3rem;
 }
 @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}}
-.footer-logo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream2);letter-spacing:2px;margin-bottom:.75rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream2);letter-spacing:2px;margin-bottom:.75rem;font-weight:700}
 .footer-logo span{color:var(--gold);font-style:italic}
-.footer-tagline{font-size:13px;color:var(--text2);line-height:1.7;max-width:240px;font-weight:300}
+.footer-tagline{font-size:13px;color:var(--text2);line-height:1.7;max-width:240px;font-weight:300;font-family:'Lora',serif}
 .footer-col-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.85rem;font-weight:600}
 .footer-col a{display:block;font-size:13px;color:var(--text2);text-decoration:none;margin-bottom:.5rem;transition:color .2s}
 .footer-col a:hover{color:var(--cream)}
@@ -741,7 +751,7 @@ footer{
 ══════════════════════════════════════════ */
 .modal-overlay{
   display:none;position:fixed;inset:0;z-index:800;
-  background:rgba(14,11,7,.85);backdrop-filter:blur(10px);
+  background:var(--modal-bg);backdrop-filter:blur(10px);
   align-items:center;justify-content:center;padding:1.5rem;
 }
 .modal-overlay.open{display:flex}
@@ -756,15 +766,15 @@ footer{
 .modal-close{
   position:absolute;top:1.25rem;right:1.25rem;
   width:32px;height:32px;border-radius:50%;
-  background:rgba(255,255,255,.06);border:1px solid var(--border);
+  background:var(--input-bg);border:1px solid var(--border);
   color:var(--text2);cursor:pointer;font-size:16px;
   display:flex;align-items:center;justify-content:center;transition:all .2s;
 }
 .modal-close:hover{background:rgba(255,255,255,.12);color:var(--cream)}
 .modal-eyebrow{font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
-.modal-name{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--cream2);font-weight:500;margin-bottom:1.5rem}
+.modal-name{font-family:'Playfair Display',serif;font-size:30px;color:var(--cream2);font-weight:700;margin-bottom:1.5rem}
 .modal-section{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:.6rem;margin-top:1.25rem}
-.modal-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1rem}
+.modal-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1rem;font-family:'Lora',serif}
 .modal-size-row{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
 .size-opt{
   padding:8px 16px;border-radius:50px;
@@ -777,7 +787,7 @@ footer{
   display:flex;justify-content:space-between;align-items:center;
   border-top:1px solid var(--border);padding-top:1.25rem;margin-top:1.5rem;
 }
-.modal-price{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--cream2);font-weight:500}
+.modal-price{font-family:'Playfair Display',serif;font-size:28px;color:var(--cream2);font-weight:700}
 .modal-unit{font-size:11px;color:var(--text2);margin-top:2px}
 
 /* ══════════════════════════════════════════
@@ -785,7 +795,7 @@ footer{
 ══════════════════════════════════════════ */
 .cart-overlay{
   display:none;position:fixed;inset:0;z-index:700;
-  background:rgba(14,11,7,.7);backdrop-filter:blur(6px);
+  background:var(--overlay-bg);backdrop-filter:blur(6px);
 }
 .cart-overlay.open{display:block}
 .cart-drawer{
@@ -800,10 +810,10 @@ footer{
   padding:1.5rem;border-bottom:1px solid var(--border);
   display:flex;justify-content:space-between;align-items:center;
 }
-.cart-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream2);font-weight:500}
+.cart-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream2);font-weight:700}
 .cart-close-btn{
   width:34px;height:34px;border-radius:50%;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  background:var(--input-bg);border:1px solid var(--border);
   color:var(--text2);cursor:pointer;font-size:16px;
   display:flex;align-items:center;justify-content:center;transition:all .2s;
 }
@@ -821,24 +831,24 @@ footer{
   display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;
 }
 .ci-info{flex:1}
-.ci-name{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--cream2);font-weight:500;margin-bottom:2px}
+.ci-name{font-family:'Playfair Display',serif;font-size:15px;color:var(--cream2);font-weight:600;margin-bottom:2px}
 .ci-origin{font-size:11px;color:var(--text2);margin-bottom:8px}
 .ci-qty{display:flex;align-items:center;gap:10px}
 .qty-btn{
   width:26px;height:26px;border-radius:50%;
-  border:1px solid var(--border);background:rgba(255,255,255,.05);
+  border:1px solid var(--border);background:var(--input-bg);
   color:var(--cream);font-size:16px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;transition:all .15s;
 }
 .qty-btn:hover{border-color:var(--gold);color:var(--gold)}
 .qty-num{font-size:14px;font-weight:500;color:var(--cream);min-width:20px;text-align:center}
-.ci-price{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream2);white-space:nowrap}
+.ci-price{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream2);white-space:nowrap}
 .ci-remove{background:none;border:none;color:var(--text2);cursor:pointer;font-size:16px;padding:4px;transition:color .2s}
 .ci-remove:hover{color:#a63d1e}
 .cart-foot{padding:1.25rem;border-top:1px solid var(--border)}
 .cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
 .cart-total-lbl{font-size:13px;color:var(--text2)}
-.cart-total-price{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--cream2);font-weight:500}
+.cart-total-price{font-family:'Playfair Display',serif;font-size:28px;color:var(--cream2);font-weight:700}
 .cart-checkout{
   width:100%;background:var(--gold);color:var(--ink);
   border:none;border-radius:var(--r);padding:15px;
@@ -847,7 +857,6 @@ footer{
 }
 .cart-checkout:hover{background:var(--gold2)}
 .cart-checkout:disabled{background:rgba(255,255,255,.08);color:var(--text2);cursor:not-allowed}
-/* Free shipping bar */
 .ship-bar-wrap{margin-bottom:.85rem}
 .ship-bar-text{font-size:11px;color:var(--text2);margin-bottom:.5rem}
 .ship-bar-track{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
@@ -862,12 +871,12 @@ footer{
   max-height:92vh;overflow-y:auto;padding:2.5rem;
   position:relative;animation:modalIn .3s ease;
 }
-.checkout-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--cream2);font-weight:500;margin-bottom:.4rem}
-.checkout-sub{font-size:13px;color:var(--text2);margin-bottom:2rem}
+.checkout-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--cream2);font-weight:700;margin-bottom:.4rem}
+.checkout-sub{font-size:13px;color:var(--text2);margin-bottom:2rem;font-family:'Lora',serif}
 .co-section{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;margin-top:1.5rem;font-weight:600}
 .co-input,.co-textarea,.co-select{
   width:100%;padding:11px 14px;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  background:var(--input-bg);border:1px solid var(--border);
   border-radius:10px;color:var(--cream);font-size:14px;
   font-family:'Outfit',sans-serif;outline:none;
   transition:border-color .2s;margin-bottom:.85rem;
@@ -877,7 +886,7 @@ footer{
 .co-textarea{min-height:80px;resize:vertical}
 .co-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 .co-summary{
-  background:rgba(255,255,255,.04);border-radius:12px;
+  background:var(--input-bg);border-radius:12px;
   padding:1rem 1.25rem;margin-bottom:.5rem;
 }
 .co-row-item{
@@ -899,11 +908,11 @@ footer{
 .co-success{text-align:center;padding:2rem 1rem;display:none}
 .co-success.show{display:block}
 .co-success-icon{font-size:56px;margin-bottom:1rem;display:block}
-.co-success-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--cream2);margin-bottom:.5rem}
-.co-success-sub{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1.5rem}
+.co-success-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--cream2);margin-bottom:.5rem;font-weight:700}
+.co-success-sub{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1.5rem;font-family:'Lora',serif}
 
 /* ══════════════════════════════════════════
-   FAB — floating action buttons
+   FAB
 ══════════════════════════════════════════ */
 .cart-fab{
   position:fixed;bottom:2rem;right:2rem;z-index:400;
@@ -937,7 +946,7 @@ footer{
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ══════════════════════════════════════════
-   ADMIN
+   ADMIN FAB
 ══════════════════════════════════════════ */
 .admin-fab{
   position:fixed;bottom:2rem;left:2rem;z-index:400;
@@ -945,16 +954,131 @@ footer{
   background:var(--ink2);border:1.5px solid var(--border);
   color:var(--gold);cursor:pointer;font-size:18px;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 24px rgba(0,0,0,.4);transition:all .2s;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);transition:all .2s;
 }
 .admin-fab:hover{border-color:var(--gold);transform:scale(1.1)}
+
+/* ══════════════════════════════════════════
+   ADMIN PANEL — Full
+══════════════════════════════════════════ */
+.admin-panel{
+  background:var(--ink2);border:1px solid var(--border);
+  border-radius:var(--r2);max-width:900px;width:100%;
+  max-height:92vh;overflow-y:auto;
+  position:relative;animation:modalIn .3s ease;
+}
+.admin-header{
+  padding:1.5rem 2rem;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  position:sticky;top:0;background:var(--ink2);z-index:10;
+}
+.admin-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream2);font-weight:700}
+.admin-subtitle{font-size:11px;color:var(--text2);margin-top:2px}
+.admin-tabs{
+  display:flex;gap:0;border-bottom:1px solid var(--border);
+  overflow-x:auto;
+}
+.admin-tab{
+  padding:.75rem 1.25rem;font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;
+  color:var(--text2);cursor:pointer;border:none;background:none;
+  font-family:'Outfit',sans-serif;transition:all .2s;
+  border-bottom:2px solid transparent;white-space:nowrap;
+  flex-shrink:0;
+}
+.admin-tab:hover{color:var(--gold)}
+.admin-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.admin-body{padding:1.5rem 2rem}
+.admin-section{display:none}
+.admin-section.active{display:block}
+
+/* Admin stats row */
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+@media(max-width:640px){.admin-stats{grid-template-columns:1fr 1fr}}
+.admin-stat-card{
+  background:var(--ink3);border:1px solid var(--border);
+  border-radius:var(--r);padding:1rem;text-align:center;
+}
+.admin-stat-num{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);font-weight:700}
+.admin-stat-lbl{font-size:10px;color:var(--text2);letter-spacing:.5px;margin-top:2px}
+
+/* Admin table */
+.admin-table-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
+.admin-table{width:100%;border-collapse:collapse}
+.admin-table th{
+  background:var(--ink3);padding:.75rem 1rem;
+  font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold);text-align:left;
+}
+.admin-table td{
+  padding:.75rem 1rem;font-size:13px;color:var(--text);
+  border-top:1px solid var(--border);
+}
+.admin-table tr:hover td{background:var(--input-bg)}
+
+/* Admin form */
+.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.admin-form-grid{grid-template-columns:1fr}}
+.admin-field{margin-bottom:1rem}
+.admin-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);display:block;margin-bottom:.4rem}
+.admin-input{
+  width:100%;padding:10px 12px;
+  background:var(--input-bg);border:1px solid var(--border);
+  border-radius:8px;color:var(--cream);font-size:13px;
+  font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s;
+}
+.admin-input:focus{border-color:rgba(196,154,58,.5)}
+.admin-select{
+  width:100%;padding:10px 12px;appearance:none;
+  background:var(--input-bg);border:1px solid var(--border);
+  border-radius:8px;color:var(--cream);font-size:13px;
+  font-family:'Outfit',sans-serif;outline:none;cursor:pointer;
+}
+.admin-btn{
+  padding:9px 20px;border-radius:8px;border:none;cursor:pointer;
+  font-size:12px;font-weight:600;font-family:'Outfit',sans-serif;
+  letter-spacing:.5px;transition:all .2s;
+}
+.admin-btn-gold{background:var(--gold);color:var(--ink)}
+.admin-btn-gold:hover{background:var(--gold2)}
+.admin-btn-outline{background:transparent;color:var(--text2);border:1px solid var(--border)}
+.admin-btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.admin-btn-danger{background:rgba(166,61,30,.15);color:#c94f24;border:1px solid rgba(166,61,30,.3)}
+.admin-btn-danger:hover{background:rgba(166,61,30,.25)}
+.admin-actions{display:flex;gap:.5rem;align-items:center}
+
+/* Coffee edit card */
+.coffee-edit-card{
+  background:var(--ink3);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.25rem;margin-bottom:1rem;
+}
+.coffee-edit-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:1rem;cursor:pointer;
+}
+.coffee-edit-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream2);font-weight:600}
+.coffee-edit-region{font-size:11px;color:var(--gold)}
+.coffee-edit-body{display:none}
+.coffee-edit-body.open{display:block}
+
+/* Order badge */
+.order-status{
+  display:inline-block;padding:3px 10px;border-radius:50px;
+  font-size:10px;font-weight:600;letter-spacing:.5px;
+}
+.status-pending{background:rgba(196,154,58,.15);color:var(--gold)}
+.status-processing{background:rgba(107,125,100,.15);color:var(--sage)}
+.status-shipped{background:rgba(6,199,85,.1);color:#06C755}
+.status-completed{background:rgba(107,125,100,.2);color:var(--sage)}
+
+/* Password change */
+.pass-change-wrap{max-width:400px}
 
 /* ══════════════════════════════════════════
    ANIMATIONS
 ══════════════════════════════════════════ */
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .fade-up.visible{opacity:1;transform:none}
-
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 </style>
 </head>
@@ -970,10 +1094,16 @@ footer{
     <a href="#reviews">รีวิว</a>
     <a href="#order">สั่งซื้อ</a>
   </div>
-  <button class="nav-cart-btn" onclick="openCart()">
-    🛒 ตะกร้า
-    <span class="cart-badge" id="navCartBadge" style="display:none">0</span>
-  </button>
+  <div class="nav-right">
+    <div class="theme-toggle-wrap">
+      <span id="themeIcon">🌙</span>
+      <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="เปลี่ยนธีม"></div>
+    </div>
+    <button class="nav-cart-btn" onclick="openCart()">
+      🛒 ตะกร้า
+      <span class="cart-badge" id="navCartBadge" style="display:none">0</span>
+    </button>
+  </div>
 </nav>
 
 <!-- ═══ HERO ═══ -->
@@ -993,28 +1123,14 @@ footer{
       <a href="#catalog" class="btn btn-gold">☕ ดูกาแฟทั้งหมด</a>
       <a href="#quiz" class="btn btn-outline">✨ ช่วยเลือกล็อต</a>
     </div>
-    <!-- Strategy 1: Trust numbers -->
     <div class="trust-bar">
-      <div class="trust-item">
-        <span class="trust-num">40+</span>
-        <span class="trust-label">ล็อตต่อปี</span>
-      </div>
-      <div class="trust-item">
-        <span class="trust-num">87+</span>
-        <span class="trust-label">SCA Score</span>
-      </div>
-      <div class="trust-item">
-        <span class="trust-num">6 ปี</span>
-        <span class="trust-label">Direct Trade</span>
-      </div>
-      <div class="trust-item">
-        <span class="trust-num">48h</span>
-        <span class="trust-label">จัดส่งหลังคั่ว</span>
-      </div>
+      <div class="trust-item"><span class="trust-num">40+</span><span class="trust-label">ล็อตต่อปี</span></div>
+      <div class="trust-item"><span class="trust-num">87+</span><span class="trust-label">SCA Score</span></div>
+      <div class="trust-item"><span class="trust-num">6 ปี</span><span class="trust-label">Direct Trade</span></div>
+      <div class="trust-item"><span class="trust-num">48h</span><span class="trust-label">จัดส่งหลังคั่ว</span></div>
     </div>
   </div>
   <div class="hero-right">
-    <!-- Floating notification 1 -->
     <div class="hero-float-1">
       <span>🔥</span>
       <div>
@@ -1022,7 +1138,6 @@ footer{
         <div style="font-size:10px;color:var(--text2)">Ethiopia Yirgacheffe — 3 นาทีที่แล้ว</div>
       </div>
     </div>
-    <!-- Hero Coffee Card -->
     <div class="hero-coffee-card">
       <div class="lot-badge"><span class="lot-dot"></span>New Lot — พร้อมส่ง</div>
       <div class="hero-coffee-name">Doi Chang<br>Natural</div>
@@ -1033,29 +1148,13 @@ footer{
         <span class="flavor-tag">ดาร์กช็อก</span>
         <span class="flavor-tag">กุหลาบ</span>
       </div>
-      <!-- Strategy 2: FOMO stock -->
-      <div class="stock-bar">
-        <span class="stock-fire">🔥</span>
-        <span class="stock-text">เหลือ <strong>8 ถุง</strong> — 5 คนกำลังดูล็อตนี้</span>
-      </div>
-      <!-- SCA row -->
+      <div class="stock-bar"><span class="stock-fire">🔥</span><span class="stock-text">เหลือ <strong>8 ถุง</strong> — 5 คนกำลังดูล็อตนี้</span></div>
       <div class="sca-row">
-        <div class="sca-circle">
-          <span class="sca-num">88.5</span>
-          <span class="sca-text">SCA</span>
-        </div>
-        <div style="font-size:13px;color:var(--text2);line-height:1.6">
-          Natural Process<br>Heirloom · 1,500m<br>
-          <span style="color:var(--sage);font-weight:600">✓ Direct Trade</span>
-        </div>
+        <div class="sca-circle"><span class="sca-num">88.5</span><span class="sca-text">SCA</span></div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6">Natural Process<br>Heirloom · 1,500m<br><span style="color:var(--sage);font-weight:600">✓ Direct Trade</span></div>
       </div>
-      <!-- Strategy 1: Roast transparency -->
-      <div class="roast-row">
-        📅 คั่วล่าสุด: <span class="roast-fresh">3 วันที่แล้ว</span>
-        &nbsp;·&nbsp; พร้อมดื่ม ✓
-      </div>
+      <div class="roast-row">📅 คั่วล่าสุด: <span class="roast-fresh">3 วันที่แล้ว</span> &nbsp;·&nbsp; พร้อมดื่ม ✓</div>
     </div>
-    <!-- Floating notification 2 -->
     <div class="hero-float-2">
       <span>⭐</span>
       <div>
@@ -1066,7 +1165,7 @@ footer{
   </div>
 </section>
 
-<!-- ═══ SOCIAL PROOF TICKER — Strategy 3 ═══ -->
+<!-- ═══ TICKER ═══ -->
 <div class="proof-ticker">
   <div class="ticker-track" id="tickerTrack">
     <span class="ticker-item"><span class="ti-icon">🛒</span> <strong>สมชาย</strong> จาก กรุงเทพฯ เพิ่งสั่ง Ethiopia Yirgacheffe</span>
@@ -1079,46 +1178,30 @@ footer{
     <span class="ticker-item"><span class="ti-icon">⭐</span> <strong>4.9/5.0</strong> จากลูกค้า 847 ราย ใน 6 เดือนที่ผ่านมา</span>
     <span class="ticker-item"><span class="ti-icon">🚚</span> จัดส่งฟรีทั่วไทย เมื่อซื้อครบ <strong>฿600</strong></span>
     <span class="ticker-item"><span class="ti-icon">📅</span> คั่วสดทุกวันพุธ–พฤหัส ส่งภายใน <strong>48 ชม.</strong></span>
-    <span class="ticker-item"><span class="ti-icon">🔥</span> <strong>นภาพร</strong> จาก เชียงใหม่ เพิ่งสมัคร subscription</span>
+    <span class="ticker-item"><span class="ti-icon">🔥</span> <strong>พิมพ์ชนก</strong> จาก นครฯ เพิ่งสมัคร Connoisseur</span>
     <span class="ticker-item"><span class="ti-icon">🏅</span> ผ่านการรับรองโดย <strong>Q Grader</strong> ทุก batch</span>
   </div>
 </div>
 
-<!-- ═══ TRANSPARENCY — Strategy 1 ═══ -->
+<!-- ═══ TRANSPARENCY ═══ -->
 <div class="transparency-strip">
   <div class="container">
     <div class="trans-grid">
-      <div class="trans-item">
-        <span class="trans-icon">🌱</span>
-        <div class="trans-label">Direct Trade</div>
-        <div class="trans-val">15 Farm</div>
-      </div>
-      <div class="trans-item">
-        <span class="trans-icon">📅</span>
-        <div class="trans-label">คั่วสด</div>
-        <div class="trans-val">48 ชม.</div>
-      </div>
-      <div class="trans-item">
-        <span class="trans-icon">🏅</span>
-        <div class="trans-label">SCA Score</div>
-        <div class="trans-val">87–92</div>
-      </div>
-      <div class="trans-item">
-        <span class="trans-icon">🚚</span>
-        <div class="trans-label">จัดส่งฟรี</div>
-        <div class="trans-val">฿600+</div>
-      </div>
+      <div class="trans-item"><span class="trans-icon">🌱</span><div class="trans-label">Direct Trade</div><div class="trans-val">15 Farm</div></div>
+      <div class="trans-item"><span class="trans-icon">📅</span><div class="trans-label">คั่วสด</div><div class="trans-val">48 ชม.</div></div>
+      <div class="trans-item"><span class="trans-icon">🏅</span><div class="trans-label">SCA Score</div><div class="trans-val">87–92</div></div>
+      <div class="trans-item"><span class="trans-icon">🚚</span><div class="trans-label">จัดส่งฟรี</div><div class="trans-val">฿600+</div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ CATALOG — Strategy 1+2+4 ═══ -->
+<!-- ═══ CATALOG ═══ -->
 <section id="catalog">
   <div class="container">
     <div class="catalog-top fade-up">
       <div>
         <div class="eyebrow">Coffee Catalog</div>
-        <h2 class="serif" style="font-size:clamp(32px,4vw,52px);font-weight:500;color:var(--cream2);margin-top:.75rem;line-height:1.1">
+        <h2 class="serif" style="font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--cream2);margin-top:.75rem;line-height:1.1">
           เลือกล็อตที่<em style="color:var(--gold);font-style:italic">ใช่สำหรับคุณ</em>
         </h2>
       </div>
@@ -1133,16 +1216,13 @@ footer{
   </div>
 </section>
 
-<!-- ═══ QUIZ — Strategy 4 ═══ -->
+<!-- ═══ QUIZ ═══ -->
 <section id="quiz">
   <div class="container">
     <div class="quiz-inner">
       <div class="eyebrow" style="justify-content:center">✨ ช่วยเลือกกาแฟ</div>
-      <h2 class="section-title" style="margin-top:.75rem">
-        ไม่รู้จะเลือกอะไร?<br><em>บอกเราสักนิด</em>
-      </h2>
+      <h2 class="section-title" style="margin-top:.75rem">ไม่รู้จะเลือกอะไร?<br><em>บอกเราสักนิด</em></h2>
       <p class="section-sub">ตอบ 3 คำถาม เราแนะนำล็อตที่เหมาะกับคุณทันที</p>
-      <!-- Steps -->
       <div class="quiz-steps" id="quizSteps">
         <div class="qstep-circle active" id="qs1">1</div>
         <div class="qstep-line" id="ql1"></div>
@@ -1150,95 +1230,49 @@ footer{
         <div class="qstep-line" id="ql2"></div>
         <div class="qstep-circle" id="qs3">3</div>
       </div>
-      <!-- Q1 -->
       <div class="quiz-panel" id="qp1">
         <div class="quiz-q">☕ คุณชอบรสชาติแบบไหน?</div>
         <div class="quiz-opts">
-          <button class="quiz-opt" onclick="quizAnswer(1,'sweet')">
-            <span class="qo-icon">🍒</span>
-            <div class="qo-name">หวาน & ผลไม้</div>
-            <div class="qo-sub">Natural, ลิ้นจี่ ช็อกโกแลต</div>
-          </button>
-          <button class="quiz-opt" onclick="quizAnswer(1,'floral')">
-            <span class="qo-icon">🌸</span>
-            <div class="qo-name">ดอกไม้ & กรดสดใส</div>
-            <div class="qo-sub">Washed, พีช จัสมิน</div>
-          </button>
-          <button class="quiz-opt" onclick="quizAnswer(1,'nutty')">
-            <span class="qo-icon">🍯</span>
-            <div class="qo-name">เนย & วานิลลา</div>
-            <div class="qo-sub">Honey, วานิลลา คาราเมล</div>
-          </button>
-          <button class="quiz-opt" onclick="quizAnswer(1,'bold')">
-            <span class="qo-icon">🍇</span>
-            <div class="qo-name">เข้มข้น & ซับซ้อน</div>
-            <div class="qo-sub">Anaerobic, ไวน์ ดาร์กช็อก</div>
-          </button>
+          <button class="quiz-opt" onclick="quizAnswer(1,'sweet')"><span class="qo-icon">🍒</span><div class="qo-name">หวาน & ผลไม้</div><div class="qo-sub">Natural, ลิ้นจี่ ช็อกโกแลต</div></button>
+          <button class="quiz-opt" onclick="quizAnswer(1,'floral')"><span class="qo-icon">🌸</span><div class="qo-name">ดอกไม้ & กรดสดใส</div><div class="qo-sub">Washed, พีช จัสมิน</div></button>
+          <button class="quiz-opt" onclick="quizAnswer(1,'nutty')"><span class="qo-icon">🍯</span><div class="qo-name">เนย & วานิลลา</div><div class="qo-sub">Honey, วานิลลา คาราเมล</div></button>
+          <button class="quiz-opt" onclick="quizAnswer(1,'bold')"><span class="qo-icon">🍇</span><div class="qo-name">เข้มข้น & ซับซ้อน</div><div class="qo-sub">Anaerobic, ไวน์ ดาร์กช็อก</div></button>
         </div>
       </div>
-      <!-- Q2 -->
       <div class="quiz-panel" id="qp2" style="display:none">
         <div class="quiz-q">🌍 ชอบกาแฟจากที่ไหน?</div>
         <div class="quiz-opts" style="grid-template-columns:repeat(3,1fr)">
-          <button class="quiz-opt" onclick="quizAnswer(2,'thai')" style="text-align:center">
-            <span class="qo-icon" style="text-align:center">🇹🇭</span>
-            <div class="qo-name">ไทย</div>
-            <div class="qo-sub">ดอยช้าง อินทนนท์</div>
-          </button>
-          <button class="quiz-opt" onclick="quizAnswer(2,'africa')" style="text-align:center">
-            <span class="qo-icon" style="text-align:center">🌍</span>
-            <div class="qo-name">แอฟริกา</div>
-            <div class="qo-sub">Ethiopia Kenya</div>
-          </button>
-          <button class="quiz-opt" onclick="quizAnswer(2,'any')" style="text-align:center">
-            <span class="qo-icon" style="text-align:center">🎲</span>
-            <div class="qo-name">เปิดรับทุกที่</div>
-            <div class="qo-sub">แนะนำตาม score</div>
-          </button>
+          <button class="quiz-opt" onclick="quizAnswer(2,'thai')" style="text-align:center"><span class="qo-icon" style="text-align:center">🇹🇭</span><div class="qo-name">ไทย</div><div class="qo-sub">ดอยช้าง อินทนนท์</div></button>
+          <button class="quiz-opt" onclick="quizAnswer(2,'africa')" style="text-align:center"><span class="qo-icon" style="text-align:center">🌍</span><div class="qo-name">แอฟริกา</div><div class="qo-sub">Ethiopia Kenya</div></button>
+          <button class="quiz-opt" onclick="quizAnswer(2,'any')" style="text-align:center"><span class="qo-icon" style="text-align:center">🎲</span><div class="qo-name">เปิดรับทุกที่</div><div class="qo-sub">แนะนำตาม score</div></button>
         </div>
       </div>
-      <!-- Q3 -->
       <div class="quiz-panel" id="qp3" style="display:none">
         <div class="quiz-q">💰 งบประมาณต่อ 250g?</div>
         <div class="quiz-opts" style="grid-template-columns:repeat(3,1fr)">
-          <button class="quiz-opt" onclick="quizAnswer(3,'budget')" style="text-align:center">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:6px">฿500-</div>
-            <div class="qo-name">ราคาเข้าถึงได้</div>
-          </button>
-          <button class="quiz-opt" onclick="quizAnswer(3,'mid')" style="text-align:center">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:6px">฿500–750</div>
-            <div class="qo-name">Mid-range</div>
-          </button>
-          <button class="quiz-opt" onclick="quizAnswer(3,'premium')" style="text-align:center">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:6px">฿750+</div>
-            <div class="qo-name">Premium / Rare</div>
-          </button>
+          <button class="quiz-opt" onclick="quizAnswer(3,'budget')" style="text-align:center"><div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);margin-bottom:6px">฿500-</div><div class="qo-name">ราคาเข้าถึงได้</div></button>
+          <button class="quiz-opt" onclick="quizAnswer(3,'mid')" style="text-align:center"><div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);margin-bottom:6px">฿500–750</div><div class="qo-name">Mid-range</div></button>
+          <button class="quiz-opt" onclick="quizAnswer(3,'premium')" style="text-align:center"><div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);margin-bottom:6px">฿750+</div><div class="qo-name">Premium / Rare</div></button>
         </div>
       </div>
-      <!-- Result -->
       <div class="quiz-result" id="quizResult">
         <span class="qr-icon" id="qrIcon">🍒</span>
         <div class="eyebrow" style="justify-content:center;margin-bottom:.5rem">✅ แนะนำสำหรับคุณ</div>
         <div class="qr-name" id="qrName">Doi Chang Natural</div>
         <div class="qr-desc" id="qrDesc">กาแฟไทยรสหวาน ผลไม้เข้มข้น เหมาะมากสำหรับสไตล์ที่คุณชอบ</div>
-        <div class="qr-btns">
-          <a href="#catalog" class="btn btn-gold">☕ ดูในคาตาล็อก</a>
-          <button class="btn btn-outline" onclick="resetQuiz()">🔄 ทำใหม่</button>
-        </div>
+        <div class="qr-btns"><a href="#catalog" class="btn btn-gold">☕ ดูในคาตาล็อก</a><button class="btn btn-outline" onclick="resetQuiz()">🔄 ทำใหม่</button></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ REVIEWS — Strategy 3 ═══ -->
+<!-- ═══ REVIEWS ═══ -->
 <section id="reviews">
   <div class="container">
     <div class="reviews-header fade-up">
       <div>
         <div class="eyebrow">💬 เสียงจากลูกค้า</div>
-        <h2 class="section-title" style="margin-top:.75rem">
-          ลูกค้าพูดถึง<br><em>เราอย่างไร</em>
-        </h2>
+        <h2 class="section-title" style="margin-top:.75rem">ลูกค้าพูดถึง<br><em>เราอย่างไร</em></h2>
       </div>
       <div>
         <div class="agg-score-wrap">
@@ -1253,18 +1287,14 @@ footer{
             </div>
           </div>
         </div>
-        <div class="rev-verified">
-          <span>✓</span> รีวิวจากลูกค้าจริง ยืนยันผ่านคำสั่งซื้อ
-        </div>
+        <div class="rev-verified"><span>✓</span> รีวิวจากลูกค้าจริง ยืนยันผ่านคำสั่งซื้อ</div>
       </div>
     </div>
-    <div class="reviews-grid" id="reviewsGrid">
-      <!-- Rendered by JS -->
-    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
   </div>
 </section>
 
-<!-- ═══ SUBSCRIPTION — Strategy 5 ═══ -->
+<!-- ═══ SUBSCRIPTION ═══ -->
 <section id="subscription">
   <div class="container">
     <div class="sub-inner">
@@ -1273,117 +1303,65 @@ footer{
         <h2 class="sub-title">สมาชิกรายเดือน<br><em>ราคาพิเศษ + ฟรีค่าส่ง</em></h2>
         <p class="sub-desc">รับกาแฟ specialty ล็อตใหม่ทุกเดือน — คั่วสดตามออเดอร์ ยกเลิกได้ตลอด ไม่มีค่าปรับ</p>
         <div class="sub-perks">
-          <div class="sub-perk">
-            <div class="sub-perk-icon">📦</div>
-            <span>ส่งฟรีทุกเดือน ไม่มีขั้นต่ำ</span>
-          </div>
-          <div class="sub-perk">
-            <div class="sub-perk-icon">💰</div>
-            <span>ราคาสมาชิกถูกกว่า 10–15%</span>
-          </div>
-          <div class="sub-perk">
-            <div class="sub-perk-icon">🔔</div>
-            <span>Early access ล็อตพิเศษก่อนใคร</span>
-          </div>
-          <div class="sub-perk">
-            <div class="sub-perk-icon">↩️</div>
-            <span>ยกเลิกได้ตลอด ไม่มีข้อผูกมัด</span>
-          </div>
+          <div class="sub-perk"><div class="sub-perk-icon">📦</div><span>ส่งฟรีทุกเดือน ไม่มีขั้นต่ำ</span></div>
+          <div class="sub-perk"><div class="sub-perk-icon">💰</div><span>ราคาสมาชิกถูกกว่า 10–15%</span></div>
+          <div class="sub-perk"><div class="sub-perk-icon">🔔</div><span>Early access ล็อตพิเศษก่อนใคร</span></div>
+          <div class="sub-perk"><div class="sub-perk-icon">↩️</div><span>ยกเลิกได้ตลอด ไม่มีข้อผูกมัด</span></div>
         </div>
       </div>
       <div class="fade-up">
         <div class="sub-plans">
           <div class="sub-plan" onclick="selectPlan(this,'Classic')">
             <span class="plan-emoji">☕</span>
-            <div class="plan-info">
-              <div class="plan-name">Classic</div>
-              <div class="plan-desc">250g · 1 ล็อตต่อเดือน</div>
-            </div>
+            <div class="plan-info"><div class="plan-name">Classic</div><div class="plan-desc">250g · 1 ล็อตต่อเดือน</div></div>
             <div class="plan-price">฿590<small>/เดือน</small></div>
           </div>
           <div class="sub-plan featured" onclick="selectPlan(this,'Explorer')">
             <span class="plan-featured-tag">⭐ แนะนำ</span>
             <span class="plan-emoji">🌍</span>
-            <div class="plan-info">
-              <div class="plan-name">Explorer</div>
-              <div class="plan-desc">500g · 2 ล็อตต่อเดือน</div>
-            </div>
+            <div class="plan-info"><div class="plan-name">Explorer</div><div class="plan-desc">500g · 2 ล็อตต่อเดือน</div></div>
             <div class="plan-price">฿1,090<small>/เดือน</small></div>
           </div>
           <div class="sub-plan" onclick="selectPlan(this,'Connoisseur')">
             <span class="plan-emoji">🏅</span>
-            <div class="plan-info">
-              <div class="plan-name">Connoisseur</div>
-              <div class="plan-desc">1kg · 3 ล็อต Premium</div>
-            </div>
+            <div class="plan-info"><div class="plan-name">Connoisseur</div><div class="plan-desc">1kg · 3 ล็อต Premium</div></div>
             <div class="plan-price">฿1,890<small>/เดือน</small></div>
           </div>
         </div>
-        <div class="sub-cta">
-          <button class="btn btn-gold" onclick="openSubModal()">📦 สมัครสมาชิก →</button>
-        </div>
+        <div class="sub-cta"><button class="btn btn-gold" onclick="openSubModal()">📦 สมัครสมาชิก →</button></div>
         <p class="sub-note">💳 ชำระผ่าน PromptPay · LINE Pay · โอนธนาคาร · ยกเลิกได้ตลอด</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ STORY — Strategy 1 ═══ -->
-<section id="story">
+<!-- ═══ ORDER ═══ -->
+<section id="order">
   <div class="container">
-    <div class="story-inner">
+    <div class="order-inner">
       <div class="fade-up">
-        <div class="eyebrow">📖 เรื่องราวของเรา</div>
-        <h2 class="section-title" style="margin-top:.75rem">
-          เริ่มต้นจาก<br><em>ความรักในรสชาติ</em>
-        </h2>
-        <p class="story-para">เราเดินทางขึ้นดอยครั้งแรกเมื่อปี 2018 เพื่อพบกับเกษตรกรชาวไทยที่ปลูกกาแฟด้วยความตั้งใจ แต่ไม่มีทางออกสู่ตลาดที่ดีพอ — <em>นั่นคือจุดเริ่มต้น</em></p>
-        <p class="story-para">วันนี้เราทำงานโดยตรงกับเกษตรกรกว่า 15 ราย ในไทย เอธิโอเปีย และโคลอมเบีย ทุกล็อตมีชื่อ Farm ชื่อเกษตรกร ความสูง และกระบวนการที่ชัดเจน</p>
-        <div class="story-metrics">
-          <div class="metric-card">
-            <span class="metric-num">2018</span>
-            <div class="metric-label">ปีที่ก่อตั้ง</div>
-          </div>
-          <div class="metric-card">
-            <span class="metric-num">15+</span>
-            <div class="metric-label">Farm partners</div>
-          </div>
-          <div class="metric-card">
-            <span class="metric-num">3K+</span>
-            <div class="metric-label">ลูกค้าประจำ</div>
-          </div>
-          <div class="metric-card">
-            <span class="metric-num">100%</span>
-            <div class="metric-label">Traceable</div>
-          </div>
+        <div class="eyebrow">📦 สั่งซื้อง่ายๆ</div>
+        <h2 class="section-title" style="margin-top:.75rem">เลือกช่องทาง<br><em>ที่สะดวกสำหรับคุณ</em></h2>
+        <p class="section-sub" style="max-width:420px;margin:0 0 2rem">สั่งซื้อผ่านช่องทางที่ถนัด เราตอบไว ส่งเร็ว คั่วสดทุกออเดอร์</p>
+        <div class="channel-grid">
+          <a href="https://line.me/R/oa/@origincoffee" target="_blank" class="channel-card line-card"><span class="ch-icon">💚</span><div class="ch-name">LINE OA</div><div class="ch-desc">ช่องทางหลัก<br>ตอบเร็วที่สุด</div></a>
+          <a href="https://t.me/origincoffeebot" target="_blank" class="channel-card"><span class="ch-icon">✈️</span><div class="ch-name">Telegram</div><div class="ch-desc">มี Bot สั่งได้<br>ตลอด 24 ชม.</div></a>
+          <a href="https://m.me/origincoffeeth" target="_blank" class="channel-card"><span class="ch-icon">💙</span><div class="ch-name">Facebook</div><div class="ch-desc">Messenger<br>สะดวกสั่ง</div></a>
+          <div class="channel-card" onclick="showPromptpay()"><span class="ch-icon">📱</span><div class="ch-name">PromptPay</div><div class="ch-desc">โอนตรง<br>ไม่มีค่าธรรมเนียม</div></div>
+        </div>
+        <div id="promptpayBox" style="display:none">
+          <div class="promptpay-card"><div class="pp-qr">📱</div><div class="pp-num">098-765-4321</div><div class="pp-name">Origin Coffee Roastery</div><p style="font-size:11px;color:var(--text2);margin-top:.75rem;line-height:1.6">โอนแล้วแจ้งสลิป + ที่อยู่จัดส่งมาที่ LINE OA ทันที</p></div>
         </div>
       </div>
-      <div class="fade-up" style="position:relative">
-        <div class="story-big-num">6</div>
-        <div class="story-timeline">
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-year">2018</div>
-            <div class="tl-title">ขึ้นดอยครั้งแรก</div>
-            <div class="tl-desc">พบเกษตรกรบนดอยช้าง เชียงราย ซื้อล็อตแรกมาคั่วในครัวบ้าน</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-year">2020</div>
-            <div class="tl-title">เปิด Micro-Roastery</div>
-            <div class="tl-desc">ย้ายมาใช้เครื่อง Probat 12kg เปิดรับออเดอร์ผ่าน LINE อย่างเป็นทางการ</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-year">2022</div>
-            <div class="tl-title">Direct Trade แอฟริกา</div>
-            <div class="tl-desc">บินไปเยือน Yirgacheffe Ethiopia โดยตรง เริ่มต้น partnership กับ Kedir Farm</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-year">2024</div>
-            <div class="tl-title">3,000+ ลูกค้าประจำ</div>
-            <div class="tl-desc">เปิดระบบ subscription รายเดือน และคั่วกาแฟ 40+ ล็อตต่อปี</div>
+      <div class="fade-up">
+        <h3 class="serif" style="font-size:22px;color:var(--cream2);margin-bottom:1.25rem;font-weight:600">ขั้นตอนง่ายๆ</h3>
+        <div class="process-steps">
+          <div class="proc-step"><div class="proc-num">1</div><div><div class="proc-title">เลือกกาแฟที่ชอบ</div><div class="proc-desc">ดูจากคาตาล็อกด้านบน หรือให้เราแนะนำจาก Quiz</div><div class="proc-time">⏱ 2 นาที</div></div></div>
+          <div class="proc-step"><div class="proc-num">2</div><div><div class="proc-title">ส่งข้อความ + ที่อยู่</div><div class="proc-desc">แจ้งชื่อล็อต ขนาด ที่อยู่ ผ่านช่องทางที่สะดวก</div><div class="proc-time">⏱ 1 นาที</div></div></div>
+          <div class="proc-step"><div class="proc-num">3</div><div><div class="proc-title">โอน + แจ้งสลิป</div><div class="proc-desc">PromptPay หรือโอนธนาคาร แล้วส่งสลิปมาให้เรา</div><div class="proc-time">⏱ 1 นาที</div></div></div>
+          <div class="proc-step" style="border-color:rgba(107,125,100,.4);background:rgba(107,125,100,.06)">
+            <div class="proc-num" style="background:rgba(107,125,100,.2);border-color:rgba(107,125,100,.3);color:var(--sage)">✓</div>
+            <div><div class="proc-title" style="color:var(--sage)">คั่วสด → จัดส่งทันที</div><div class="proc-desc">คั่วตามออเดอร์ ส่งภายใน 48 ชม. พร้อม tracking</div><div class="proc-time" style="color:var(--sage)">🚚 ถึงมือใน 1–3 วัน</div></div>
           </div>
         </div>
       </div>
@@ -1391,86 +1369,29 @@ footer{
   </div>
 </section>
 
-<!-- ═══ LINE/ORDER — Strategy 6 Thai Market ═══ -->
-<section id="order">
+<!-- ═══ STORY ═══ -->
+<section id="story" style="background:var(--ink2)">
   <div class="container">
-    <div class="order-inner">
+    <div class="story-inner">
       <div class="fade-up">
-        <div class="eyebrow">💚 สั่งซื้อง่าย</div>
-        <h2 class="section-title" style="margin-top:.75rem;color:var(--cream2)">
-          สั่งได้เลย<br><em>ใน 2 ขั้นตอน</em>
-        </h2>
-        <p class="section-sub" style="margin:0 0 2rem">
-          ไม่ต้องกรอกฟอร์มยาว — เลือกช่องทางที่สะดวก กดส่งข้อความ แล้วโอนเงินจบ
-        </p>
-        <div class="channel-grid">
-          <a href="https://line.me/R/oa/@origincoffee" target="_blank" class="channel-card line-card">
-            <span class="ch-icon">💚</span>
-            <div class="ch-name">LINE OA</div>
-            <div class="ch-desc">ตอบเร็วที่สุด<br>แนะนำเลย</div>
-          </a>
-          <a href="https://t.me/origincoffeebot" target="_blank" class="channel-card">
-            <span class="ch-icon">✈️</span>
-            <div class="ch-name">Telegram</div>
-            <div class="ch-desc">มี Bot สั่งได้<br>ตลอด 24 ชม.</div>
-          </a>
-          <a href="https://m.me/origincoffeeth" target="_blank" class="channel-card">
-            <span class="ch-icon">💙</span>
-            <div class="ch-name">Facebook</div>
-            <div class="ch-desc">Messenger<br>สะดวกสั่ง</div>
-          </a>
-          <div class="channel-card" onclick="showPromptpay()">
-            <span class="ch-icon">📱</span>
-            <div class="ch-name">PromptPay</div>
-            <div class="ch-desc">โอนตรง<br>ไม่มีค่าธรรมเนียม</div>
-          </div>
-        </div>
-        <div id="promptpayBox" style="display:none">
-          <div class="promptpay-card">
-            <div class="pp-qr">📱</div>
-            <div class="pp-num">098-765-4321</div>
-            <div class="pp-name">Origin Coffee Roastery</div>
-            <p style="font-size:11px;color:var(--text2);margin-top:.75rem;line-height:1.6">
-              โอนแล้วแจ้งสลิป + ที่อยู่จัดส่งมาที่ LINE OA ทันที
-            </p>
-          </div>
+        <div class="eyebrow">📖 เรื่องราวของเรา</div>
+        <h2 class="section-title" style="margin-top:.75rem">เริ่มต้นจาก<br><em>ความรักในรสชาติ</em></h2>
+        <p class="story-para">เราเดินทางขึ้นดอยครั้งแรกเมื่อปี 2018 เพื่อพบกับเกษตรกรชาวไทยที่ปลูกกาแฟด้วยความตั้งใจ แต่ไม่มีทางออกสู่ตลาดที่ดีพอ — <em>นั่นคือจุดเริ่มต้น</em></p>
+        <p class="story-para">วันนี้เราทำงานโดยตรงกับเกษตรกรกว่า 15 ราย ในไทย เอธิโอเปีย และโคลอมเบีย ทุกล็อตมีชื่อ Farm ชื่อเกษตรกร ความสูง และกระบวนการที่ชัดเจน</p>
+        <div class="story-metrics">
+          <div class="metric-card"><span class="metric-num">2018</span><div class="metric-label">ปีที่ก่อตั้ง</div></div>
+          <div class="metric-card"><span class="metric-num">15+</span><div class="metric-label">Farm partners</div></div>
+          <div class="metric-card"><span class="metric-num">3K+</span><div class="metric-label">ลูกค้าประจำ</div></div>
+          <div class="metric-card"><span class="metric-num">100%</span><div class="metric-label">Traceable</div></div>
         </div>
       </div>
-      <div class="fade-up">
-        <h3 class="serif" style="font-size:22px;color:var(--cream2);margin-bottom:1.25rem;font-weight:500">ขั้นตอนง่ายๆ</h3>
-        <div class="process-steps">
-          <div class="proc-step">
-            <div class="proc-num">1</div>
-            <div>
-              <div class="proc-title">เลือกกาแฟที่ชอบ</div>
-              <div class="proc-desc">ดูจากคาตาล็อกด้านบน หรือให้เราแนะนำจาก Quiz</div>
-              <div class="proc-time">⏱ 2 นาที</div>
-            </div>
-          </div>
-          <div class="proc-step">
-            <div class="proc-num">2</div>
-            <div>
-              <div class="proc-title">ส่งข้อความ + ที่อยู่</div>
-              <div class="proc-desc">แจ้งชื่อล็อต ขนาด ที่อยู่ ผ่านช่องทางที่สะดวก</div>
-              <div class="proc-time">⏱ 1 นาที</div>
-            </div>
-          </div>
-          <div class="proc-step">
-            <div class="proc-num">3</div>
-            <div>
-              <div class="proc-title">โอน + แจ้งสลิป</div>
-              <div class="proc-desc">PromptPay หรือโอนธนาคาร แล้วส่งสลิปมาให้เรา</div>
-              <div class="proc-time">⏱ 1 นาที</div>
-            </div>
-          </div>
-          <div class="proc-step" style="border-color:rgba(107,125,100,.4);background:rgba(107,125,100,.06)">
-            <div class="proc-num" style="background:rgba(107,125,100,.2);border-color:rgba(107,125,100,.3);color:var(--sage)">✓</div>
-            <div>
-              <div class="proc-title" style="color:var(--sage)">คั่วสด → จัดส่งทันที</div>
-              <div class="proc-desc">คั่วตามออเดอร์ ส่งภายใน 48 ชม. พร้อม tracking</div>
-              <div class="proc-time" style="color:var(--sage)">🚚 ถึงมือใน 1–3 วัน</div>
-            </div>
-          </div>
+      <div class="fade-up" style="position:relative">
+        <div class="story-big-num">6</div>
+        <div class="story-timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2018</div><div class="tl-title">ขึ้นดอยครั้งแรก</div><div class="tl-desc">พบเกษตรกรบนดอยช้าง เชียงราย ซื้อล็อตแรกมาคั่วในครัวบ้าน</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2020</div><div class="tl-title">เปิด Micro-Roastery</div><div class="tl-desc">ย้ายมาใช้เครื่อง Probat 12kg เปิดรับออเดอร์ผ่าน LINE อย่างเป็นทางการ</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2022</div><div class="tl-title">Direct Trade แอฟริกา</div><div class="tl-desc">บินไปเยือน Yirgacheffe Ethiopia โดยตรง เริ่มต้น partnership กับ Kedir Farm</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-title">3,000+ ลูกค้าประจำ</div><div class="tl-desc">เปิดระบบ subscription รายเดือน และคั่วกาแฟ 40+ ล็อตต่อปี</div></div>
         </div>
       </div>
     </div>
@@ -1487,17 +1408,11 @@ footer{
       </div>
       <div class="footer-col">
         <div class="footer-col-title">กาแฟ</div>
-        <a href="#catalog">คาตาล็อก</a>
-        <a href="#quiz">เลือกล็อต</a>
-        <a href="#subscription">สมาชิก</a>
-        <a href="#">Tasting Set</a>
+        <a href="#catalog">คาตาล็อก</a><a href="#quiz">เลือกล็อต</a><a href="#subscription">สมาชิก</a><a href="#">Tasting Set</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">เกี่ยวกับ</div>
-        <a href="#story">เรื่องราวเรา</a>
-        <a href="#">Direct Trade</a>
-        <a href="#">Brew Guide</a>
-        <a href="#">Blog</a>
+        <a href="#story">เรื่องราวเรา</a><a href="#">Direct Trade</a><a href="#">Brew Guide</a><a href="#">Blog</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">ติดต่อ</div>
@@ -1514,7 +1429,7 @@ footer{
   </div>
 </footer>
 
-<!-- ═══ LIVE SOCIAL PROOF POPUP — Strategy 3 ═══ -->
+<!-- ═══ LIVE POPUP ═══ -->
 <div class="live-popup" id="livePopup">
   <span class="live-popup-icon" id="popupIcon">🛒</span>
   <div class="live-popup-text">
@@ -1524,36 +1439,26 @@ footer{
 </div>
 
 <!-- ═══ CART FAB ═══ -->
-<button class="cart-fab hidden" id="cartFab" onclick="openCart()">
-  🛒
-  <span class="cart-fab-badge" id="cartFabBadge">0</span>
-</button>
+<button class="cart-fab hidden" id="cartFab" onclick="openCart()">🛒<span class="cart-fab-badge" id="cartFabBadge">0</span></button>
 
 <!-- ═══ ADMIN FAB ═══ -->
-<button class="admin-fab" onclick="openAdminLogin()" title="Admin">⚙️</button>
+<button class="admin-fab" onclick="openAdminLogin()" title="Admin Panel">⚙️</button>
 
 <!-- ═══ TOAST ═══ -->
 <div class="toast" id="toast"></div>
 
-<!-- ═══ MODAL — Product Detail ═══ -->
+<!-- ═══ PRODUCT MODAL ═══ -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModalBtn()">✕</button>
-    <div id="modalContent"></div>
-  </div>
+  <div class="modal"><button class="modal-close" onclick="closeModalBtn()">✕</button><div id="modalContent"></div></div>
 </div>
 
 <!-- ═══ CART DRAWER ═══ -->
 <div class="cart-overlay" id="cartOverlay" onclick="handleCartClick(event)">
   <div class="cart-drawer">
     <div class="cart-head">
-      <div>
-        <div class="cart-title">ตะกร้าสินค้า</div>
-        <div id="cartHeadSub" style="font-size:12px;color:var(--text2)">ยังไม่มีสินค้า</div>
-      </div>
+      <div><div class="cart-title">ตะกร้าสินค้า</div><div id="cartHeadSub" style="font-size:12px;color:var(--text2)">ยังไม่มีสินค้า</div></div>
       <button class="cart-close-btn" onclick="closeCart()">✕</button>
     </div>
-    <!-- Free shipping bar -->
     <div style="padding:.85rem 1.25rem .5rem;border-bottom:1px solid var(--border)">
       <div class="ship-bar-wrap">
         <div class="ship-bar-text" id="shipBarText">ซื้ออีก <strong>฿600</strong> เพื่อรับส่งฟรี</div>
@@ -1561,17 +1466,10 @@ footer{
       </div>
     </div>
     <div class="cart-items" id="cartItems">
-      <div class="cart-empty">
-        <span class="cart-empty-icon">☕</span>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text2)">ตะกร้าว่างเปล่า</div>
-        <div style="font-size:13px;color:var(--text2);margin-top:.5rem">เลือกกาแฟที่ชอบเลย</div>
-      </div>
+      <div class="cart-empty"><span class="cart-empty-icon">☕</span><div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text2)">ตะกร้าว่างเปล่า</div><div style="font-size:13px;color:var(--text2);margin-top:.5rem">เลือกกาแฟที่ชอบเลย</div></div>
     </div>
     <div class="cart-foot">
-      <div class="cart-total-row">
-        <span class="cart-total-lbl">รวมทั้งหมด</span>
-        <span class="cart-total-price" id="cartTotalPrice">฿0</span>
-      </div>
+      <div class="cart-total-row"><span class="cart-total-lbl">รวมทั้งหมด</span><span class="cart-total-price" id="cartTotalPrice">฿0</span></div>
       <button class="cart-checkout" id="checkoutBtn" disabled onclick="openCheckout()">สั่งซื้อเลย →</button>
     </div>
   </div>
@@ -1593,10 +1491,7 @@ footer{
       <textarea class="co-textarea" id="co_address" placeholder="บ้านเลขที่ ซอย ถนน แขวง/ตำบล เขต/อำเภอ จังหวัด รหัสไปรษณีย์"></textarea>
       <div class="co-section">ช่องทางที่สะดวกให้ติดต่อกลับ</div>
       <select class="co-select" id="co_channel">
-        <option>💚 LINE OA</option>
-        <option>✈️ Telegram</option>
-        <option>📘 Facebook Messenger</option>
-        <option>📞 โทรศัพท์</option>
+        <option>💚 LINE OA</option><option>✈️ Telegram</option><option>📘 Facebook Messenger</option><option>📞 โทรศัพท์</option>
       </select>
       <input class="co-input" id="co_note" placeholder="หมายเหตุ (ไม่บังคับ) — เช่น บด V60, ของขวัญ">
       <button class="co-submit" onclick="submitOrder()">💚 ส่งคำสั่งซื้อ →</button>
@@ -1618,7 +1513,7 @@ footer{
     <div id="subModalContent">
       <div class="modal-eyebrow">📦 สมัครสมาชิก</div>
       <div class="modal-name" id="subModalPlanName">Explorer Plan</div>
-      <p style="font-size:13px;color:var(--text2);margin-bottom:1.25rem">รับกาแฟ specialty ล็อตใหม่ทุกเดือน · ยกเลิกได้ตลอด</p>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:1.25rem;font-family:'Lora',serif">รับกาแฟ specialty ล็อตใหม่ทุกเดือน · ยกเลิกได้ตลอด</p>
       <input class="co-input" id="sub_name" placeholder="ชื่อ-นามสกุล *">
       <input class="co-input" id="sub_contact" placeholder="เบอร์โทร / LINE ID *">
       <textarea class="co-textarea" id="sub_address" placeholder="ที่อยู่จัดส่ง"></textarea>
@@ -1626,8 +1521,8 @@ footer{
     </div>
     <div id="subSuccess" style="display:none;text-align:center;padding:1.5rem 0">
       <span style="font-size:52px;display:block;margin-bottom:1rem">✅</span>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--cream2);margin-bottom:.5rem">สมัครเรียบร้อย!</div>
-      <p style="font-size:13px;color:var(--text2);line-height:1.7">เราจะติดต่อยืนยันภายใน 1 ชั่วโมง<br>กาแฟล็อตแรกส่งในวันที่ 1 ของเดือน ☕</p>
+      <div style="font-family:'Playfair Display',serif;font-size:24px;color:var(--cream2);margin-bottom:.5rem">สมัครเรียบร้อย!</div>
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;font-family:'Lora',serif">เราจะติดต่อยืนยันภายใน 1 ชั่วโมง<br>กาแฟล็อตแรกส่งในวันที่ 1 ของเดือน ☕</p>
       <button class="btn btn-gold" onclick="closeSubModalBtn()" style="margin-top:1.5rem">กลับหน้าหลัก</button>
     </div>
   </div>
@@ -1639,9 +1534,183 @@ footer{
     <button class="modal-close" onclick="closeAdminLogin()">✕</button>
     <div class="modal-eyebrow">🔐 Admin</div>
     <div class="modal-name">เข้าหลังบ้าน</div>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:1rem;font-family:'Lora',serif">รหัสเริ่มต้น: <code style="color:var(--gold)">origin2024</code></p>
     <input class="co-input" type="password" id="adminPassInput" placeholder="รหัสผ่าน..." onkeydown="if(event.key==='Enter')checkPass()">
     <button class="co-submit" onclick="checkPass()">เข้าสู่ระบบ →</button>
     <div id="adminErr" style="font-size:12px;color:#a63d1e;text-align:center;margin-top:.5rem;display:none">❌ รหัสผ่านไม่ถูกต้อง</div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN PANEL ═══ -->
+<div class="modal-overlay" id="adminPanelOverlay">
+  <div class="admin-panel">
+    <div class="admin-header">
+      <div>
+        <div class="admin-title">⚙️ Admin Panel</div>
+        <div class="admin-subtitle" id="adminLoggedAs">Origin Coffee — หลังบ้าน</div>
+      </div>
+      <button class="admin-btn admin-btn-outline" onclick="closeAdminPanel()">✕ ออกจากระบบ</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab(this,'tabDashboard')">📊 Dashboard</button>
+      <button class="admin-tab" onclick="switchTab(this,'tabProducts')">☕ สินค้า</button>
+      <button class="admin-tab" onclick="switchTab(this,'tabOrders')">📦 ออเดอร์</button>
+      <button class="admin-tab" onclick="switchTab(this,'tabReviews')">💬 รีวิว</button>
+      <button class="admin-tab" onclick="switchTab(this,'tabSettings')">🔧 ตั้งค่า</button>
+    </div>
+
+    <div class="admin-body">
+
+      <!-- DASHBOARD -->
+      <div class="admin-section active" id="tabDashboard">
+        <div class="admin-stats">
+          <div class="admin-stat-card"><div class="admin-stat-num" id="statProducts">6</div><div class="admin-stat-lbl">สินค้าทั้งหมด</div></div>
+          <div class="admin-stat-card"><div class="admin-stat-num" id="statOrders">0</div><div class="admin-stat-lbl">ออเดอร์วันนี้</div></div>
+          <div class="admin-stat-card"><div class="admin-stat-num" id="statRevenue">฿0</div><div class="admin-stat-lbl">ยอดขาย (session)</div></div>
+          <div class="admin-stat-card"><div class="admin-stat-num" id="statReviews">6</div><div class="admin-stat-lbl">รีวิวทั้งหมด</div></div>
+        </div>
+        <h3 class="serif" style="font-size:18px;color:var(--cream2);margin-bottom:1rem;font-weight:700">สินค้าสต็อกต่ำ</h3>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="lowStockTable">
+            <thead><tr><th>สินค้า</th><th>สต็อก</th><th>ราคา</th><th>สถานะ</th></tr></thead>
+            <tbody id="lowStockBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="admin-section" id="tabProducts">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+          <h3 class="serif" style="font-size:18px;color:var(--cream2);font-weight:700">จัดการสินค้า</h3>
+          <button class="admin-btn admin-btn-gold" onclick="showAddProduct()">+ เพิ่มสินค้าใหม่</button>
+        </div>
+        <div id="productEditList"></div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="admin-section" id="tabOrders">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+          <h3 class="serif" style="font-size:18px;color:var(--cream2);font-weight:700">ออเดอร์ทั้งหมด</h3>
+          <span style="font-size:12px;color:var(--text2)">อัปเดตแบบ real-time ในระบบ production</span>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>#</th><th>ลูกค้า</th><th>สินค้า</th><th>ยอดรวม</th><th>ช่องทาง</th><th>สถานะ</th><th>จัดการ</th></tr></thead>
+            <tbody id="ordersBody">
+              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text2)">ยังไม่มีออเดอร์ในรอบนี้<br><small>ออเดอร์จะปรากฏหลังลูกค้าส่งคำสั่งซื้อ</small></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="admin-section" id="tabReviews">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+          <h3 class="serif" style="font-size:18px;color:var(--cream2);font-weight:700">จัดการรีวิว</h3>
+          <button class="admin-btn admin-btn-gold" onclick="showAddReview()">+ เพิ่มรีวิว</button>
+        </div>
+        <div id="reviewEditList"></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="admin-section" id="tabSettings">
+        <h3 class="serif" style="font-size:18px;color:var(--cream2);margin-bottom:1.5rem;font-weight:700">ตั้งค่าระบบ</h3>
+
+        <!-- Shipping -->
+        <div style="background:var(--ink3);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:1rem">
+          <div style="font-size:12px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem">🚚 ค่าจัดส่ง</div>
+          <div class="admin-form-grid">
+            <div class="admin-field"><label class="admin-label">ยอดขั้นต่ำส่งฟรี (฿)</label><input class="admin-input" id="setShipFree" type="number" value="600"></div>
+            <div class="admin-field"><label class="admin-label">ค่าส่งมาตรฐาน (฿)</label><input class="admin-input" id="setShipCost" type="number" value="50"></div>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div style="background:var(--ink3);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:1rem">
+          <div style="font-size:12px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem">📱 ช่องทางติดต่อ</div>
+          <div class="admin-field"><label class="admin-label">LINE OA URL</label><input class="admin-input" id="setLine" value="https://line.me/R/oa/@origincoffee"></div>
+          <div class="admin-field"><label class="admin-label">เบอร์ PromptPay</label><input class="admin-input" id="setPromptpay" value="098-765-4321"></div>
+          <div class="admin-field"><label class="admin-label">ชื่อบัญชี PromptPay</label><input class="admin-input" id="setPromptpayName" value="Origin Coffee Roastery"></div>
+        </div>
+
+        <!-- Password -->
+        <div class="pass-change-wrap" style="background:var(--ink3);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:1rem">
+          <div style="font-size:12px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem">🔐 เปลี่ยนรหัสผ่าน Admin</div>
+          <div class="admin-field"><label class="admin-label">รหัสปัจจุบัน</label><input class="admin-input" type="password" id="passOld" placeholder="รหัสปัจจุบัน"></div>
+          <div class="admin-field"><label class="admin-label">รหัสใหม่</label><input class="admin-input" type="password" id="passNew" placeholder="รหัสใหม่ (อย่างน้อย 6 ตัว)"></div>
+          <div class="admin-field"><label class="admin-label">ยืนยันรหัสใหม่</label><input class="admin-input" type="password" id="passConfirm" placeholder="ยืนยันรหัสใหม่"></div>
+          <button class="admin-btn admin-btn-gold" onclick="changePassword()">🔐 เปลี่ยนรหัสผ่าน</button>
+          <div id="passMsg" style="font-size:12px;margin-top:.5rem;display:none"></div>
+        </div>
+
+        <!-- Theme -->
+        <div style="background:var(--ink3);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:1rem">
+          <div style="font-size:12px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem">🎨 ธีมเว็บไซต์</div>
+          <div style="display:flex;gap:1rem;align-items:center">
+            <button class="admin-btn admin-btn-outline" onclick="setTheme('dark')">🌙 Dark Mode</button>
+            <button class="admin-btn admin-btn-outline" onclick="setTheme('light')">☀️ Light Mode</button>
+          </div>
+        </div>
+
+        <button class="admin-btn admin-btn-gold" onclick="saveSettings()">💾 บันทึกการตั้งค่า</button>
+      </div>
+
+    </div><!-- end admin-body -->
+  </div>
+</div>
+
+<!-- ═══ ADD/EDIT PRODUCT MODAL ═══ -->
+<div class="modal-overlay" id="productFormOverlay">
+  <div class="modal" style="max-width:600px">
+    <button class="modal-close" onclick="closeProductForm()">✕</button>
+    <div class="modal-eyebrow">☕ จัดการสินค้า</div>
+    <div class="modal-name" id="productFormTitle">เพิ่มสินค้าใหม่</div>
+    <input type="hidden" id="productFormId">
+    <div class="admin-form-grid">
+      <div class="admin-field"><label class="admin-label">ชื่อสินค้า *</label><input class="admin-input" id="pfName" placeholder="Ethiopia Yirgacheffe"></div>
+      <div class="admin-field"><label class="admin-label">แหล่งที่มา *</label><input class="admin-input" id="pfOrigin" placeholder="Yirgacheffe · Ethiopia"></div>
+      <div class="admin-field"><label class="admin-label">Region</label><select class="admin-select" id="pfRegion"><option value="thai">🇹🇭 ไทย</option><option value="africa">🌍 แอฟริกา</option><option value="latin">🌎 ลาตินอเมริกา</option></select></div>
+      <div class="admin-field"><label class="admin-label">Process</label><input class="admin-input" id="pfProcess" placeholder="Washed · Heirloom · 1,800m"></div>
+      <div class="admin-field"><label class="admin-label">ราคา (฿ / 250g) *</label><input class="admin-input" id="pfPrice" type="number" placeholder="720"></div>
+      <div class="admin-field"><label class="admin-label">SCA Score</label><input class="admin-input" id="pfScore" type="number" step="0.5" placeholder="89.0"></div>
+      <div class="admin-field"><label class="admin-label">สต็อก (ถุง)</label><input class="admin-input" id="pfStock" type="number" placeholder="12"></div>
+      <div class="admin-field"><label class="admin-label">คั่วเมื่อ (วันที่แล้ว)</label><input class="admin-input" id="pfRoastDays" type="number" placeholder="5"></div>
+      <div class="admin-field"><label class="admin-label">Badge</label><select class="admin-select" id="pfBadge"><option value="">ไม่มี</option><option value="New Lot">New Lot</option><option value="Best Seller">Best Seller</option><option value="Limited">Limited</option><option value="Sold Out">Sold Out</option></select></div>
+      <div class="admin-field"><label class="admin-label">Emoji</label><input class="admin-input" id="pfEmoji" placeholder="🌸"></div>
+    </div>
+    <div class="admin-field"><label class="admin-label">Flavor Notes (คั่นด้วย ,)</label><input class="admin-input" id="pfNotes" placeholder="มะนาว, ชาดอกไม้, พีช, น้ำตาลทราย"></div>
+    <div class="admin-field"><label class="admin-label">คำอธิบาย</label><input class="admin-input" id="pfDesc" placeholder="คำอธิบายสินค้า..."></div>
+    <div class="admin-form-grid">
+      <div class="admin-field"><label class="admin-label">Acidity (0–100)</label><input class="admin-input" id="pfAcidity" type="number" placeholder="92"></div>
+      <div class="admin-field"><label class="admin-label">Sweetness (0–100)</label><input class="admin-input" id="pfSweetness" type="number" placeholder="78"></div>
+      <div class="admin-field"><label class="admin-label">Body (0–100)</label><input class="admin-input" id="pfBody" type="number" placeholder="65"></div>
+      <div class="admin-field"><label class="admin-label">Sold Out?</label><select class="admin-select" id="pfSoldOut"><option value="false">ยังมีสินค้า</option><option value="true">Sold Out</option></select></div>
+    </div>
+    <div style="display:flex;gap:.75rem;margin-top:1rem">
+      <button class="admin-btn admin-btn-gold" onclick="saveProduct()" style="flex:1">💾 บันทึก</button>
+      <button class="admin-btn admin-btn-outline" onclick="closeProductForm()">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADD REVIEW MODAL ═══ -->
+<div class="modal-overlay" id="reviewFormOverlay">
+  <div class="modal" style="max-width:480px">
+    <button class="modal-close" onclick="closeReviewForm()">✕</button>
+    <div class="modal-eyebrow">💬 เพิ่มรีวิว</div>
+    <div class="modal-name">รีวิวใหม่</div>
+    <input type="hidden" id="reviewFormIdx">
+    <div class="admin-field"><label class="admin-label">ชื่อผู้รีวิว *</label><input class="admin-input" id="rvName" placeholder="จิตรา ม."></div>
+    <div class="admin-field"><label class="admin-label">Initial (1 ตัวอักษร)</label><input class="admin-input" id="rvInitial" placeholder="จ" maxlength="1"></div>
+    <div class="admin-field"><label class="admin-label">จาก / แหล่ง</label><input class="admin-input" id="rvRole" placeholder="กรุงเทพฯ · LINE Review ✓"></div>
+    <div class="admin-field"><label class="admin-label">เนื้อหารีวิว *</label><textarea class="admin-input" id="rvText" placeholder="เนื้อหารีวิว..." rows="3" style="resize:vertical"></textarea></div>
+    <div class="admin-field"><label class="admin-label">คะแนน</label><select class="admin-select" id="rvStars"><option value="5">⭐⭐⭐⭐⭐ 5 ดาว</option><option value="4">⭐⭐⭐⭐ 4 ดาว</option><option value="3">⭐⭐⭐ 3 ดาว</option></select></div>
+    <div style="display:flex;gap:.75rem;margin-top:1rem">
+      <button class="admin-btn admin-btn-gold" onclick="saveReview()" style="flex:1">💾 บันทึก</button>
+      <button class="admin-btn admin-btn-outline" onclick="closeReviewForm()">ยกเลิก</button>
+    </div>
   </div>
 </div>
 
@@ -1652,13 +1721,13 @@ footer{
 const SS = (() => {
   let _m = {};
   try {
-    localStorage.setItem('_t','1'); localStorage.removeItem('_t');
+    localStorage.setItem('_t','1');localStorage.removeItem('_t');
     return {
       get:(k,d)=>{try{return localStorage.getItem(k)??d??null}catch{return _m[k]??d??null}},
       set:(k,v)=>{try{localStorage.setItem(k,v)}catch{_m[k]=v}},
       rm:(k)=>{try{localStorage.removeItem(k)}catch{delete _m[k]}}
     };
-  } catch {
+  }catch{
     return {get:(k,d)=>_m[k]??d??null,set:(k,v)=>{_m[k]=v},rm:(k)=>{delete _m[k]}};
   }
 })();
@@ -1666,57 +1735,75 @@ const SS = (() => {
 let ADMIN_PASS = SS.get('adminPass') || 'origin2024';
 
 /* ════════════════════════════════════════
-   COFFEE DATA
+   THEME
+════════════════════════════════════════ */
+function toggleTheme(){
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  setTheme(isDark ? 'light' : 'dark');
+}
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('themeIcon').textContent = t==='dark' ? '🌙' : '☀️';
+  SS.set('theme',t);
+}
+// Init theme
+const savedTheme = SS.get('theme') || 'dark';
+setTheme(savedTheme);
+
+/* ════════════════════════════════════════
+   DATA
 ════════════════════════════════════════ */
 let coffees = JSON.parse(SS.get('coffees') || 'null') || [
-  {id:1,region:'thai',badge:'New Lot',origin:'ดอยช้าง · เชียงราย · Thailand',name:'Doi Chang Natural',process:'Natural · Heirloom · 1,500m',notes:['ลิ้นจี่','เชอร์รี่แดง','ดาร์กช็อก','กุหลาบ'],price:680,score:88.5,desc:'ล็อตจากหมู่บ้านชาวอาข่า เก็บเกี่ยวมือ ตากแดด 21 วัน ให้ผลไม้เข้มข้นและกลิ่นหอมซับซ้อน',acidity:75,sweetness:88,body:72,color:'linear-gradient(135deg,#5a3218 0%,#2a1508 100%)',emoji:'🍒',soldOut:false,stock:8,roastDays:3},
-  {id:2,region:'africa',badge:'Best Seller',origin:'Yirgacheffe · Ethiopia · Africa',name:'Ethiopia Yirgacheffe',process:'Washed · Heirloom · 1,800m',notes:['มะนาว','ชาดอกไม้','พีช','น้ำตาลทราย'],price:720,score:89.0,desc:'Yirgacheffe จาก washing station ที่เก่าแก่ที่สุดในเอธิโอเปีย กลิ่นดอกไม้และกรดสะอาดเป็นเอกลักษณ์',acidity:92,sweetness:78,body:65,color:'linear-gradient(135deg,#3a2a18 0%,#1a1008 100%)',emoji:'🌸',soldOut:false,stock:12,roastDays:5},
+  {id:1,region:'thai',badge:'New Lot',origin:'ดอยช้าง · เชียงราย · Thailand',name:'Doi Chang Natural',process:'Natural · Heirloom · 1,500m',notes:['ลิ้นจี่','เชอร์รี่แดง','ดาร์กช็อก','กุหลาบ'],price:680,score:88.5,desc:'ล็อตจากหมู่บ้านชาวอาข่า เก็บเกี่ยวมือ ตากแดด 21 วัน',acidity:75,sweetness:88,body:72,color:'linear-gradient(135deg,#5a3218 0%,#2a1508 100%)',emoji:'🍒',soldOut:false,stock:8,roastDays:3},
+  {id:2,region:'africa',badge:'Best Seller',origin:'Yirgacheffe · Ethiopia · Africa',name:'Ethiopia Yirgacheffe',process:'Washed · Heirloom · 1,800m',notes:['มะนาว','ชาดอกไม้','พีช','น้ำตาลทราย'],price:720,score:89.0,desc:'Yirgacheffe จาก washing station ที่เก่าแก่ที่สุดในเอธิโอเปีย',acidity:92,sweetness:78,body:65,color:'linear-gradient(135deg,#3a2a18 0%,#1a1008 100%)',emoji:'🌸',soldOut:false,stock:12,roastDays:5},
   {id:3,region:'latin',badge:null,origin:'Huila · Colombia · Latin America',name:'Colombia Huila Honey',process:'Honey · Castillo · 1,700m',notes:['แอปริคอต','น้ำผึ้ง','วานิลลา','เฮเซลนัท'],price:650,score:87.5,desc:'Honey process จากผู้ผลิตรายเล็กใน Huila ให้ความหวานและ body ที่สมดุล',acidity:68,sweetness:92,body:80,color:'linear-gradient(135deg,#4a3010 0%,#1e1408 100%)',emoji:'🍯',soldOut:false,stock:15,roastDays:2},
-  {id:4,region:'thai',badge:null,origin:'ดอยอินทนนท์ · เชียงใหม่ · Thailand',name:'Inthanon Washed',process:'Washed · Typica · 1,600m',notes:['ส้มสด','มาลิก','ไวน์ขาว','อัลมอนด์'],price:580,score:87.0,desc:'จากโครงการหลวง ความสูง 1,600m กรดสว่างสะอาด เหมาะสำหรับ pour over',acidity:85,sweetness:72,body:68,color:'linear-gradient(135deg,#3a2810 0%,#181008 100%)',emoji:'🍊',soldOut:false,stock:5,roastDays:7},
-  {id:5,region:'africa',badge:'Limited',origin:'Gedeo Zone · Ethiopia · Africa',name:'Ethiopia Gedeo Anaerobic',process:'Anaerobic Natural · Heirloom · 2,000m',notes:['บลูเบอร์รี่','กานพลู','ไวน์แดง','โกโก้'],price:890,score:90.5,desc:'Anaerobic fermentation 72 ชม. ให้รสเข้มข้น ซับซ้อนแบบไวน์แดง — ล็อต experimental',acidity:70,sweetness:85,body:88,color:'linear-gradient(135deg,#28103a 0%,#100818 100%)',emoji:'🍇',soldOut:false,stock:3,roastDays:1},
-  {id:6,region:'latin',badge:'Sold Out',origin:'Antioquia · Colombia · Latin America',name:'Colombia Gesha Washed',process:'Washed · Gesha · 1,900m',notes:['มะลิ','มะม่วง','มะงั่ว','ชาเขียว'],price:1200,score:92.0,desc:'Gesha variety หายากจาก Antioquia ปลูกที่ความสูงใกล้ 2,000m กลิ่นดอกไม้ผลไม้ละเอียดมาก',acidity:90,sweetness:82,body:60,color:'linear-gradient(135deg,#103a28 0%,#081810 100%)',emoji:'🌺',soldOut:true,stock:0,roastDays:0}
+  {id:4,region:'thai',badge:null,origin:'ดอยอินทนนท์ · เชียงใหม่ · Thailand',name:'Inthanon Washed',process:'Washed · Typica · 1,600m',notes:['ส้มสด','มาลิก','ไวน์ขาว','อัลมอนด์'],price:580,score:87.0,desc:'จากโครงการหลวง ความสูง 1,600m กรดสว่างสะอาด',acidity:85,sweetness:72,body:68,color:'linear-gradient(135deg,#3a2810 0%,#181008 100%)',emoji:'🍊',soldOut:false,stock:5,roastDays:7},
+  {id:5,region:'africa',badge:'Limited',origin:'Gedeo Zone · Ethiopia · Africa',name:'Ethiopia Gedeo Anaerobic',process:'Anaerobic Natural · Heirloom · 2,000m',notes:['บลูเบอร์รี่','กานพลู','ไวน์แดง','โกโก้'],price:890,score:90.5,desc:'Anaerobic fermentation 72 ชม. ให้รสเข้มข้น ซับซ้อนแบบไวน์แดง',acidity:70,sweetness:85,body:88,color:'linear-gradient(135deg,#28103a 0%,#100818 100%)',emoji:'🍇',soldOut:false,stock:3,roastDays:1},
+  {id:6,region:'latin',badge:'Sold Out',origin:'Antioquia · Colombia · Latin America',name:'Colombia Gesha Washed',process:'Washed · Gesha · 1,900m',notes:['มะลิ','มะม่วง','มะงั่ว','ชาเขียว'],price:1200,score:92.0,desc:'Gesha variety หายากจาก Antioquia',acidity:90,sweetness:82,body:60,color:'linear-gradient(135deg,#103a28 0%,#081810 100%)',emoji:'🌺',soldOut:true,stock:0,roastDays:0}
 ];
 
-const reviews = JSON.parse(SS.get('reviews') || 'null') || [
+let reviews = JSON.parse(SS.get('reviews') || 'null') || [
   {stars:5,text:'กาแฟอร่อยมากเลย! กลิ่นหอม body เต็ม แพ็คเกจสวยน่ารัก บอกเพื่อนทุกคนให้มาลองเลย',name:'จิตรา ม.',role:'กรุงเทพฯ · LINE Review ✓',initial:'จ'},
   {stars:5,text:'Ethiopia Yirgacheffe สั่งมาแล้ว 3 ครั้ง ทุกครั้งสดมาก กลิ่นดอกไม้ชัดเจน ชอบมากที่สุดเลย',name:'ธนชัย พ.',role:'เชียงใหม่ · Facebook ✓',initial:'ธ'},
   {stars:5,text:'สั่ง subscription รายเดือน สะดวกมาก ได้ลองล็อตใหม่ทุกเดือน คุ้มค่ามากๆ ส่งเร็ว packaging ดี',name:'นภาพร ส.',role:'ขอนแก่น · LINE ✓',initial:'น'},
   {stars:5,text:'Colombia Honey อร่อยมาก รสหวานนุ่ม เหมาะกับ pour over สั่งแล้วได้ภายใน 2 วัน ประทับใจ',name:'วิชัย ก.',role:'ภูเก็ต · Telegram ✓',initial:'ว'},
   {stars:5,text:'ชอบที่บอก roast date และ farm info ทุกล็อต รู้สึกได้ถึงความโปร่งใส กาแฟ Gedeo เป็น favorite',name:'สุนันท์ ร.',role:'ชลบุรี · LINE ✓',initial:'ส'},
-  {stars:5,text:'ทีมงานใจดีมาก ตอบ LINE เร็ว แนะนำล็อตที่เหมาะกับเราได้ดี กาแฟก็อร่อยมาก จะสั่งประจำแน่ๆ',name:'พิมพ์ชนก อ.',role:'นครราชสีมา · LINE ✓',initial:'พ'}
+  {stars:5,text:'ทีมงานใจดีมาก ตอบ LINE เร็ว แนะนำล็อตที่เหมาะกับเราได้ดี จะสั่งประจำแน่ๆ',name:'พิมพ์ชนก อ.',role:'นครราชสีมา · LINE ✓',initial:'พ'}
 ];
+
+let orders = [];
+let todayRevenue = 0;
+
+function saveData(){
+  SS.set('coffees',JSON.stringify(coffees));
+  SS.set('reviews',JSON.stringify(reviews));
+}
 
 /* ════════════════════════════════════════
    RENDER COFFEES
 ════════════════════════════════════════ */
 let currentFilter = 'all';
-function renderCoffees(filter) {
+function renderCoffees(filter){
   currentFilter = filter;
   const grid = document.getElementById('coffeeGrid');
-  const list = filter === 'all' ? coffees : coffees.filter(c => c.region === filter);
+  const list = filter === 'all' ? coffees : coffees.filter(c=>c.region===filter);
+  const sizeMults = {'200g':.8,'250g':1,'500g':1.85,'1kg':3.5};
+  const sizeLabels = {'200g':'200g','250g':'250g','500g':'500g','1kg':'1kg'};
   grid.innerHTML = list.map((c,i) => {
-    const stockHTML = c.soldOut ? '' : c.stock <= 5
+    const stockHTML = c.soldOut ? '' : c.stock<=5
       ? `<div class="stock-indicator"><span>🔥 เหลือ</span><div class="stock-dots">${Array(5).fill(0).map((_,j)=>`<div class="sdot low ${j<c.stock?'filled':''}"></div>`).join('')}</div><span style="color:#a63d1e;font-weight:600">${c.stock} ถุง</span></div>`
       : `<div class="stock-indicator"><span>✅ มีสินค้า</span><div class="stock-dots">${Array(5).fill(0).map((_,j)=>`<div class="sdot ${j<Math.min(c.stock,5)?'filled':''}"></div>`).join('')}</div><span>${c.stock} ถุง</span></div>`;
-
-    const badgeHTML = c.badge
-      ? `<span class="fomo-badge ${c.badge==='New Lot'?'badge-new':c.badge==='Sold Out'?'badge-sold':c.badge==='Limited'?'badge-limited':''}">${c.badge}</span>`
-      : '';
-
-    const roastHTML = !c.soldOut && c.roastDays > 0
-      ? `<div class="roast-indicator"><span class="roast-date-lbl">คั่วเมื่อ</span><span class="roast-date-val">${c.roastDays <= 3 ? '🟢' : c.roastDays <= 7 ? '🟡' : '🔵'} ${c.roastDays} วันที่แล้ว</span></div>`
-      : '';
-
+    const badgeHTML = c.badge ? `<span class="fomo-badge ${c.badge==='New Lot'?'badge-new':c.badge==='Sold Out'?'badge-sold':c.badge==='Limited'?'badge-limited':''}">${c.badge}</span>` : '';
+    const roastHTML = !c.soldOut && c.roastDays>0 ? `<div class="roast-indicator"><span class="roast-date-lbl">คั่วเมื่อ</span><span class="roast-date-val">${c.roastDays<=3?'🟢':c.roastDays<=7?'🟡':'🔵'} ${c.roastDays} วันที่แล้ว</span></div>` : '';
     const btnHTML = c.soldOut
       ? `<button class="sold-btn" onclick="event.stopPropagation();openNotify('${c.name}')">🔔 แจ้งเตือน</button>`
       : `<button class="add-btn" onclick="event.stopPropagation();addToCart(${c.id},event)">+ ตะกร้า</button>`;
-
     return `<div class="coffee-card" onclick="openModal(${c.id})" style="animation:fadeUp .4s ${Math.min(i*.07,.3)}s both">
       <div class="coffee-hero" style="background:${c.color}">
         <span class="coffee-emoji">${c.emoji}</span>
         <div class="coffee-sca"><div class="sca-score">${c.score}</div><div class="sca-pts">SCA PTS</div></div>
-        ${badgeHTML}
-        ${roastHTML}
+        ${badgeHTML}${roastHTML}
       </div>
       <div class="coffee-body">
         <div class="coffee-region">📍 ${c.origin}</div>
@@ -1729,163 +1816,133 @@ function renderCoffees(filter) {
           <div class="score-row2"><span class="score-lbl">🍬 Sweet</span><div class="score-track"><div class="score-fill2" style="width:${c.sweetness}%"></div></div><span class="score-num">${c.sweetness}</span></div>
           <div class="score-row2"><span class="score-lbl">☁️ Body</span><div class="score-track"><div class="score-fill2" style="width:${c.body}%"></div></div><span class="score-num">${c.body}</span></div>
         </div>
-        <div class="coffee-footer">
-          <div><div class="coffee-price">฿${c.price.toLocaleString()}</div><div class="coffee-price-unit">/ 250g · SCA ${c.score}</div></div>
-          ${btnHTML}
-        </div>
+      </div>
+      <div class="coffee-footer">
+        <div class="coffee-price">฿${c.price.toLocaleString()}<small>/ 250g</small></div>
+        ${btnHTML}
       </div>
     </div>`;
   }).join('');
 }
-
-function filterCoffee(f, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+function filterCoffee(f,el){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
   renderCoffees(f);
 }
 
 /* ════════════════════════════════════════
-   REVIEWS
+   RENDER REVIEWS
 ════════════════════════════════════════ */
-function renderReviews() {
+function renderReviews(){
   const grid = document.getElementById('reviewsGrid');
-  grid.innerHTML = reviews.map(r => `
+  grid.innerHTML = reviews.map(r=>`
     <div class="review-card">
-      <div class="rev-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
-      <p class="rev-text">"${r.text}"</p>
+      <div class="rev-stars">${'★'.repeat(r.stars)}</div>
+      <div class="rev-text">"${r.text}"</div>
       <div class="rev-author">
         <div class="rev-avatar">${r.initial}</div>
         <div><div class="rev-name">${r.name}</div><div class="rev-role">${r.role}</div></div>
       </div>
+      <div class="rev-verified">✓ ยืนยันการสั่งซื้อ</div>
     </div>`).join('');
 }
 
 /* ════════════════════════════════════════
-   MODAL
+   PRODUCT MODAL
 ════════════════════════════════════════ */
-const sizeMults = {'250g':1,'500g':1.85,'1kg':3.4};
-const sizeLabels = {'250g':'250g','500g':'500g −8%','1kg':'1kg −15%'};
+const sizeMults = {'200g':.8,'250g':1,'500g':1.85,'1kg':3.5};
+const sizeLabels = {'200g':'200g','250g':'250g','500g':'500g','1kg':'1kg'};
 let selSizes = {};
-function openModal(id) {
-  const c = coffees.find(x => x.id === id);
-  if (!c) return;
-  if (!selSizes[id]) selSizes[id] = '250g';
-  const sz = selSizes[id];
+function openModal(id){
+  const c = coffees.find(x=>x.id===id);
+  if(!c) return;
+  const sz = selSizes[id] || '250g';
   const price = Math.round(c.price * sizeMults[sz]);
   document.getElementById('modalContent').innerHTML = `
-    <div style="height:180px;border-radius:var(--r);margin-bottom:1.5rem;background:${c.color};display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-      <span style="font-size:72px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.5))">${c.emoji}</span>
-      ${c.badge ? `<span class="fomo-badge ${c.badge==='Sold Out'?'badge-sold':''}" style="top:.85rem;left:.85rem">${c.badge}</span>` : ''}
-    </div>
-    <div class="modal-eyebrow">${c.origin}</div>
+    <div class="modal-eyebrow">📍 ${c.origin}</div>
     <div class="modal-name">${c.name}</div>
-    <p style="font-size:11px;color:var(--text2);margin-bottom:.75rem">⚗️ ${c.process}</p>
-    <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:1rem">${c.desc}</p>
-    <div class="modal-section">Cupping Notes</div>
-    <div class="notes-row" style="margin:.6rem 0 1rem">${c.notes.map(n=>`<span class="note">${n}</span>`).join('')}</div>
-    <div class="modal-section">Flavor Profile</div>
-    <div class="score-bars" style="margin:.6rem 0 1rem">
-      <div class="score-row2"><span class="score-lbl">Acidity</span><div class="score-track"><div class="score-fill2" style="width:${c.acidity}%"></div></div><span class="score-num">${c.acidity}</span></div>
-      <div class="score-row2"><span class="score-lbl">Sweetness</span><div class="score-track"><div class="score-fill2" style="width:${c.sweetness}%"></div></div><span class="score-num">${c.sweetness}</span></div>
-      <div class="score-row2"><span class="score-lbl">Body</span><div class="score-track"><div class="score-fill2" style="width:${c.body}%"></div></div><span class="score-num">${c.body}</span></div>
+    <div class="modal-desc">${c.desc}</div>
+    <div class="modal-section">Flavor Notes</div>
+    <div class="notes-row">${c.notes.map(n=>`<span class="note">${n}</span>`).join('')}</div>
+    <div class="modal-section">Profile</div>
+    <div class="score-bars" style="margin-bottom:1rem">
+      <div class="score-row2"><span class="score-lbl">🍋 Acidity</span><div class="score-track"><div class="score-fill2" style="width:${c.acidity}%"></div></div><span class="score-num">${c.acidity}</span></div>
+      <div class="score-row2"><span class="score-lbl">🍬 Sweet</span><div class="score-track"><div class="score-fill2" style="width:${c.sweetness}%"></div></div><span class="score-num">${c.sweetness}</span></div>
+      <div class="score-row2"><span class="score-lbl">☁️ Body</span><div class="score-track"><div class="score-fill2" style="width:${c.body}%"></div></div><span class="score-num">${c.body}</span></div>
     </div>
-    ${!c.soldOut ? `
+    ${!c.soldOut?`
     <div class="modal-section">เลือกขนาด</div>
     <div class="modal-size-row">${Object.entries(sizeLabels).map(([k,v])=>`
       <button class="size-opt ${k===sz?'active':''}" data-size="${k}" onclick="selectModalSize(${c.id},'${k}')">${v}<br><span style="font-size:11px;color:var(--gold)">฿${Math.round(c.price*sizeMults[k]).toLocaleString()}</span></button>`).join('')}
-    </div>` : ''}
+    </div>`:''}
     <div class="modal-footer">
-      <div>
-        <div class="modal-price" id="mPrice">฿${price.toLocaleString()}</div>
-        <div class="modal-unit" id="mUnit">/ ${sz} · SCA ${c.score}</div>
-      </div>
+      <div><div class="modal-price" id="mPrice">฿${price.toLocaleString()}</div><div class="modal-unit" id="mUnit">/ ${sz} · SCA ${c.score}</div></div>
       <button class="btn ${c.soldOut?'btn-outline':'btn-gold'}" onclick="${c.soldOut?`openNotify('${c.name}')`:`addToCartModal(${c.id})`}">${c.soldOut?'🔔 แจ้งเตือน':'🛒 ใส่ตะกร้า'}</button>
     </div>`;
   document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function selectModalSize(id,sz) {
-  selSizes[id] = sz;
-  const c = coffees.find(x => x.id === id);
-  const p = Math.round(c.price * sizeMults[sz]);
-  const mP = document.getElementById('mPrice');
-  const mU = document.getElementById('mUnit');
-  if (mP) mP.textContent = `฿${p.toLocaleString()}`;
-  if (mU) mU.textContent = `/ ${sz} · SCA ${c.score}`;
-  document.querySelectorAll('.size-opt').forEach(b => b.classList.toggle('active', b.dataset.size === sz));
+function selectModalSize(id,sz){
+  selSizes[id]=sz;
+  const c=coffees.find(x=>x.id===id);
+  const p=Math.round(c.price*sizeMults[sz]);
+  const mP=document.getElementById('mPrice');
+  const mU=document.getElementById('mUnit');
+  if(mP) mP.textContent=`฿${p.toLocaleString()}`;
+  if(mU) mU.textContent=`/ ${sz} · SCA ${c.score}`;
+  document.querySelectorAll('.size-opt').forEach(b=>b.classList.toggle('active',b.dataset.size===sz));
 }
-function addToCartModal(id) {
-  addToCart(id, null);
-  closeModalBtn();
-}
-function closeModal(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
-}
-function closeModalBtn() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
+function addToCartModal(id){addToCart(id,null);closeModalBtn();}
+function closeModal(e){if(e.target===document.getElementById('modalOverlay'))closeModalBtn();}
+function closeModalBtn(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
 
 /* ════════════════════════════════════════
    CART
 ════════════════════════════════════════ */
-let cart = [];
-function addToCart(id, e) {
-  if (e) e.stopPropagation();
-  const c = coffees.find(x => x.id === id);
-  if (!c || c.soldOut) return;
-  const existing = cart.find(x => x.id === id);
-  if (existing) existing.qty++;
+let cart=[];
+function addToCart(id,e){
+  if(e) e.stopPropagation();
+  const c=coffees.find(x=>x.id===id);
+  if(!c||c.soldOut) return;
+  const existing=cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
   else cart.push({id:c.id,name:c.name,origin:c.origin,price:c.price,unit:'/ 250g',emoji:c.emoji,color:c.color,qty:1});
   updateCart();
   showToast(`✅ เพิ่ม "${c.name}" ลงตะกร้าแล้ว`);
 }
-function removeFromCart(id) {
-  cart = cart.filter(x => x.id !== id);
-  updateCart(); renderCartItems();
+function removeFromCart(id){cart=cart.filter(x=>x.id!==id);updateCart();renderCartItems();}
+function changeQty(id,d){
+  const item=cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty+=d;
+  if(item.qty<=0) removeFromCart(id);
+  else{updateCart();renderCartItems();}
 }
-function changeQty(id, d) {
-  const item = cart.find(x => x.id === id);
-  if (!item) return;
-  item.qty += d;
-  if (item.qty <= 0) removeFromCart(id);
-  else { updateCart(); renderCartItems(); }
+function getTotal(){return cart.reduce((s,x)=>s+x.price*x.qty,0);}
+function getCount(){return cart.reduce((s,x)=>s+x.qty,0);}
+function updateCart(){
+  const count=getCount();const total=getTotal();
+  const fab=document.getElementById('cartFab');
+  document.getElementById('cartFabBadge').textContent=count;
+  if(count>0) fab.classList.remove('hidden'); else fab.classList.add('hidden');
+  const badge=document.getElementById('navCartBadge');
+  if(count>0){badge.style.display='flex';badge.textContent=count;}else{badge.style.display='none';}
+  const sub=document.getElementById('cartHeadSub');
+  if(sub) sub.textContent=count>0?`${count} รายการ · ฿${total.toLocaleString()}`:'ยังไม่มีสินค้า';
+  const tp=document.getElementById('cartTotalPrice');
+  if(tp) tp.textContent=`฿${total.toLocaleString()}`;
+  const btn=document.getElementById('checkoutBtn');
+  if(btn) btn.disabled=count===0;
+  const pct=Math.min((total/600)*100,100);
+  const fill=document.getElementById('shipBarFill');
+  const txt=document.getElementById('shipBarText');
+  if(fill) fill.style.width=pct+'%';
+  if(txt){if(total>=600) txt.innerHTML='<strong>🎉 ได้รับส่งฟรีแล้ว!</strong>';else txt.innerHTML=`ซื้ออีก <strong>฿${(600-total).toLocaleString()}</strong> เพื่อรับส่งฟรี`;}
 }
-function getTotal() { return cart.reduce((s,x) => s + x.price * x.qty, 0); }
-function getCount() { return cart.reduce((s,x) => s + x.qty, 0); }
-function updateCart() {
-  const count = getCount();
-  const total = getTotal();
-  const fab = document.getElementById('cartFab');
-  document.getElementById('cartFabBadge').textContent = count;
-  if (count > 0) fab.classList.remove('hidden');
-  else fab.classList.add('hidden');
-  const badge = document.getElementById('navCartBadge');
-  if (count > 0) { badge.style.display='flex'; badge.textContent = count; }
-  else { badge.style.display='none'; }
-  const sub = document.getElementById('cartHeadSub');
-  if (sub) sub.textContent = count > 0 ? `${count} รายการ · ฿${total.toLocaleString()}` : 'ยังไม่มีสินค้า';
-  const tp = document.getElementById('cartTotalPrice');
-  if (tp) tp.textContent = `฿${total.toLocaleString()}`;
-  const btn = document.getElementById('checkoutBtn');
-  if (btn) btn.disabled = count === 0;
-  // Shipping bar
-  const pct = Math.min((total / 600) * 100, 100);
-  const fill = document.getElementById('shipBarFill');
-  const txt = document.getElementById('shipBarText');
-  if (fill) fill.style.width = pct + '%';
-  if (txt) {
-    if (total >= 600) txt.innerHTML = '<strong>🎉 ได้รับส่งฟรีแล้ว!</strong>';
-    else txt.innerHTML = `ซื้ออีก <strong>฿${(600 - total).toLocaleString()}</strong> เพื่อรับส่งฟรี`;
-  }
-}
-function renderCartItems() {
-  const el = document.getElementById('cartItems');
-  if (cart.length === 0) {
-    el.innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">☕</span><div style="font-family:\'Cormorant Garamond\',serif;font-size:18px;color:var(--text2)">ตะกร้าว่างเปล่า</div><div style="font-size:13px;color:var(--text2);margin-top:.5rem">เลือกกาแฟที่ชอบเลย</div></div>';
-    return;
-  }
-  el.innerHTML = cart.map(item => `
+function renderCartItems(){
+  const el=document.getElementById('cartItems');
+  if(cart.length===0){el.innerHTML='<div class="cart-empty"><span class="cart-empty-icon">☕</span><div style="font-family:\'Playfair Display\',serif;font-size:18px;color:var(--text2)">ตะกร้าว่างเปล่า</div><div style="font-size:13px;color:var(--text2);margin-top:.5rem">เลือกกาแฟที่ชอบเลย</div></div>';return;}
+  el.innerHTML=cart.map(item=>`
     <div class="cart-item">
       <div class="ci-emoji" style="background:${item.color}">${item.emoji}</div>
       <div class="ci-info">
@@ -1903,216 +1960,445 @@ function renderCartItems() {
       </div>
     </div>`).join('');
 }
-function openCart() {
-  renderCartItems();
-  document.getElementById('cartOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeCart() {
-  document.getElementById('cartOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function handleCartClick(e) {
-  if (e.target === document.getElementById('cartOverlay')) closeCart();
-}
-function clearCart() { cart = []; updateCart(); }
+function openCart(){renderCartItems();document.getElementById('cartOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeCart(){document.getElementById('cartOverlay').classList.remove('open');document.body.style.overflow='';}
+function handleCartClick(e){if(e.target===document.getElementById('cartOverlay'))closeCart();}
+function clearCart(){cart=[];updateCart();}
 
 /* ════════════════════════════════════════
    CHECKOUT
 ════════════════════════════════════════ */
-function openCheckout() {
+function openCheckout(){
   closeCart();
-  const sum = document.getElementById('checkoutSummary');
-  const total = getTotal();
-  const shipping = total >= 600 ? 0 : 50;
-  sum.innerHTML = cart.map(x => `<div class="co-row-item"><span>${x.emoji} ${x.name} ×${x.qty}</span><span>฿${(x.price*x.qty).toLocaleString()}</span></div>`).join('')
-    + `<div class="co-row-item"><span>ค่าส่ง</span><span>${shipping === 0 ? '<span style="color:var(--sage)">ฟรี ✓</span>' : '฿50'}</span></div>`
-    + `<div class="co-row-item total"><span>รวมทั้งหมด</span><span>฿${(total+shipping).toLocaleString()}</span></div>`;
-  document.getElementById('checkoutForm').style.display = 'block';
+  const sum=document.getElementById('checkoutSummary');
+  const total=getTotal();
+  const shipping=total>=600?0:50;
+  sum.innerHTML=cart.map(x=>`<div class="co-row-item"><span>${x.emoji} ${x.name} ×${x.qty}</span><span>฿${(x.price*x.qty).toLocaleString()}</span></div>`).join('')
+    +`<div class="co-row-item"><span>ค่าส่ง</span><span>${shipping===0?'<span style="color:var(--sage)">ฟรี ✓</span>':'฿50'}</span></div>`
+    +`<div class="co-row-item total"><span>รวมทั้งหมด</span><span>฿${(total+shipping).toLocaleString()}</span></div>`;
+  document.getElementById('checkoutForm').style.display='block';
   document.getElementById('checkoutSuccess').classList.remove('show');
   document.getElementById('checkoutOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function closeCheckout() {
-  document.getElementById('checkoutOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeCheckoutClick(e) {
-  if (e.target === document.getElementById('checkoutOverlay')) closeCheckout();
-}
-function submitOrder() {
-  const name = document.getElementById('co_name').value.trim();
-  const phone = document.getElementById('co_phone').value.trim();
-  const addr = document.getElementById('co_address').value.trim();
-  if (!name || !phone) { showToast('⚠️ กรุณากรอกชื่อและเบอร์โทร'); return; }
-  document.getElementById('checkoutForm').style.display = 'none';
+function closeCheckout(){document.getElementById('checkoutOverlay').classList.remove('open');document.body.style.overflow='';}
+function closeCheckoutClick(e){if(e.target===document.getElementById('checkoutOverlay'))closeCheckout();}
+function submitOrder(){
+  const name=document.getElementById('co_name').value.trim();
+  const phone=document.getElementById('co_phone').value.trim();
+  const addr=document.getElementById('co_address').value.trim();
+  const channel=document.getElementById('co_channel').value;
+  const note=document.getElementById('co_note').value.trim();
+  if(!name||!phone){showToast('⚠️ กรุณากรอกชื่อและเบอร์โทร');return;}
+  const total=getTotal();const shipping=total>=600?0:50;
+  const order={id:'ORD-'+Date.now(),name,phone,addr,channel,note,items:[...cart],total:total+shipping,status:'pending',time:new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})};
+  orders.push(order);
+  todayRevenue += order.total;
+  document.getElementById('checkoutForm').style.display='none';
   document.getElementById('checkoutSuccess').classList.add('show');
+  updateAdminStats();
 }
 
 /* ════════════════════════════════════════
    SUBSCRIPTION
 ════════════════════════════════════════ */
-let selPlan = 'Explorer';
-function selectPlan(el, plan) {
-  selPlan = plan;
-  document.querySelectorAll('.sub-plan').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-}
-function openSubModal() {
-  document.getElementById('subModalPlanName').textContent = selPlan + ' Plan';
-  document.getElementById('subSuccess').style.display = 'none';
-  document.getElementById('subModalContent').style.display = 'block';
+let selPlan='Explorer';
+function selectPlan(el,plan){selPlan=plan;document.querySelectorAll('.sub-plan').forEach(p=>p.classList.remove('active'));el.classList.add('active');}
+function openSubModal(){
+  document.getElementById('subModalPlanName').textContent=selPlan+' Plan';
+  document.getElementById('subSuccess').style.display='none';
+  document.getElementById('subModalContent').style.display='block';
   document.getElementById('subModalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function closeSubModal(e) {
-  if (e && e.target !== document.getElementById('subModalOverlay')) return;
-  closeSubModalBtn();
-}
-function closeSubModalBtn() {
-  document.getElementById('subModalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function submitSub() {
-  const name = document.getElementById('sub_name').value.trim();
-  const contact = document.getElementById('sub_contact').value.trim();
-  if (!name || !contact) { showToast('⚠️ กรุณากรอกชื่อและ LINE ID'); return; }
-  document.getElementById('subModalContent').style.display = 'none';
-  document.getElementById('subSuccess').style.display = 'block';
+function closeSubModal(e){if(e&&e.target!==document.getElementById('subModalOverlay'))return;closeSubModalBtn();}
+function closeSubModalBtn(){document.getElementById('subModalOverlay').classList.remove('open');document.body.style.overflow='';}
+function submitSub(){
+  const name=document.getElementById('sub_name').value.trim();
+  const contact=document.getElementById('sub_contact').value.trim();
+  if(!name||!contact){showToast('⚠️ กรุณากรอกชื่อและ LINE ID');return;}
+  document.getElementById('subModalContent').style.display='none';
+  document.getElementById('subSuccess').style.display='block';
 }
 
 /* ════════════════════════════════════════
-   QUIZ — Strategy 4
+   QUIZ
 ════════════════════════════════════════ */
-const quizAnswers = {};
-const qResults = {
+const quizAnswers={};
+const qResults={
   sweet:{name:'Doi Chang Natural',emoji:'🍒',desc:'กาแฟไทยรสหวาน ผลไม้เข้มข้น เหมาะมากสำหรับคนชอบความหอมหวาน'},
   floral:{name:'Ethiopia Yirgacheffe',emoji:'🌸',desc:'กาแฟแอฟริกาที่มีกลิ่นดอกไม้และกรดสดใส — เต็มไปด้วยความซับซ้อน'},
   nutty:{name:'Colombia Huila Honey',emoji:'🍯',desc:'กระบวนการ Honey ให้ความหวานนุ่มของวานิลลาและคาราเมลอ่อนๆ'},
   bold:{name:'Ethiopia Gedeo Anaerobic',emoji:'🍇',desc:'กาแฟ Anaerobic ให้ความเข้มข้นซับซ้อนแบบไวน์แดง — สำหรับคนชอบความแปลกใหม่'}
 };
-function quizAnswer(step, val) {
-  quizAnswers[step] = val;
-  if (step === 1) {
-    document.getElementById('qp1').style.display = 'none';
-    document.getElementById('qp2').style.display = 'block';
-    document.getElementById('qs2').classList.add('active');
-    document.getElementById('ql1').classList.add('done');
-  } else if (step === 2) {
-    document.getElementById('qp2').style.display = 'none';
-    document.getElementById('qp3').style.display = 'block';
-    document.getElementById('qs3').classList.add('active');
-    document.getElementById('ql2').classList.add('done');
-    document.getElementById('qs2').classList.add('done');
-  } else if (step === 3) {
-    document.getElementById('qp3').style.display = 'none';
-    const r = qResults[quizAnswers[1]] || qResults.floral;
-    document.getElementById('qrIcon').textContent = r.emoji;
-    document.getElementById('qrName').textContent = r.name;
-    document.getElementById('qrDesc').textContent = r.desc;
-    document.getElementById('qs3').classList.add('done');
-    document.getElementById('quizResult').style.display = 'block';
-  }
+function quizAnswer(step,val){
+  quizAnswers[step]=val;
+  if(step===1){document.getElementById('qp1').style.display='none';document.getElementById('qp2').style.display='block';document.getElementById('qs2').classList.add('active');document.getElementById('ql1').classList.add('done');}
+  else if(step===2){document.getElementById('qp2').style.display='none';document.getElementById('qp3').style.display='block';document.getElementById('qs3').classList.add('active');document.getElementById('ql2').classList.add('done');document.getElementById('qs2').classList.add('done');}
+  else if(step===3){document.getElementById('qp3').style.display='none';const r=qResults[quizAnswers[1]]||qResults.floral;document.getElementById('qrIcon').textContent=r.emoji;document.getElementById('qrName').textContent=r.name;document.getElementById('qrDesc').textContent=r.desc;document.getElementById('qs3').classList.add('done');document.getElementById('quizResult').style.display='block';}
 }
-function resetQuiz() {
-  Object.keys(quizAnswers).forEach(k => delete quizAnswers[k]);
-  ['qp2','qp3','quizResult'].forEach(id => document.getElementById(id).style.display='none');
-  document.getElementById('qp1').style.display = 'block';
-  ['qs2','qs3'].forEach(id => { document.getElementById(id).classList.remove('active','done'); });
-  ['ql1','ql2'].forEach(id => document.getElementById(id).classList.remove('done'));
+function resetQuiz(){
+  Object.keys(quizAnswers).forEach(k=>delete quizAnswers[k]);
+  ['qp2','qp3','quizResult'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('qp1').style.display='block';
+  ['qs2','qs3'].forEach(id=>{document.getElementById(id).classList.remove('active','done');});
+  ['ql1','ql2'].forEach(id=>document.getElementById(id).classList.remove('done'));
 }
 
 /* ════════════════════════════════════════
-   ADMIN
+   ADMIN — Login
 ════════════════════════════════════════ */
-function openAdminLogin() {
+function openAdminLogin(){
   document.getElementById('adminLoginOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => document.getElementById('adminPassInput').focus(), 100);
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('adminPassInput').focus(),100);
 }
-function closeAdminLogin() {
-  document.getElementById('adminLoginOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function checkPass() {
-  if (document.getElementById('adminPassInput').value === ADMIN_PASS) {
+function closeAdminLogin(){document.getElementById('adminLoginOverlay').classList.remove('open');document.body.style.overflow='';}
+function checkPass(){
+  if(document.getElementById('adminPassInput').value===ADMIN_PASS){
     closeAdminLogin();
-    showToast('✅ เข้าสู่ระบบสำเร็จ — Admin mode (coming soon)');
+    document.getElementById('adminPassInput').value='';
+    openAdminPanel();
   } else {
-    document.getElementById('adminErr').style.display = 'block';
-    document.getElementById('adminPassInput').value = '';
+    document.getElementById('adminErr').style.display='block';
+    document.getElementById('adminPassInput').value='';
   }
 }
 
 /* ════════════════════════════════════════
-   PROMPTPAY
+   ADMIN — Panel
 ════════════════════════════════════════ */
-function showPromptpay() {
-  const box = document.getElementById('promptpayBox');
-  box.style.display = box.style.display === 'none' ? 'block' : 'none';
+function openAdminPanel(){
+  document.getElementById('adminPanelOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  updateAdminStats();
+  renderProductEditList();
+  renderReviewEditList();
+  renderLowStock();
+  renderOrdersTable();
+}
+function closeAdminPanel(){document.getElementById('adminPanelOverlay').classList.remove('open');document.body.style.overflow='';}
+
+function switchTab(el,tabId){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+function updateAdminStats(){
+  document.getElementById('statProducts').textContent=coffees.length;
+  document.getElementById('statOrders').textContent=orders.length;
+  document.getElementById('statRevenue').textContent='฿'+todayRevenue.toLocaleString();
+  document.getElementById('statReviews').textContent=reviews.length;
+}
+
+function renderLowStock(){
+  const body=document.getElementById('lowStockBody');
+  const low=coffees.filter(c=>c.stock<=5&&!c.soldOut);
+  if(low.length===0){body.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--text2);padding:1rem">✅ สต็อกทุกสินค้าปกติ</td></tr>';return;}
+  body.innerHTML=low.map(c=>`<tr>
+    <td>${c.emoji} ${c.name}</td>
+    <td><span style="color:${c.stock<=2?'#c94f24':'var(--gold)'}">🔥 ${c.stock} ถุง</span></td>
+    <td>฿${c.price.toLocaleString()}</td>
+    <td><span class="order-status ${c.stock===0?'status-pending':'status-processing'}">${c.stock===0?'หมด':'ต่ำ'}</span></td>
+  </tr>`).join('');
+}
+
+function renderOrdersTable(){
+  const body=document.getElementById('ordersBody');
+  if(orders.length===0){body.innerHTML='<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text2)">ยังไม่มีออเดอร์ในรอบนี้</td></tr>';return;}
+  body.innerHTML=orders.map((o,i)=>`<tr>
+    <td style="font-size:11px;color:var(--text2)">${o.id}</td>
+    <td><div style="font-weight:600;color:var(--cream2)">${o.name}</div><div style="font-size:11px;color:var(--text2)">${o.phone}</div></td>
+    <td style="font-size:12px">${o.items.map(x=>`${x.emoji}×${x.qty}`).join(' ')}</td>
+    <td style="font-family:'Playfair Display',serif;color:var(--gold)">฿${o.total.toLocaleString()}</td>
+    <td style="font-size:11px">${o.channel}</td>
+    <td><span class="order-status status-${o.status}">${o.status==='pending'?'รอยืนยัน':o.status==='processing'?'กำลังจัดส่ง':'เสร็จสิ้น'}</span></td>
+    <td>
+      <div class="admin-actions">
+        <select class="admin-select" style="font-size:11px;padding:5px 8px" onchange="changeOrderStatus(${i},this.value)">
+          <option value="pending" ${o.status==='pending'?'selected':''}>รอยืนยัน</option>
+          <option value="processing" ${o.status==='processing'?'selected':''}>กำลังส่ง</option>
+          <option value="completed" ${o.status==='completed'?'selected':''}>เสร็จสิ้น</option>
+        </select>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+function changeOrderStatus(idx,status){orders[idx].status=status;renderOrdersTable();}
+
+/* ════════════════════════════════════════
+   ADMIN — Products
+════════════════════════════════════════ */
+function renderProductEditList(){
+  const el=document.getElementById('productEditList');
+  el.innerHTML=coffees.map((c,i)=>`
+    <div class="coffee-edit-card">
+      <div class="coffee-edit-header" onclick="toggleEditCard('pcard${i}')">
+        <div><div class="coffee-edit-name">${c.emoji} ${c.name}</div><div class="coffee-edit-region">${c.origin} · ฿${c.price} · สต็อก: ${c.stock}</div></div>
+        <div class="admin-actions">
+          <button class="admin-btn admin-btn-outline" onclick="event.stopPropagation();editProduct(${c.id})">✏️ แก้ไข</button>
+          <button class="admin-btn admin-btn-danger" onclick="event.stopPropagation();deleteProduct(${c.id})">🗑 ลบ</button>
+        </div>
+      </div>
+      <div class="coffee-edit-body" id="pcard${i}">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.5rem;font-size:12px;color:var(--text2)">
+          <span>📊 SCA: ${c.score}</span>
+          <span>🧪 ${c.process}</span>
+          <span>📅 คั่ว ${c.roastDays} วันที่แล้ว</span>
+          <span>🍋 Acidity: ${c.acidity}</span>
+          <span>🍬 Sweet: ${c.sweetness}</span>
+          <span>☁️ Body: ${c.body}</span>
+        </div>
+        <div style="margin-top:.5rem;font-size:11px;color:var(--text2)">Notes: ${c.notes.join(', ')}</div>
+        <div style="display:flex;gap:.5rem;margin-top:.75rem">
+          <button class="admin-btn admin-btn-outline" style="font-size:11px" onclick="quickStockEdit(${c.id})">📦 แก้สต็อก</button>
+          <button class="admin-btn admin-btn-outline" style="font-size:11px" onclick="toggleSoldOut(${c.id})">${c.soldOut?'✅ ปลดสถานะ Sold Out':'🚫 ตั้งเป็น Sold Out'}</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function toggleEditCard(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('open');
+}
+function quickStockEdit(id){
+  const c=coffees.find(x=>x.id===id);
+  const val=prompt(`แก้ไขสต็อก "${c.name}" (ปัจจุบัน: ${c.stock} ถุง)`,c.stock);
+  if(val===null||isNaN(parseInt(val))) return;
+  c.stock=parseInt(val);
+  if(c.stock===0) c.soldOut=true;
+  saveData();renderProductEditList();renderCoffees(currentFilter);renderLowStock();
+  showToast(`✅ อัปเดตสต็อก ${c.name} เป็น ${c.stock} ถุง`);
+}
+function toggleSoldOut(id){
+  const c=coffees.find(x=>x.id===id);
+  c.soldOut=!c.soldOut;
+  if(c.soldOut) c.stock=0;
+  saveData();renderProductEditList();renderCoffees(currentFilter);renderLowStock();
+  showToast(`✅ ${c.name} — ${c.soldOut?'Sold Out':'กลับมาพร้อมขาย'}`);
+}
+function deleteProduct(id){
+  const c=coffees.find(x=>x.id===id);
+  if(!confirm(`ลบสินค้า "${c.name}" ?`)) return;
+  coffees=coffees.filter(x=>x.id!==id);
+  saveData();renderProductEditList();renderCoffees(currentFilter);updateAdminStats();
+  showToast(`🗑 ลบ "${c.name}" เรียบร้อย`);
+}
+
+function showAddProduct(){
+  document.getElementById('productFormTitle').textContent='เพิ่มสินค้าใหม่';
+  document.getElementById('productFormId').value='';
+  ['pfName','pfOrigin','pfProcess','pfNotes','pfDesc'].forEach(id=>document.getElementById(id).value='');
+  ['pfPrice','pfScore','pfStock','pfRoastDays','pfAcidity','pfSweetness','pfBody'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pfEmoji').value='☕';
+  document.getElementById('pfRegion').value='thai';
+  document.getElementById('pfBadge').value='';
+  document.getElementById('pfSoldOut').value='false';
+  document.getElementById('productFormOverlay').classList.add('open');
+}
+function editProduct(id){
+  const c=coffees.find(x=>x.id===id);
+  document.getElementById('productFormTitle').textContent='แก้ไขสินค้า';
+  document.getElementById('productFormId').value=id;
+  document.getElementById('pfName').value=c.name;
+  document.getElementById('pfOrigin').value=c.origin;
+  document.getElementById('pfProcess').value=c.process;
+  document.getElementById('pfPrice').value=c.price;
+  document.getElementById('pfScore').value=c.score;
+  document.getElementById('pfStock').value=c.stock;
+  document.getElementById('pfRoastDays').value=c.roastDays;
+  document.getElementById('pfNotes').value=c.notes.join(', ');
+  document.getElementById('pfDesc').value=c.desc;
+  document.getElementById('pfEmoji').value=c.emoji;
+  document.getElementById('pfRegion').value=c.region;
+  document.getElementById('pfBadge').value=c.badge||'';
+  document.getElementById('pfAcidity').value=c.acidity;
+  document.getElementById('pfSweetness').value=c.sweetness;
+  document.getElementById('pfBody').value=c.body;
+  document.getElementById('pfSoldOut').value=c.soldOut?'true':'false';
+  document.getElementById('productFormOverlay').classList.add('open');
+}
+function closeProductForm(){document.getElementById('productFormOverlay').classList.remove('open');}
+function saveProduct(){
+  const id=document.getElementById('productFormId').value;
+  const name=document.getElementById('pfName').value.trim();
+  const origin=document.getElementById('pfOrigin').value.trim();
+  if(!name||!origin){showToast('⚠️ กรุณากรอกชื่อและแหล่งที่มา');return;}
+  const data={
+    name,origin,
+    region:document.getElementById('pfRegion').value,
+    process:document.getElementById('pfProcess').value,
+    price:parseInt(document.getElementById('pfPrice').value)||600,
+    score:parseFloat(document.getElementById('pfScore').value)||87,
+    stock:parseInt(document.getElementById('pfStock').value)||0,
+    roastDays:parseInt(document.getElementById('pfRoastDays').value)||0,
+    notes:document.getElementById('pfNotes').value.split(',').map(s=>s.trim()).filter(Boolean),
+    desc:document.getElementById('pfDesc').value,
+    emoji:document.getElementById('pfEmoji').value||'☕',
+    badge:document.getElementById('pfBadge').value||null,
+    acidity:parseInt(document.getElementById('pfAcidity').value)||70,
+    sweetness:parseInt(document.getElementById('pfSweetness').value)||75,
+    body:parseInt(document.getElementById('pfBody').value)||70,
+    soldOut:document.getElementById('pfSoldOut').value==='true',
+    color:'linear-gradient(135deg,#3a2a18 0%,#1a1008 100%)',
+  };
+  if(id){
+    const idx=coffees.findIndex(x=>x.id===parseInt(id));
+    if(idx>-1){coffees[idx]={...coffees[idx],...data};}
+  } else {
+    data.id=Date.now();
+    coffees.push(data);
+  }
+  saveData();renderProductEditList();renderCoffees(currentFilter);updateAdminStats();renderLowStock();
+  closeProductForm();
+  showToast(`✅ บันทึกสินค้า "${name}" เรียบร้อย`);
 }
 
 /* ════════════════════════════════════════
-   NOTIFY (Sold out)
+   ADMIN — Reviews
 ════════════════════════════════════════ */
-function openNotify(name) {
-  showToast(`🔔 เราจะแจ้งเตือนเมื่อ "${name}" กลับมาพร้อมอีกครั้ง`);
+function renderReviewEditList(){
+  const el=document.getElementById('reviewEditList');
+  el.innerHTML=reviews.map((r,i)=>`
+    <div style="background:var(--ink3);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-bottom:.75rem;display:flex;gap:1rem;align-items:flex-start">
+      <div class="rev-avatar" style="flex-shrink:0">${r.initial}</div>
+      <div style="flex:1">
+        <div style="font-weight:600;color:var(--cream2)">${r.name}</div>
+        <div style="font-size:11px;color:var(--text2)">${r.role}</div>
+        <div style="font-size:13px;color:var(--text);margin-top:.35rem">"${r.text.substring(0,80)}..."</div>
+      </div>
+      <div class="admin-actions">
+        <button class="admin-btn admin-btn-outline" style="font-size:11px" onclick="editReview(${i})">✏️</button>
+        <button class="admin-btn admin-btn-danger" style="font-size:11px" onclick="deleteReview(${i})">🗑</button>
+      </div>
+    </div>`).join('');
 }
+function showAddReview(){
+  document.getElementById('reviewFormIdx').value='';
+  ['rvName','rvInitial','rvRole','rvText'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('rvStars').value='5';
+  document.getElementById('reviewFormOverlay').classList.add('open');
+}
+function editReview(i){
+  const r=reviews[i];
+  document.getElementById('reviewFormIdx').value=i;
+  document.getElementById('rvName').value=r.name;
+  document.getElementById('rvInitial').value=r.initial;
+  document.getElementById('rvRole').value=r.role;
+  document.getElementById('rvText').value=r.text;
+  document.getElementById('rvStars').value=r.stars;
+  document.getElementById('reviewFormOverlay').classList.add('open');
+}
+function closeReviewForm(){document.getElementById('reviewFormOverlay').classList.remove('open');}
+function saveReview(){
+  const idx=document.getElementById('reviewFormIdx').value;
+  const name=document.getElementById('rvName').value.trim();
+  const text=document.getElementById('rvText').value.trim();
+  if(!name||!text){showToast('⚠️ กรุณากรอกชื่อและรีวิว');return;}
+  const data={
+    name,text,
+    initial:document.getElementById('rvInitial').value||name[0],
+    role:document.getElementById('rvRole').value,
+    stars:parseInt(document.getElementById('rvStars').value)
+  };
+  if(idx!=='') reviews[parseInt(idx)]=data;
+  else reviews.push(data);
+  saveData();renderReviewEditList();renderReviews();updateAdminStats();
+  closeReviewForm();
+  showToast('✅ บันทึกรีวิวเรียบร้อย');
+}
+function deleteReview(i){
+  if(!confirm('ลบรีวิวนี้?')) return;
+  reviews.splice(i,1);
+  saveData();renderReviewEditList();renderReviews();updateAdminStats();
+  showToast('🗑 ลบรีวิวเรียบร้อย');
+}
+
+/* ════════════════════════════════════════
+   ADMIN — Settings
+════════════════════════════════════════ */
+function changePassword(){
+  const old=document.getElementById('passOld').value;
+  const n=document.getElementById('passNew').value;
+  const confirm=document.getElementById('passConfirm').value;
+  const msg=document.getElementById('passMsg');
+  if(old!==ADMIN_PASS){msg.style.display='block';msg.style.color='#c94f24';msg.textContent='❌ รหัสปัจจุบันไม่ถูกต้อง';return;}
+  if(n.length<6){msg.style.display='block';msg.style.color='#c94f24';msg.textContent='❌ รหัสใหม่ต้องมีอย่างน้อย 6 ตัวอักษร';return;}
+  if(n!==confirm){msg.style.display='block';msg.style.color='#c94f24';msg.textContent='❌ รหัสใหม่ไม่ตรงกัน';return;}
+  ADMIN_PASS=n;
+  SS.set('adminPass',n);
+  ['passOld','passNew','passConfirm'].forEach(id=>document.getElementById(id).value='');
+  msg.style.display='block';msg.style.color='var(--sage)';msg.textContent='✅ เปลี่ยนรหัสผ่านสำเร็จ';
+  setTimeout(()=>msg.style.display='none',3000);
+}
+function saveSettings(){
+  showToast('✅ บันทึกการตั้งค่าเรียบร้อย');
+}
+
+/* ════════════════════════════════════════
+   PROMPTPAY & NOTIFY
+════════════════════════════════════════ */
+function showPromptpay(){
+  const box=document.getElementById('promptpayBox');
+  box.style.display=box.style.display==='none'?'block':'none';
+}
+function openNotify(name){showToast(`🔔 เราจะแจ้งเตือนเมื่อ "${name}" กลับมาพร้อมอีกครั้ง`);}
 
 /* ════════════════════════════════════════
    TOAST
 ════════════════════════════════════════ */
 let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
 }
 
 /* ════════════════════════════════════════
-   LIVE SOCIAL PROOF — Strategy 3
+   LIVE SOCIAL PROOF
 ════════════════════════════════════════ */
-const proofData = [
+const proofData=[
   {icon:'🛒',text:'<strong>สมชาย</strong> จาก กรุงเทพฯ เพิ่งสั่ง Ethiopia Yirgacheffe',time:'2 นาทีที่แล้ว'},
   {icon:'🔥',text:'<strong>นภาพร</strong> จาก เชียงใหม่ เพิ่งสมัคร Explorer Subscription',time:'5 นาทีที่แล้ว'},
   {icon:'⭐',text:'<strong>ธนา</strong> จาก ภูเก็ต ให้คะแนน 5 ดาว — Colombia Honey',time:'8 นาทีที่แล้ว'},
   {icon:'🛒',text:'<strong>วิชัย</strong> จาก ขอนแก่น เพิ่งสั่ง Doi Chang Natural × 2',time:'12 นาทีที่แล้ว'},
   {icon:'🔔',text:'<strong>พิมพ์ชนก</strong> จาก นครฯ เพิ่งสมัคร notify Gedeo Anaerobic',time:'15 นาทีที่แล้ว'},
 ];
-let proofIdx = 0;
-function showProof() {
-  const popup = document.getElementById('livePopup');
-  const p = proofData[proofIdx % proofData.length];
-  document.getElementById('popupIcon').textContent = p.icon;
-  document.getElementById('popupText').innerHTML = p.text;
-  document.getElementById('popupTime').textContent = p.time;
+let proofIdx=0;
+function showProof(){
+  const popup=document.getElementById('livePopup');
+  const p=proofData[proofIdx%proofData.length];
+  document.getElementById('popupIcon').textContent=p.icon;
+  document.getElementById('popupText').innerHTML=p.text;
+  document.getElementById('popupTime').textContent=p.time;
   popup.classList.add('show');
-  setTimeout(() => popup.classList.remove('show'), 4000);
+  setTimeout(()=>popup.classList.remove('show'),4000);
   proofIdx++;
 }
-setTimeout(() => { showProof(); setInterval(showProof, 9000); }, 3000);
+setTimeout(()=>{showProof();setInterval(showProof,9000);},3000);
 
 /* ════════════════════════════════════════
    SCROLL ANIMATIONS
 ════════════════════════════════════════ */
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.15});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
 /* ════════════════════════════════════════
    INIT
 ════════════════════════════════════════ */
-function init() {
+function init(){
   renderCoffees('all');
   renderReviews();
 }
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
 else init();
 
-console.log('[Origin Coffee v2] Ready ✅');
+console.log('[Origin Coffee v3 — Classic Edition] Ready ✅');
 </script>
 </body>
 </html>
