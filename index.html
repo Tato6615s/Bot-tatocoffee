@@ -6,9 +6,8 @@
 <title>ORIGIN COFFEE — Specialty Roastery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
-<link rel="dns-prefetch" href="https://images.unsplash.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap&font-display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"></noscript>
 <style>
 :root {
   --ink: #1a1208;
@@ -40,8 +39,8 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; justify-content: space-between; align-items: center;
   padding: 1.1rem 3rem;
-  background: rgba(254,252,248,0.9);
-  backdrop-filter: blur(20px);
+  background: rgba(254,252,248,0.92);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
 }
 .logo {
@@ -837,21 +836,28 @@ footer {
 }
 .skeleton-img {
   height: 200px;
-  background: linear-gradient(90deg, var(--mist) 25%, var(--cream) 50%, var(--mist) 75%);
-  background-size: 200% 100%;
+  background: var(--mist);
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-img::after, .skeleton-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
   animation: shimmer 1.4s infinite;
+  will-change: transform;
 }
 .skeleton-body { padding: 1.5rem; }
 .skeleton-line {
   height: 12px; border-radius: 6px; margin-bottom: 10px;
-  background: linear-gradient(90deg, var(--mist) 25%, var(--cream) 50%, var(--mist) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s infinite;
+  background: var(--mist);
+  position: relative; overflow: hidden;
 }
 .skeleton-line.short { width: 55%; }
 .skeleton-line.mid { width: 75%; }
 .skeleton-line.tall { height: 18px; width: 40%; margin-top: 16px; }
-@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
 /* ─── PERFORMANCE: reduce-motion ────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -860,6 +866,10 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+/* ─── PERFORMANCE: will-change for animated elements ─── */
+.coffee-card { contain: layout style; }
+.coffee-grid { contain: layout; }
+.coffee-card-hero { height: 140px; }
 
 /* ─── 1. STOCK BADGE ─────────────────────────────── */
 .stock-badge {
@@ -1432,6 +1442,10 @@ footer {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
 </style>
 </head>
 <body>
@@ -1492,22 +1506,29 @@ footer {
     </div>
   </div>
   <div class="hero-right" style="position:relative;overflow:hidden;padding:0;">
-    <img
-      id="heroMainImg"
-      src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=900&q=80&auto=format"
-      alt="Specialty Coffee Roasting"
-      fetchpriority="high"
-      decoding="async"
-      width="900" height="600"
-      style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.5s;"
-      onerror="this.src='https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=75&auto=format'"
-    >
-    <!-- Overlay gradient for readability -->
-    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(250,245,237,0.18) 0%,transparent 40%),linear-gradient(to top,rgba(26,18,8,0.55) 0%,transparent 60%);pointer-events:none;"></div>
-    <!-- Floating score badge -->
-    <div style="position:absolute;top:2rem;right:2rem;background:rgba(26,18,8,0.75);backdrop-filter:blur(12px);border:1px solid rgba(196,154,58,0.35);border-radius:16px;padding:1rem 1.25rem;text-align:center;">
-      <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--gold);font-weight:500;line-height:1;">87+</div>
-      <div style="font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">SCA Score</div>
+    <!-- Pure CSS + Emoji Hero — no external image required -->
+    <div id="heroMainImg" style="width:100%;height:100%;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#3d2b0f 0%,#6b4520 30%,#8b5e2a 60%,#c49a3a 100%);position:relative;overflow:hidden;">
+      <!-- Decorative coffee beans pattern -->
+      <div style="position:absolute;inset:0;opacity:0.06;background-image:radial-gradient(circle,#fff 1.5px,transparent 1.5px);background-size:28px 28px;"></div>
+      <!-- Warm glow -->
+      <div style="position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,58,0.35) 0%,transparent 70%);pointer-events:none;"></div>
+      <!-- Main emoji display -->
+      <div style="position:relative;z-index:1;text-align:center;">
+        <div style="font-size:110px;line-height:1;filter:drop-shadow(0 12px 40px rgba(0,0,0,0.5));margin-bottom:1.5rem;animation:heroFloat 4s ease-in-out infinite;">☕</div>
+        <div style="display:flex;gap:1.5rem;justify-content:center;opacity:0.7;">
+          <span style="font-size:36px;animation:heroFloat 4s ease-in-out 0.5s infinite;">🌿</span>
+          <span style="font-size:36px;animation:heroFloat 4s ease-in-out 1s infinite;">✨</span>
+          <span style="font-size:36px;animation:heroFloat 4s ease-in-out 1.5s infinite;">🫘</span>
+        </div>
+      </div>
+      <!-- Floating badges -->
+      <div style="position:absolute;top:1.5rem;left:1.5rem;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);border:1px solid rgba(196,154,58,0.3);border-radius:12px;padding:0.6rem 1rem;font-size:12px;color:rgba(255,255,255,0.85);letter-spacing:0.5px;">
+        🌱 Direct Trade
+      </div>
+      <div style="position:absolute;top:2rem;right:2rem;background:rgba(26,18,8,0.75);backdrop-filter:blur(12px);border:1px solid rgba(196,154,58,0.35);border-radius:16px;padding:1rem 1.25rem;text-align:center;">
+        <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--gold);font-weight:500;line-height:1;">87+</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">SCA Score</div>
+      </div>
     </div>
     <div class="hero-tags">
       <span class="hero-tag">Single Origin</span>
@@ -1837,64 +1858,92 @@ footer {
 </section>
 
 
-<!-- 5. REVIEWS ⭐ -->
-<section class="section" id="reviews">
-  <div class="reviews-header">
-    <div>
-      <div class="section-eyebrow">⭐ รีวิวจากลูกค้า</div>
-      <h2 class="section-title">ลูกค้าพูดถึง<em>เรา</em></h2>
+<!-- 5. TRUST SECTION -->
+<section class="section" id="reviews" style="background:var(--cream2);padding:5rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <div class="section-eyebrow">🤝 ทำไมต้องเลือก Origin Coffee</div>
+      <h2 class="section-title">โปร่งใส · ตรวจสอบได้<br><em>ทุกขั้นตอน</em></h2>
     </div>
-    <div>
-      <div class="reviews-aggregate">
-        <div class="reviews-big-score">4.9</div>
-        <div class="reviews-score-detail">
-          <div class="reviews-stars-row">★★★★★</div>
-          <div class="reviews-count">จาก 143 รีวิว</div>
-          <div class="reviews-source">
-            <span class="review-source-badge">Google ⭐</span>
-            <span class="review-source-badge">LINE OA 💚</span>
-          </div>
-        </div>
+
+    <!-- 4 Trust Pillars -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:3.5rem;">
+      <div style="background:var(--warm-white);border:1px solid var(--border);border-radius:20px;padding:1.75rem 1.5rem;text-align:center;">
+        <div style="font-size:40px;margin-bottom:1rem;">🌱</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:500;color:var(--ink);">Direct</div>
+        <div style="font-size:12px;color:var(--caramel);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;">Trade</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">ซื้อตรงจากเกษตรกร ไม่ผ่านคนกลาง — เกษตรกรได้ราคาที่เป็นธรรม</div>
       </div>
-      <div class="review-verified">✓ รีวิวจริงจากลูกค้าที่ซื้อสินค้า</div>
+      <div style="background:var(--warm-white);border:1px solid var(--border);border-radius:20px;padding:1.75rem 1.5rem;text-align:center;">
+        <div style="font-size:40px;margin-bottom:1rem;">🔥</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:500;color:var(--ink);">สดทุก</div>
+        <div style="font-size:12px;color:var(--caramel);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;">สัปดาห์</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">คั่วตามออเดอร์ ระบุวันคั่วบนถุงทุกใบ ไม่มีค้างสต็อก</div>
+      </div>
+      <div style="background:var(--warm-white);border:1px solid var(--border);border-radius:20px;padding:1.75rem 1.5rem;text-align:center;">
+        <div style="font-size:40px;margin-bottom:1rem;">🏅</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:500;color:var(--ink);">87+</div>
+        <div style="font-size:12px;color:var(--caramel);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;">SCA Score</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">ทุกล็อตผ่าน cupping โดย Q Grader ก่อนนำมาจำหน่าย</div>
+      </div>
+      <div style="background:var(--warm-white);border:1px solid var(--border);border-radius:20px;padding:1.75rem 1.5rem;text-align:center;">
+        <div style="font-size:40px;margin-bottom:1rem;">📦</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:500;color:var(--ink);">48 ชม.</div>
+        <div style="font-size:12px;color:var(--caramel);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;">จัดส่ง</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">จัดส่งทั่วประเทศภายใน 48 ชั่วโมงหลังยืนยันออเดอร์</div>
+      </div>
     </div>
-  </div>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"กาแฟดีมาก ผมเป็น barista มา 5 ปี ไม่ค่อยประทับใจง่ายๆ แต่ lot Ethiopia นี้ให้ complexity จริงๆ ครับ"</p>
-      <div class="review-author">
-        <div class="review-avatar">พ</div>
+
+    <!-- Divider: รีวิวจริง — แก้ได้จากหลังบ้าน -->
+    <div style="background:var(--warm-white);border:1.5px solid var(--border);border-radius:24px;padding:2.5rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;right:0;background:rgba(196,154,58,0.08);width:300px;height:100%;pointer-events:none;"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;">
         <div>
-          <div class="review-name">พิชญ์ สมบัติ</div>
-          <div class="review-role">Head Barista, Nimman Café · Google Review ✓</div>
+          <div class="section-eyebrow" style="margin-bottom:0.25rem;">💬 เสียงจากลูกค้า</div>
+          <p style="font-size:13px;color:var(--text-muted);margin:0;">รีวิวจริง — เพิ่มได้จากหลังบ้าน (Admin → Reviews)</p>
         </div>
+        <!-- ป้ายบอกว่าแก้ได้ — ซ่อนตอน deploy จริง -->
+        <span id="reviewEditHint" style="background:rgba(196,154,58,0.12);border:1px dashed var(--caramel);border-radius:50px;padding:6px 16px;font-size:11px;color:var(--caramel);letter-spacing:0.5px;">
+          ✏️ แก้รีวิวได้ในหลังบ้าน
+        </span>
+      </div>
+
+      <!-- Review cards — แก้ได้จาก JS reviews array -->
+      <div id="trustReviewGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;position:relative;z-index:1;">
+        <!-- Rendered by JS below -->
       </div>
     </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"ชอบที่เขาบอกข้อมูลครบมาก ทั้ง farm, process, cupping notes ทำให้เราอธิบายให้ลูกค้าได้ด้วย"</p>
-      <div class="review-author">
-        <div class="review-avatar">น</div>
-        <div>
-          <div class="review-name">นภา วิชิต</div>
-          <div class="review-role">เจ้าของร้าน, Workshop Coffee · LINE Review ✓</div>
-        </div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★☆</div>
-      <p class="review-text">"ใช้ในโรงแรมมา 8 เดือน quality คงเส้นคงวามาก ส่งตรงเวลาทุกครั้ง แนะนำสำหรับ hospitality"</p>
-      <div class="review-author">
-        <div class="review-avatar">ต</div>
-        <div>
-          <div class="review-name">ตะวัน ชาญชัย</div>
-          <div class="review-role">F&B Manager, Boutique Hotel · Google Review ✓</div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </section>
+
+<script>
+// ── TRUST REVIEWS — แก้ข้อมูลตรงนี้ได้เลย ──────────────
+const siteReviews = JSON.parse(localStorage.getItem('originReviews') || 'null') || [
+  { stars: 5, text: 'เพิ่มรีวิวจริงของคุณได้จากหลังบ้าน → Admin → Reviews', name: 'ลูกค้า A', role: 'เชียงใหม่', initial: 'ก' },
+  { stars: 5, text: 'เพิ่มรีวิวจริงของคุณได้จากหลังบ้าน → Admin → Reviews', name: 'ลูกค้า B', role: 'กรุงเทพฯ', initial: 'ข' },
+  { stars: 5, text: 'เพิ่มรีวิวจริงของคุณได้จากหลังบ้าน → Admin → Reviews', name: 'ลูกค้า C', role: 'LINE Review', initial: 'ค' },
+];
+(function renderTrustReviews() {
+  const grid = document.getElementById('trustReviewGrid');
+  if (!grid) return;
+  grid.innerHTML = siteReviews.map(r => `
+    <div style="background:var(--cream2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;display:flex;flex-direction:column;gap:0.85rem;">
+      <div style="color:var(--gold);font-size:16px;letter-spacing:2px;">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <p style="font-size:14px;color:var(--ink);line-height:1.75;flex:1;margin:0;">"${r.text}"</p>
+      <div style="display:flex;align-items:center;gap:10px;padding-top:0.75rem;border-top:1px solid var(--border);">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--brown);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:500;flex-shrink:0;">${r.initial}</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink);">${r.name}</div>
+          <div style="font-size:11px;color:var(--text-muted);">${r.role}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+})();
+</script>
 
 <!-- 6. BRAND STORY 🌱 -->
 <section class="section" id="story">
@@ -2020,46 +2069,47 @@ footer {
   <div style="position:absolute;bottom:-80px;left:-80px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%);pointer-events:none;"></div>
   <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:1;">
 
-    <!-- LEFT — channels + info -->
+    <!-- LEFT — channels -->
     <div>
       <div class="section-eyebrow" style="color:var(--gold);">📩 ติดต่อ & สั่งซื้อ</div>
-      <h2 class="section-title" style="color:#fff;">สั่งซื้อได้<br><em>หลายช่องทาง</em></h2>
-      <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:2rem;">เลือกช่องทางที่สะดวกที่สุด — เราตอบกลับทุกช่องทางภายใน 1 ชั่วโมง</p>
+      <h2 class="section-title" style="color:#fff;">พูดคุยกับเรา<br><em>ได้เลย</em></h2>
+      <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:2rem;">เราตอบกลับทุกข้อความภายใน 1 ชั่วโมง ในเวลาทำการ</p>
 
-      <!-- 2x2 channel grid -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:2rem;">
-        <a href="https://line.me/R/oa/@origincoffee" target="_blank" style="text-decoration:none;">
-          <div style="background:#06C755;border-radius:16px;padding:1.1rem 1rem;display:flex;align-items:center;gap:12px;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(6,199,85,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-            <span style="font-size:26px;">💚</span>
-            <div><div style="font-size:14px;font-weight:700;color:#fff;">LINE OA</div><div style="font-size:11px;color:rgba(255,255,255,0.75);">@origincoffee</div></div>
+      <!-- ช่องทางหลัก — แก้ link และชื่อในหลังบ้าน Admin → Contact -->
+      <div style="display:flex;flex-direction:column;gap:0.85rem;margin-bottom:2rem;" id="contactChannels">
+
+        <!-- LINE — ช่องทางหลัก -->
+        <a id="contactLineLink" href="https://line.me/R/oa/@YOURLINEID" target="_blank" style="text-decoration:none;">
+          <div style="background:#06C755;border-radius:16px;padding:1.2rem 1.25rem;display:flex;align-items:center;gap:14px;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(6,199,85,0.45)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <span style="font-size:30px;">💚</span>
+            <div style="flex:1;">
+              <div style="font-size:15px;font-weight:700;color:#fff;">LINE OA</div>
+              <div id="contactLineId" style="font-size:12px;color:rgba(255,255,255,0.8);margin-top:1px;">@ใส่ LINE ID ของคุณ — แก้ได้ใน Admin</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.2);border-radius:50px;padding:5px 14px;font-size:12px;color:#fff;font-weight:600;">เพิ่มเพื่อน →</div>
           </div>
         </a>
-        <a href="https://t.me/OrigincoffeeShop_bot" target="_blank" style="text-decoration:none;">
-          <div style="background:#2AABEE;border-radius:16px;padding:1.1rem 1rem;display:flex;align-items:center;gap:12px;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(42,171,238,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-            <span style="font-size:26px;">✈️</span>
-            <div><div style="font-size:14px;font-weight:700;color:#fff;">Telegram</div><div style="font-size:11px;color:rgba(255,255,255,0.75);">Bot ตอบทันที</div></div>
+
+        <!-- Instagram -->
+        <a id="contactIGLink" href="https://instagram.com/YOURIG" target="_blank" style="text-decoration:none;">
+          <div style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:16px;padding:1.2rem 1.25rem;display:flex;align-items:center;gap:14px;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(220,39,67,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <span style="font-size:30px;">📸</span>
+            <div style="flex:1;">
+              <div style="font-size:15px;font-weight:700;color:#fff;">Instagram</div>
+              <div id="contactIGName" style="font-size:12px;color:rgba(255,255,255,0.8);margin-top:1px;">@ใส่ IG ของคุณ — แก้ได้ใน Admin</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.2);border-radius:50px;padding:5px 14px;font-size:12px;color:#fff;font-weight:600;">ติดตาม →</div>
           </div>
         </a>
-        <a href="https://m.me/origincoffeeth" target="_blank" style="text-decoration:none;">
-          <div style="background:#0866FF;border-radius:16px;padding:1.1rem 1rem;display:flex;align-items:center;gap:12px;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(8,102,255,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-            <span style="font-size:26px;">💙</span>
-            <div><div style="font-size:14px;font-weight:700;color:#fff;">Facebook</div><div style="font-size:11px;color:rgba(255,255,255,0.75);">Messenger</div></div>
-          </div>
-        </a>
-        <a href="https://wa.me/66987654321" target="_blank" style="text-decoration:none;">
-          <div style="background:#25D366;border-radius:16px;padding:1.1rem 1rem;display:flex;align-items:center;gap:12px;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(37,211,102,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-            <span style="font-size:26px;">📱</span>
-            <div><div style="font-size:14px;font-weight:700;color:#fff;">WhatsApp</div><div style="font-size:11px;color:rgba(255,255,255,0.75);">+66 98-765-4321</div></div>
-          </div>
-        </a>
+
       </div>
 
       <!-- Trust chips -->
       <div style="display:flex;flex-wrap:wrap;gap:0.6rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.1);">
-        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">🔔 ล็อต Limited ก่อนใคร</span>
         <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">⚡ ตอบกลับใน 1 ชม.</span>
-        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">🏦 PromptPay 098-765-4321</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">🏦 PromptPay — แก้เบอร์ใน Admin</span>
         <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">🚚 จัดส่งทั่วประเทศ</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.7);">🔔 ล็อต Limited ก่อนใคร</span>
       </div>
     </div>
 
@@ -2079,12 +2129,12 @@ footer {
         </div>
         <div>
           <label style="display:block;font-size:11px;color:var(--text-muted);font-weight:500;letter-spacing:0.5px;margin-bottom:6px;">สนใจสินค้า / ข้อความ</label>
-          <textarea id="leadsMsg" placeholder="เช่น: สนใจ Ethiopia Yirgacheffe 250g, อยากทราบ SCA score และ process ครับ" rows="3" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--cream2);color:var(--ink);outline:none;box-sizing:border-box;resize:vertical;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--caramel)';this.style.background='#fff'" onblur="this.style.borderColor='var(--border)';this.style.background='var(--cream2)'"></textarea>
+          <textarea id="leadsMsg" placeholder="เช่น: สนใจ Ethiopia 250g, อยากทราบราคาส่ง" rows="3" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--cream2);color:var(--ink);outline:none;box-sizing:border-box;resize:vertical;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--caramel)';this.style.background='#fff'" onblur="this.style.borderColor='var(--border)';this.style.background='var(--cream2)'"></textarea>
         </div>
         <button onclick="submitLeadForm()" style="width:100%;background:var(--brown);color:#fff;border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s;margin-top:0.25rem;display:flex;align-items:center;justify-content:center;gap:8px;" onmouseover="this.style.background='var(--caramel)'" onmouseout="this.style.background='var(--brown)'">
           📩 ส่งข้อความ
         </button>
-        <p style="font-size:11px;color:var(--text-muted);text-align:center;margin:0;line-height:1.6;">หรือติดต่อโดยตรงผ่าน LINE OA: <strong>@origincoffee</strong></p>
+        <p style="font-size:11px;color:var(--text-muted);text-align:center;margin:0;line-height:1.6;">หรือทักตรงผ่าน <strong>LINE OA</strong> ได้เลยครับ</p>
       </div>
 
       <div id="leadsSuccess" style="display:none;text-align:center;padding:2rem 1rem;">
@@ -2412,6 +2462,7 @@ footer {
       <button class="admin-tab" onclick="switchAdminTab('analytics',this)">📊 Analytics</button>
       <button class="admin-tab" onclick="switchAdminTab('hero',this)">🏠 Hero Section</button>
       <button class="admin-tab" onclick="switchAdminTab('story',this)">📖 เรื่องราว</button>
+      <button class="admin-tab" onclick="switchAdminTab('reviews',this)">💬 รีวิว</button>
       <button class="admin-tab" onclick="switchAdminTab('contact',this)">📞 ติดต่อ</button>
       <button class="admin-tab" onclick="switchAdminTab('security',this)">🔒 ความปลอดภัย</button>
     </div>
@@ -2546,6 +2597,20 @@ footer {
         </div>
         <button class="admin-save-btn" onclick="saveStory()">💾 บันทึกเรื่องราว</button>
         <div id="storySaveMsg" class="admin-success">✅ บันทึกเรื่องราวเรียบร้อย!</div>
+      </div>
+    </div>
+
+    <!-- TAB: REVIEWS -->
+    <div class="admin-section" id="admin-reviews">
+      <div class="admin-card">
+        <div class="admin-card-title">💬 จัดการรีวิวลูกค้า</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:1.5rem;line-height:1.7;">
+          เพิ่ม/แก้รีวิวจริงจากลูกค้าของคุณ — แสดงผลในส่วน "เสียงจากลูกค้า" บนหน้าเว็บทันที
+        </div>
+        <div id="adminReviewsList" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1rem;"></div>
+        <button class="admin-add-btn" onclick="addAdminReview()">+ เพิ่มรีวิวใหม่</button>
+        <button class="admin-save-btn" style="margin-top:1rem;" onclick="saveAdminReviews()">💾 บันทึกรีวิวทั้งหมด</button>
+        <div id="reviewsSaveMsg" class="admin-success">✅ บันทึกรีวิวเรียบร้อย!</div>
       </div>
     </div>
 
@@ -3523,11 +3588,27 @@ function saveContact() {
   const ig = document.getElementById('igHandle').value.trim();
   const loc = document.getElementById('shopLocation').value.trim();
 
-  // อัปเดตลิงก์ใน leads section
-  document.querySelectorAll('a[href*="t.me"]').forEach(a => { a.href = tg; });
-  document.querySelectorAll('a[href*="line.me"]').forEach(a => { a.href = lineLink || a.href; });
-  document.querySelectorAll('a[href*="m.me"]').forEach(a => { a.href = fbLink || a.href; });
-  document.querySelectorAll('a[href*="wa.me"]').forEach(a => { a.href = waLink || a.href; });
+  // อัปเดตปุ่ม LINE ใหม่
+  const lineBtn = document.getElementById('contactLineLink');
+  if (lineBtn && lineLink) lineBtn.href = lineLink;
+  const lineIdTxt = document.getElementById('contactLineId');
+  if (lineIdTxt && lineLink) {
+    // แสดง @xxx จาก URL
+    const match = lineLink.match(/@[\w.]+/);
+    if (match) lineIdTxt.textContent = match[0];
+  }
+
+  // อัปเดตปุ่ม IG ใหม่
+  const igBtn = document.getElementById('contactIGLink');
+  if (igBtn && ig) igBtn.href = 'https://instagram.com/' + ig.replace('@','');
+  const igNameTxt = document.getElementById('contactIGName');
+  if (igNameTxt && ig) igNameTxt.textContent = ig.startsWith('@') ? ig : '@'+ig;
+
+  // อัปเดตลิงก์อื่นๆ
+  document.querySelectorAll('a[href*="t.me"]').forEach(a => { if(tg) a.href = tg; });
+  document.querySelectorAll('a[href*="line.me"]').forEach(a => { if(lineLink) a.href = lineLink; });
+  document.querySelectorAll('a[href*="m.me"]').forEach(a => { if(fbLink) a.href = fbLink; });
+  document.querySelectorAll('a[href*="wa.me"]').forEach(a => { if(waLink) a.href = waLink; });
 
   // อัปเดต checkout channel URLs
   if (tg) checkoutChannelOverrides.telegram = tg + '?start=order';
@@ -3540,14 +3621,9 @@ function saveContact() {
   const ppNm = document.querySelector('.promptpay-name');
   if (ppNum && ppNumber) ppNum.textContent = ppNumber;
   if (ppNm && ppName) ppNm.textContent = ppName;
-
-  // อัปเดต promptpay success message
   if (ppNumber) {
-    checkoutSuccessMsgs.promptpay = `สแกน QR หรือโอนมาที่ ${ppNumber} แล้วแจ้งสลิปผ่าน LINE หรือ Telegram ครับ`;
+    checkoutSuccessMsgs.promptpay = `สแกน QR หรือโอนมาที่ ${ppNumber} แล้วแจ้งสลิปผ่าน LINE ครับ`;
   }
-
-  // อัปเดต footer
-  const footerIG = document.querySelector('.footer-col a[href="#"]:last-of-type');
 
   // บันทึกลง localStorage
   safeStorage.set('originContact', JSON.stringify({ tg, lineLink, fbLink, waLink, ppNumber, ppName, ig, loc }));
@@ -4232,8 +4308,8 @@ function clearOrderLog() {
     const saved = safeStorage.get('originHeroImg');
     if (saved) {
       document.getElementById('heroImgUrl').value = saved;
-      const img = document.getElementById('heroMainImg');
-      if (img) img.src = saved;
+      const heroDiv = document.getElementById('heroMainImg');
+      if (heroDiv) heroDiv.style.backgroundImage = `url(${saved})`;
     }
 
     // Patch saveHero to also save image
@@ -4243,8 +4319,12 @@ function clearOrderLog() {
         const url = document.getElementById('heroImgUrl')?.value.trim();
         if (url) {
           safeStorage.set('originHeroImg', url);
-          const img = document.getElementById('heroMainImg');
-          if (img) img.src = url;
+          const heroDiv = document.getElementById('heroMainImg');
+          if (heroDiv) {
+            heroDiv.style.backgroundImage = `url(${url})`;
+            heroDiv.style.backgroundSize = 'cover';
+            heroDiv.style.backgroundPosition = 'center';
+          }
         }
       }, true);
     }
@@ -4359,6 +4439,101 @@ function submitLeadForm() {
   // Track in analytics if available
   try { trackOrder && trackOrder({ name, items:[], total:0, channel:'web-form' }); } catch(e){}
 }
+
+// ── ADMIN REVIEWS MANAGEMENT ─────────────────────────────
+let adminReviewsData = JSON.parse(safeStorage.get('originReviews') || 'null') || [
+  { stars: 5, text: '', name: '', role: '', initial: '' },
+];
+
+function renderAdminReviewsList() {
+  const el = document.getElementById('adminReviewsList');
+  if (!el) return;
+  el.innerHTML = adminReviewsData.map((r, i) => `
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(196,154,58,0.15);border-radius:12px;padding:1.25rem;position:relative;">
+      <div style="position:absolute;top:0.75rem;right:0.75rem;">
+        <button onclick="removeAdminReview(${i})" style="background:rgba(184,76,26,0.15);color:var(--rust);border:1px solid rgba(184,76,26,0.3);border-radius:8px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">ลบ</button>
+      </div>
+      <div class="admin-row" style="margin-bottom:0.75rem;">
+        <div class="admin-field" style="margin:0;">
+          <label class="admin-label">ชื่อลูกค้า</label>
+          <input class="admin-field-input" value="${r.name}" oninput="adminReviewsData[${i}].name=this.value;adminReviewsData[${i}].initial=this.value.charAt(0)||'ก'" placeholder="ชื่อ-นามสกุล">
+        </div>
+        <div class="admin-field" style="margin:0;">
+          <label class="admin-label">ตำแหน่ง / แหล่งที่มา</label>
+          <input class="admin-field-input" value="${r.role}" oninput="adminReviewsData[${i}].role=this.value" placeholder="เช่น: เชียงใหม่ · LINE Review ✓">
+        </div>
+      </div>
+      <div class="admin-field" style="margin-bottom:0.75rem;">
+        <label class="admin-label">ข้อความรีวิว</label>
+        <textarea class="admin-field-textarea" oninput="adminReviewsData[${i}].text=this.value" placeholder="พิมพ์รีวิวจริงจากลูกค้า...">${r.text}</textarea>
+      </div>
+      <div class="admin-field" style="margin:0;">
+        <label class="admin-label">ดาว (1-5)</label>
+        <select class="admin-field-select" onchange="adminReviewsData[${i}].stars=parseInt(this.value)">
+          ${[5,4,3,2,1].map(s=>`<option value="${s}" ${r.stars===s?'selected':''}>${'★'.repeat(s)} ${s} ดาว</option>`).join('')}
+        </select>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addAdminReview() {
+  adminReviewsData.push({ stars: 5, text: '', name: '', role: '', initial: 'ก' });
+  renderAdminReviewsList();
+}
+
+function removeAdminReview(i) {
+  adminReviewsData.splice(i, 1);
+  renderAdminReviewsList();
+}
+
+function saveAdminReviews() {
+  // กรองเอาเฉพาะรีวิวที่กรอกครบ
+  const valid = adminReviewsData.filter(r => r.text.trim() && r.name.trim());
+  if (valid.length === 0) {
+    alert('กรุณากรอกชื่อและข้อความรีวิวอย่างน้อย 1 รายการครับ'); return;
+  }
+  safeStorage.set('originReviews', JSON.stringify(valid));
+  // อัปเดตหน้าเว็บทันที
+  const grid = document.getElementById('trustReviewGrid');
+  if (grid) {
+    grid.innerHTML = valid.map(r => `
+      <div style="background:var(--cream2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;display:flex;flex-direction:column;gap:0.85rem;">
+        <div style="color:var(--gold);font-size:16px;letter-spacing:2px;">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+        <p style="font-size:14px;color:var(--ink);line-height:1.75;flex:1;margin:0;">"${r.text}"</p>
+        <div style="display:flex;align-items:center;gap:10px;padding-top:0.75rem;border-top:1px solid var(--border);">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--brown);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:500;flex-shrink:0;">${r.initial||r.name.charAt(0)}</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--ink);">${r.name}</div>
+            <div style="font-size:11px;color:var(--text-muted);">${r.role}</div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  document.getElementById('reviewsSaveMsg').classList.add('show');
+  setTimeout(() => document.getElementById('reviewsSaveMsg').classList.remove('show'), 3000);
+}
+
+// โหลดรีวิวที่บันทึกไว้เมื่อเปิด admin
+const _origSwitchAdminTab = typeof switchAdminTab === 'function' ? switchAdminTab : null;
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = safeStorage.get('originReviews');
+  if (saved) {
+    try { adminReviewsData = JSON.parse(saved); } catch(e) {}
+  }
+});
+// render เมื่อเปิด tab reviews
+const _patchTab = setInterval(() => {
+  if (typeof switchAdminTab === 'function') {
+    const origFn = switchAdminTab;
+    window.switchAdminTab = function(tab, btn) {
+      origFn(tab, btn);
+      if (tab === 'reviews') renderAdminReviewsList();
+    };
+    clearInterval(_patchTab);
+  }
+}, 100);
 
 console.log('[Origin Coffee] Init complete ✅');
 </script>
