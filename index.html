@@ -33,6 +33,254 @@ body {
   color: var(--ink);
   overflow-x: hidden;
 }
+/* ── FEATURE 1: FILM GRAIN OVERLAY ─────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+#story, #process, #coffee-quiz, #leads { position: relative; }
+#story > *, #process > *, #coffee-quiz > * { position: relative; z-index: 1; }
+
+/* ── FEATURE 4: SCA SCORE BAR STYLES ─────────────────── */
+.sca-radar-wrap { margin-top: 0.75rem; }
+.sca-attr-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sca-attr-label { font-size: 10px; color: var(--text-muted); width: 56px; flex-shrink: 0; }
+.sca-attr-track { flex: 1; height: 5px; background: var(--mist); border-radius: 3px; overflow: hidden; }
+.sca-attr-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--caramel), var(--gold)); transition: width 1.2s cubic-bezier(0.4,0,0.2,1); width: 0; }
+.sca-attr-val { font-size: 10px; color: var(--caramel); width: 28px; text-align: right; font-weight: 600; }
+
+/* ── FEATURE 5: BREW TIMER ─────────────────────────── */
+.brew-guide-wrap { margin-top: 1.5rem; }
+.brew-methods { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.brew-method-btn {
+  padding: 7px 16px; border-radius: 50px;
+  border: 1.5px solid rgba(196,154,58,0.25); background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 500;
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+}
+.brew-method-btn.active { background: var(--caramel); color: #fff; border-color: var(--caramel); }
+.brew-steps-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.brew-step-item {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: rgba(255,255,255,0.04); border-radius: 12px; padding: 0.85rem 1rem;
+  border: 1px solid rgba(196,154,58,0.1); transition: background 0.3s;
+}
+.brew-step-item.active-step { background: rgba(196,154,58,0.1); border-color: rgba(196,154,58,0.3); }
+.brew-step-num {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(196,154,58,0.2); border: 1px solid rgba(196,154,58,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--gold);
+}
+.brew-step-body { flex: 1; }
+.brew-step-title { font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 2px; }
+.brew-step-desc { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.brew-step-time { font-size: 11px; color: var(--gold); font-weight: 600; margin-top: 3px; }
+.brew-timer-bar {
+  margin-top: 1rem; background: rgba(255,255,255,0.06); border-radius: 12px; padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(196,154,58,0.15);
+}
+.brew-timer-display { font-family: 'Fraunces', serif; font-size: 36px; color: var(--gold); font-weight: 500; min-width: 80px; }
+.brew-timer-controls { display: flex; gap: 8px; }
+.brew-timer-btn {
+  padding: 8px 18px; border-radius: 50px; font-size: 12px; font-weight: 500;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s;
+  border: 1.5px solid rgba(196,154,58,0.35); color: var(--gold); background: rgba(196,154,58,0.1);
+}
+.brew-timer-btn:hover { background: var(--caramel); color: #fff; border-color: var(--caramel); }
+.brew-timer-label { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+/* ── FEATURE 2: ORIGIN MAP ─────────────────────────── */
+.origin-map-section { padding: 5rem; background: var(--ink); position: relative; overflow: hidden; }
+.origin-map-section::before {
+  content: ''; position: absolute; top: -100px; right: -100px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,154,58,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.origin-map-inner { max-width: 1100px; margin: 0 auto; }
+.origin-map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-top: 2.5rem; }
+.origin-world-map {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(196,154,58,0.2);
+  border-radius: 20px; padding: 1.5rem; position: relative; overflow: hidden; min-height: 320px;
+}
+.origin-pins { position: relative; width: 100%; height: 260px; }
+.origin-pin {
+  position: absolute; cursor: pointer;
+  transform: translate(-50%, -100%); transition: transform 0.2s;
+}
+.origin-pin:hover { transform: translate(-50%, -110%); }
+.origin-pin-dot {
+  width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff;
+  box-shadow: 0 0 0 3px rgba(196,154,58,0.3); margin: 0 auto;
+  animation: pin-pulse 2.5s ease-in-out infinite;
+}
+@keyframes pin-pulse {
+  0%,100% { box-shadow: 0 0 0 3px rgba(196,154,58,0.3); }
+  50% { box-shadow: 0 0 0 7px rgba(196,154,58,0.1); }
+}
+.origin-pin-label {
+  font-size: 9px; letter-spacing: 0.8px; color: rgba(255,255,255,0.7);
+  text-align: center; margin-top: 4px; white-space: nowrap;
+  background: rgba(26,18,8,0.75); border-radius: 4px; padding: 2px 5px;
+}
+.origin-card-list { display: flex; flex-direction: column; gap: 0.85rem; }
+.origin-farm-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(196,154,58,0.15);
+  border-radius: 14px; padding: 1rem 1.25rem; cursor: pointer;
+  transition: all 0.2s; display: flex; gap: 1rem; align-items: flex-start;
+}
+.origin-farm-card:hover, .origin-farm-card.active {
+  background: rgba(196,154,58,0.08); border-color: rgba(196,154,58,0.35);
+}
+.origin-farm-flag { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.origin-farm-name { font-family: 'Fraunces', serif; font-size: 15px; color: #fff; font-weight: 500; margin-bottom: 3px; }
+.origin-farm-detail { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.origin-farm-tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+.origin-farm-tag {
+  font-size: 10px; padding: 2px 8px; border-radius: 50px;
+  background: rgba(196,154,58,0.15); color: var(--gold); border: 1px solid rgba(196,154,58,0.25);
+}
+
+/* ── FEATURE 3: AI FLAVOR PROFILER ──────────────────── */
+.ai-profiler-section {
+  padding: 5rem; background: linear-gradient(160deg, #1a1208 0%, #2d1c08 50%, #1a1208 100%);
+  position: relative; overflow: hidden;
+}
+.ai-profiler-section::before {
+  content: ''; position: absolute; bottom: -120px; left: -120px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,154,58,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ai-profiler-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+.ai-chat-window {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(196,154,58,0.2);
+  border-radius: 24px; overflow: hidden; margin-top: 2rem;
+}
+.ai-chat-header {
+  background: rgba(196,154,58,0.1); border-bottom: 1px solid rgba(196,154,58,0.15);
+  padding: 1rem 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+}
+.ai-chat-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--caramel), var(--gold));
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.ai-chat-name { font-size: 13px; font-weight: 500; color: #fff; }
+.ai-chat-status { font-size: 11px; color: var(--gold); display: flex; align-items: center; gap: 4px; }
+.ai-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: status-blink 1.8s ease-in-out infinite; }
+@keyframes status-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.ai-chat-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; min-height: 320px; max-height: 420px; overflow-y: auto; }
+.ai-msg { max-width: 80%; }
+.ai-msg.bot { align-self: flex-start; }
+.ai-msg.user { align-self: flex-end; }
+.ai-bubble {
+  border-radius: 16px; padding: 0.85rem 1.1rem; font-size: 13px; line-height: 1.65;
+}
+.ai-msg.bot .ai-bubble {
+  background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85);
+  border-bottom-left-radius: 4px;
+}
+.ai-msg.user .ai-bubble {
+  background: var(--caramel); color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.ai-options { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.5rem; }
+.ai-option-btn {
+  padding: 7px 14px; border-radius: 50px; font-size: 12px; font-weight: 500;
+  border: 1.5px solid rgba(196,154,58,0.3); background: rgba(196,154,58,0.08);
+  color: rgba(255,255,255,0.75); cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+.ai-option-btn:hover { background: rgba(196,154,58,0.2); border-color: var(--gold); color: #fff; }
+.ai-typing { display: flex; align-items: center; gap: 4px; padding: 0.5rem 0; }
+.ai-typing span {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.5;
+  animation: typing-dot 1.2s ease-in-out infinite;
+}
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-dot { 0%,60%,100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+.ai-chat-footer {
+  border-top: 1px solid rgba(196,154,58,0.15); padding: 1rem 1.5rem;
+  display: flex; gap: 0.75rem; align-items: center;
+}
+.ai-chat-input {
+  flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(196,154,58,0.2);
+  border-radius: 50px; padding: 10px 18px; color: #fff; font-size: 13px;
+  font-family: 'DM Sans', sans-serif; outline: none;
+}
+.ai-chat-input::placeholder { color: rgba(255,255,255,0.3); }
+.ai-chat-input:focus { border-color: rgba(196,154,58,0.5); }
+.ai-send-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--caramel); border: none; color: #fff; font-size: 16px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.ai-send-btn:hover { background: var(--gold); transform: scale(1.08); }
+
+/* ── FEATURE 6: SCROLL STORY ─────────────────────────── */
+.scroll-story-section {
+  background: var(--cream2); overflow: hidden; position: relative;
+}
+.scroll-story-inner {
+  max-width: 1100px; margin: 0 auto; padding: 5rem;
+}
+.story-steps-nav {
+  display: flex; justify-content: center; gap: 0; margin-bottom: 3.5rem;
+  border-radius: 50px; overflow: hidden; border: 1.5px solid var(--border);
+  background: var(--warm-white); width: fit-content; margin-left: auto; margin-right: auto;
+}
+.story-step-btn {
+  padding: 10px 24px; font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
+  border: none; background: transparent; color: var(--text-muted);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.25s;
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+}
+.story-step-btn.active { background: var(--brown); color: #fff; }
+.story-stage-wrap { position: relative; min-height: 380px; }
+.story-stage {
+  display: none; animation: stageIn 0.45s ease;
+  grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+.story-stage.active { display: grid; }
+@keyframes stageIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.story-stage-visual {
+  background: var(--ink); border-radius: 24px; overflow: hidden;
+  aspect-ratio: 4/3; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1rem; position: relative;
+}
+.story-stage-visual::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(196,154,58,0.2) 0%, transparent 65%);
+  pointer-events: none;
+}
+.story-stage-emoji { font-size: 72px; position: relative; z-index: 1; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
+.story-stage-label { font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; position: relative; z-index: 1; }
+.story-stage-content {}
+.story-stage-num { font-size: 11px; letter-spacing: 2.5px; color: var(--caramel); text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 500; }
+.story-stage-title { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 500; color: var(--ink); line-height: 1.15; margin-bottom: 1rem; }
+.story-stage-title em { font-style: italic; color: var(--caramel); }
+.story-stage-body { font-size: 14px; color: var(--text-muted); line-height: 1.85; margin-bottom: 1.5rem; }
+.story-stage-facts { display: flex; flex-direction: column; gap: 0.6rem; }
+.story-fact { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 13px; color: var(--ink); }
+.story-fact-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.story-progress { display: flex; justify-content: center; gap: 8px; margin-top: 2rem; }
+.story-progress-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mist); transition: all 0.3s; cursor: pointer; }
+.story-progress-dot.active { background: var(--brown); width: 24px; border-radius: 4px; }
+
+@media (max-width: 900px) {
+  .origin-map-grid { grid-template-columns: 1fr; }
+  .story-stage.active { display: flex; flex-direction: column-reverse; }
+  .origin-map-section, .ai-profiler-section, .scroll-story-inner { padding: 3rem 1.5rem; }
+}
+
 
 /* ─── NAV ─────────────────────────────────────── */
 nav {
@@ -259,11 +507,23 @@ nav {
 
 /* ── Score Bars ── */
 .score-section { margin-bottom: 1rem; }
-.score-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.score-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .score-label { font-size: 10px; color: var(--text-muted); width: 58px; flex-shrink: 0; }
-.score-track { flex: 1; height: 3px; background: var(--mist); border-radius: 2px; overflow: hidden; }
-.score-fill { height: 100%; background: linear-gradient(90deg, var(--caramel), var(--gold)); border-radius: 2px; }
+.score-track { flex: 1; height: 5px; background: var(--mist); border-radius: 3px; overflow: hidden; }
+.score-fill {
+  height: 100%; background: linear-gradient(90deg, var(--caramel), var(--gold));
+  border-radius: 3px; width: 0;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
 .score-val { font-size: 10px; color: var(--caramel); width: 24px; text-align: right; font-weight: 600; }
+.sca-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, rgba(196,154,58,0.15), rgba(196,154,58,0.08));
+  border: 1.5px solid rgba(196,154,58,0.35); border-radius: 10px;
+  padding: 5px 10px; margin-bottom: 0.85rem;
+}
+.sca-badge-num { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; color: var(--gold); line-height: 1; }
+.sca-badge-label { font-size: 9px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
 
 /* ── Card Footer ── */
 .coffee-card-footer {
@@ -1459,6 +1719,9 @@ footer {
     <a href="#bundles">🎁 เซ็ต</a>
     <a href="#subscription">♻️ สมัครสมาชิก</a>
     <a href="#story">🌱 เรื่องราว</a>
+    <a href="#origin-map">🗺 ต้นทาง</a>
+    <a href="#ai-profiler">✨ AI Barista</a>
+    <a href="#brew-guide">⏱ Brew</a>
     <a href="#leads">📩 ติดต่อ</a>
   </div>
   <div style="position:relative;">
@@ -1473,6 +1736,9 @@ footer {
       <a href="#bundles" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">🎁 เซ็ต</a>
       <a href="#subscription" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">♻️ สมัครสมาชิก</a>
       <a href="#story" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">🌱 เรื่องราว</a>
+      <a href="#origin-map" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">🗺 ต้นทางกาแฟ</a>
+      <a href="#ai-profiler" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">✨ AI Barista</a>
+      <a href="#brew-guide" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">⏱ Brew Guide</a>
       <a href="#leads" onclick="closeNavMenu()" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;text-decoration:none;color:var(--ink);font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">📩 ติดต่อ</a>
       <div style="height:1px;background:var(--border);margin:6px 0;"></div>
       <button onclick="closeNavMenu();openAdminLogin();" style="width:100%;display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;background:none;border:none;cursor:pointer;color:var(--caramel);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;text-align:left;transition:background 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background=''">🔐 เข้าหลังบ้าน</button>
@@ -1505,36 +1771,61 @@ footer {
       </div>
     </div>
   </div>
-  <div class="hero-right" style="position:relative;overflow:hidden;padding:0;">
-    <!-- Pure CSS + Emoji Hero — no external image required -->
-    <div id="heroMainImg" style="width:100%;height:100%;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#3d2b0f 0%,#6b4520 30%,#8b5e2a 60%,#c49a3a 100%);position:relative;overflow:hidden;">
-      <!-- Decorative coffee beans pattern -->
-      <div style="position:absolute;inset:0;opacity:0.06;background-image:radial-gradient(circle,#fff 1.5px,transparent 1.5px);background-size:28px 28px;"></div>
-      <!-- Warm glow -->
-      <div style="position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,58,0.35) 0%,transparent 70%);pointer-events:none;"></div>
-      <!-- Main emoji display -->
-      <div style="position:relative;z-index:1;text-align:center;">
-        <div style="font-size:110px;line-height:1;filter:drop-shadow(0 12px 40px rgba(0,0,0,0.5));margin-bottom:1.5rem;animation:heroFloat 4s ease-in-out infinite;">☕</div>
-        <div style="display:flex;gap:1.5rem;justify-content:center;opacity:0.7;">
-          <span style="font-size:36px;animation:heroFloat 4s ease-in-out 0.5s infinite;">🌿</span>
-          <span style="font-size:36px;animation:heroFloat 4s ease-in-out 1s infinite;">✨</span>
-          <span style="font-size:36px;animation:heroFloat 4s ease-in-out 1.5s infinite;">🫘</span>
+  <div class="hero-right" style="position:relative;overflow:hidden;padding:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a1c08 0%,#4a2f10 40%,#6b4520 70%,#8b5e2a 100%);">
+    <!-- Background pattern -->
+    <div style="position:absolute;inset:0;opacity:0.05;background-image:radial-gradient(circle,#fff 1.5px,transparent 1.5px);background-size:24px 24px;pointer-events:none;"></div>
+    <!-- Ambient glow -->
+    <div style="position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,58,0.2) 0%,transparent 65%);pointer-events:none;"></div>
+
+    <!-- Product Card แบบที่ 2 -->
+    <div style="position:relative;z-index:1;width:100%;max-width:420px;padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+
+      <!-- ป้ายล็อตล่าสุด -->
+      <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);font-weight:500;">ล็อตล่าสุด</div>
+
+      <!-- Main Coffee Card -->
+      <div style="background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);border:1px solid rgba(196,154,58,0.25);border-radius:20px;padding:1.5rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,58,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;">
+          <div>
+            <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:0.35rem;">ETHIOPIA · AFRICA</div>
+            <div style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;color:#fff;line-height:1.15;">Yirgacheffe<br>Washed</div>
+          </div>
+          <div style="background:rgba(196,154,58,0.2);border:1.5px solid var(--gold);border-radius:12px;padding:0.6rem 0.9rem;text-align:center;flex-shrink:0;">
+            <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1;">89.0</div>
+            <div style="font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-top:2px;">SCA</div>
+          </div>
+        </div>
+        <!-- Tasting notes tags -->
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:50px;padding:5px 13px;font-size:12px;color:rgba(255,255,255,0.75);">มะนาว</span>
+          <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:50px;padding:5px 13px;font-size:12px;color:rgba(255,255,255,0.75);">ดอกไม้</span>
+          <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:50px;padding:5px 13px;font-size:12px;color:rgba(255,255,255,0.75);">พีช</span>
         </div>
       </div>
-      <!-- Floating badges -->
-      <div style="position:absolute;top:1.5rem;left:1.5rem;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);border:1px solid rgba(196,154,58,0.3);border-radius:12px;padding:0.6rem 1rem;font-size:12px;color:rgba(255,255,255,0.85);letter-spacing:0.5px;">
-        🌱 Direct Trade
+
+      <!-- Stats row -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;">
+        <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(196,154,58,0.2);border-radius:14px;padding:1rem 0.75rem;text-align:center;">
+          <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--gold);line-height:1;">40+</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px;letter-spacing:0.3px;">ล็อต/ปี</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(196,154,58,0.2);border-radius:14px;padding:1rem 0.75rem;text-align:center;">
+          <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--gold);line-height:1;">12</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px;letter-spacing:0.3px;">แหล่งกาแฟ</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(196,154,58,0.2);border-radius:14px;padding:1rem 0.75rem;text-align:center;">
+          <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--gold);line-height:1;">6 ปี</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px;letter-spacing:0.3px;">Direct Trade</div>
+        </div>
       </div>
-      <div style="position:absolute;top:2rem;right:2rem;background:rgba(26,18,8,0.75);backdrop-filter:blur(12px);border:1px solid rgba(196,154,58,0.35);border-radius:16px;padding:1rem 1.25rem;text-align:center;">
-        <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--gold);font-weight:500;line-height:1;">87+</div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">SCA Score</div>
+
+      <!-- Badge chips ล่าง -->
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:50px;padding:7px 16px;font-size:12px;color:rgba(255,255,255,0.6);">Natural Process</span>
+        <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:50px;padding:7px 16px;font-size:12px;color:rgba(255,255,255,0.6);">Direct Trade</span>
       </div>
-    </div>
-    <div class="hero-tags">
-      <span class="hero-tag">Single Origin</span>
-      <span class="hero-tag">Natural Process</span>
-      <span class="hero-tag">Direct Trade</span>
-      <span class="hero-tag">SCA 87+</span>
+
     </div>
   </div>
 </section>
@@ -1807,6 +2098,65 @@ footer {
   </div>
 </section>
 
+
+<!-- FEATURE 5: INTERACTIVE BREW GUIDE + TIMER ⏱ -->
+<section class="section" id="brew-guide" style="background:var(--ink);overflow:hidden;position:relative;">
+  <div style="position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,58,0.07) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="max-width:900px;margin:0 auto;position:relative;z-index:1;">
+    <div class="section-eyebrow" style="color:var(--gold);">⏱ Brew Guide</div>
+    <h2 class="section-title" style="color:#fff;">ชงกาแฟให้อร่อย<br><em style="color:var(--gold);">ทุกครั้ง</em></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,0.5);max-width:480px;line-height:1.8;margin-top:0.75rem;">เลือก method แล้วทำตามขั้นตอน — มี Timer ช่วยจับเวลาให้อัตโนมัติ</p>
+
+    <div class="brew-guide-wrap">
+      <div class="brew-methods">
+        <button class="brew-method-btn active" onclick="selectBrewMethod('v60',this)">☕ V60</button>
+        <button class="brew-method-btn" onclick="selectBrewMethod('aeropress',this)">🔵 Aeropress</button>
+        <button class="brew-method-btn" onclick="selectBrewMethod('french',this)">🫖 French Press</button>
+        <button class="brew-method-btn" onclick="selectBrewMethod('moka',this)">🍶 Moka Pot</button>
+      </div>
+
+      <!-- Recipe params -->
+      <div id="brewParams" style="display:flex;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(196,154,58,0.15);border-radius:12px;padding:0.85rem 1.25rem;">
+          <div style="font-size:10px;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:4px;">กาแฟ</div>
+          <div id="brewCoffee" style="font-family:'Fraunces',serif;font-size:22px;color:var(--gold);">15g</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(196,154,58,0.15);border-radius:12px;padding:0.85rem 1.25rem;">
+          <div style="font-size:10px;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:4px;">น้ำ</div>
+          <div id="brewWater" style="font-family:'Fraunces',serif;font-size:22px;color:var(--gold);">250ml</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(196,154,58,0.15);border-radius:12px;padding:0.85rem 1.25rem;">
+          <div style="font-size:10px;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:4px;">อุณหภูมิ</div>
+          <div id="brewTemp" style="font-family:'Fraunces',serif;font-size:22px;color:var(--gold);">93°C</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(196,154,58,0.15);border-radius:12px;padding:0.85rem 1.25rem;">
+          <div style="font-size:10px;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:4px;">การบด</div>
+          <div id="brewGrind" style="font-family:'Fraunces',serif;font-size:22px;color:var(--gold);">Medium</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;">
+        <div class="brew-steps-list" id="brewStepsList"></div>
+        <div>
+          <div class="brew-timer-bar">
+            <div>
+              <div class="brew-timer-display" id="brewTimerDisplay">0:00</div>
+              <div class="brew-timer-label" id="brewTimerLabel">กดเริ่มเพื่อจับเวลา</div>
+            </div>
+            <div class="brew-timer-controls">
+              <button class="brew-timer-btn" id="brewStartBtn" onclick="brewTimerToggle()">▶ เริ่ม</button>
+              <button class="brew-timer-btn" onclick="brewTimerReset()">↺ รีเซ็ต</button>
+            </div>
+          </div>
+          <div id="brewTipBox" style="margin-top:1rem;background:rgba(196,154,58,0.07);border:1px solid rgba(196,154,58,0.15);border-radius:12px;padding:1rem 1.1rem;font-size:12px;color:rgba(255,255,255,0.55);line-height:1.75;">
+            💡 <strong style="color:var(--gold);">Pro tip:</strong> <span id="brewTipText">เทน้ำวนเป็นวงกลม ช้าๆ จากกลางออกขอบ เพื่อให้กาแฟสัมผัสน้ำอย่างสม่ำเสมอ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 4. SUBSCRIPTION ♻️ -->
 <section class="section" id="subscription">
   <div class="sub-inner">
@@ -1944,6 +2294,224 @@ const siteReviews = JSON.parse(localStorage.getItem('originReviews') || 'null') 
   `).join('');
 })();
 </script>
+
+
+<!-- FEATURE 6: SCROLL STORY 🎬 -->
+<section class="scroll-story-section" id="scroll-story">
+  <div class="scroll-story-inner">
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <div class="section-eyebrow">🎬 เส้นทางของกาแฟ</div>
+      <h2 class="section-title">จาก<em>ต้นทาง</em><br>ถึงมือคุณ</h2>
+    </div>
+    <div class="story-steps-nav">
+      <button class="story-step-btn active" onclick="goStage(0,this)">🌱 Farm</button>
+      <button class="story-step-btn" onclick="goStage(1,this)">☀️ Process</button>
+      <button class="story-step-btn" onclick="goStage(2,this)">🔥 Roast</button>
+      <button class="story-step-btn" onclick="goStage(3,this)">☕ Cup</button>
+    </div>
+    <div class="story-stage-wrap">
+      <!-- Stage 0: Farm -->
+      <div class="story-stage active" id="stage0">
+        <div class="story-stage-visual">
+          <div class="story-stage-emoji">🌱</div>
+          <div class="story-stage-label">01 · Farm Selection</div>
+        </div>
+        <div class="story-stage-content">
+          <div class="story-stage-num">ขั้นตอนที่ 01</div>
+          <h3 class="story-stage-title">คัดเลือก<br><em>Farm โดยตรง</em></h3>
+          <p class="story-stage-body">เราเดินทางขึ้นดอยและบินไปแอฟริกา เพื่อพบเกษตรกรตัวต่อตัว ประเมินดิน ความสูง และวิถีชีวิตก่อนตัดสินใจซื้อทุกครั้ง</p>
+          <div class="story-stage-facts">
+            <div class="story-fact"><span class="story-fact-icon">📍</span>เยี่ยม farm ทุกแหล่งด้วยตัวเองปีละครั้ง</div>
+            <div class="story-fact"><span class="story-fact-icon">🤝</span>ซื้อตรงจากเกษตรกร ไม่ผ่านคนกลาง</div>
+            <div class="story-fact"><span class="story-fact-icon">⛰</span>ความสูง 1,200–2,200m เหนือระดับน้ำทะเล</div>
+          </div>
+        </div>
+      </div>
+      <!-- Stage 1: Process -->
+      <div class="story-stage" id="stage1">
+        <div class="story-stage-visual">
+          <div class="story-stage-emoji">☀️</div>
+          <div class="story-stage-label">02 · Processing</div>
+        </div>
+        <div class="story-stage-content">
+          <div class="story-stage-num">ขั้นตอนที่ 02</div>
+          <h3 class="story-stage-title">กระบวนการ<br><em>สร้างรสชาติ</em></h3>
+          <p class="story-stage-body">Washed, Natural, Honey — แต่ละ process สร้างรสชาติที่แตกต่างกันอย่างสิ้นเชิง เราทำงานกับเกษตรกรเพื่อควบคุมคุณภาพในขั้นตอนนี้อย่างใกล้ชิด</p>
+          <div class="story-stage-facts">
+            <div class="story-fact"><span class="story-fact-icon">💧</span>Washed — กรดสด สะอาด ชัดเจน</div>
+            <div class="story-fact"><span class="story-fact-icon">🍒</span>Natural — หวาน ผลไม้ full body</div>
+            <div class="story-fact"><span class="story-fact-icon">🍯</span>Honey — กลาง balance หวานนุ่ม</div>
+          </div>
+        </div>
+      </div>
+      <!-- Stage 2: Roast -->
+      <div class="story-stage" id="stage2">
+        <div class="story-stage-visual">
+          <div class="story-stage-emoji">🔥</div>
+          <div class="story-stage-label">03 · Roasting</div>
+        </div>
+        <div class="story-stage-content">
+          <div class="story-stage-num">ขั้นตอนที่ 03</div>
+          <h3 class="story-stage-title">คั่วสด<br><em>ทุกสัปดาห์</em></h3>
+          <p class="story-stage-body">คั่วตามออเดอร์ที่ Micro-Roastery เชียงใหม่ ด้วยเครื่อง Probat 12kg ระบุวันคั่วบนถุงทุกใบ ไม่มีของค้างสต็อก รับประกันความสดทุกถุง</p>
+          <div class="story-stage-facts">
+            <div class="story-fact"><span class="story-fact-icon">📅</span>คั่วทุกวันพุธ–พฤหัส จัดส่งภายใน 48 ชม.</div>
+            <div class="story-fact"><span class="story-fact-icon">🌡</span>Light-Medium roast เน้นรักษา origin character</div>
+            <div class="story-fact"><span class="story-fact-icon">🏅</span>ผ่าน Q Grader cupping ทุก batch</div>
+          </div>
+        </div>
+      </div>
+      <!-- Stage 3: Cup -->
+      <div class="story-stage" id="stage3">
+        <div class="story-stage-visual">
+          <div class="story-stage-emoji">☕</div>
+          <div class="story-stage-label">04 · Your Cup</div>
+        </div>
+        <div class="story-stage-content">
+          <div class="story-stage-num">ขั้นตอนที่ 04</div>
+          <h3 class="story-stage-title">ถึงมือคุณ<br><em>อย่างสมบูรณ์</em></h3>
+          <p class="story-stage-body">จาก farm สู่ถ้วยกาแฟในมือคุณ — ทุกกระบวนการถูกออกแบบมาเพื่อให้คุณได้สัมผัสรสชาติที่ดีที่สุดของแต่ละล็อต</p>
+          <div class="story-stage-facts">
+            <div class="story-fact"><span class="story-fact-icon">📦</span>บรรจุในถุง valve ป้องกันออกซิเดชั่น</div>
+            <div class="story-fact"><span class="story-fact-icon">🚚</span>จัดส่งทั่วไทยภายใน 48 ชั่วโมง</div>
+            <div class="story-fact"><span class="story-fact-icon">📝</span>พร้อม Tasting Notes และข้อมูล Farm ในทุกออเดอร์</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="story-progress" id="storyDots">
+      <div class="story-progress-dot active" onclick="goStage(0,null)"></div>
+      <div class="story-progress-dot" onclick="goStage(1,null)"></div>
+      <div class="story-progress-dot" onclick="goStage(2,null)"></div>
+      <div class="story-progress-dot" onclick="goStage(3,null)"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FEATURE 2: ORIGIN TRACEABILITY MAP 🗺 -->
+<section class="origin-map-section" id="origin-map">
+  <div class="origin-map-inner">
+    <div class="section-eyebrow" style="color:var(--gold);">🗺 ติดตามต้นทาง</div>
+    <h2 class="section-title" style="color:#fff;">กาแฟของเรามาจาก<br><em style="color:var(--gold);">ที่ไหนบ้าง?</em></h2>
+    <div class="origin-map-grid">
+      <!-- Visual Map SVG -->
+      <div class="origin-world-map">
+        <div style="font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:1rem;">แผนที่แหล่งกาแฟของเรา</div>
+        <div class="origin-pins" id="originMapViz">
+          <!-- SVG World simplified -->
+          <svg viewBox="0 0 500 260" width="100%" style="position:absolute;inset:0;opacity:0.15;" xmlns="http://www.w3.org/2000/svg">
+            <path d="M60,80 Q90,60 130,75 Q160,85 180,70 Q200,55 230,70 Q260,85 290,75 Q330,60 360,80 Q390,95 420,85 L430,180 Q400,190 370,185 Q340,175 310,185 Q280,195 250,185 Q220,175 190,185 Q160,195 130,185 Q100,175 70,185 Z" fill="#c49a3a"/>
+            <ellipse cx="120" cy="150" rx="50" ry="60" fill="#c49a3a" opacity="0.6"/>
+            <ellipse cx="260" cy="170" rx="35" ry="45" fill="#c49a3a" opacity="0.5"/>
+          </svg>
+          <!-- Pins -->
+          <div class="origin-pin" style="left:67%;top:52%;" onclick="selectFarm(0)">
+            <div class="origin-pin-dot" style="background:#c49a3a;"></div>
+            <div class="origin-pin-label">Ethiopia</div>
+          </div>
+          <div class="origin-pin" style="left:38%;top:60%;" onclick="selectFarm(1)">
+            <div class="origin-pin-dot" style="background:#7a8c72;"></div>
+            <div class="origin-pin-label">Colombia</div>
+          </div>
+          <div class="origin-pin" style="left:80%;top:44%;" onclick="selectFarm(2)">
+            <div class="origin-pin-dot" style="background:#c49a3a;opacity:0.7;"></div>
+            <div class="origin-pin-label">Thailand</div>
+          </div>
+        </div>
+        <!-- Detail popup -->
+        <div id="farmDetailBox" style="background:rgba(26,18,8,0.9);border:1px solid rgba(196,154,58,0.3);border-radius:12px;padding:0.85rem 1rem;margin-top:1rem;display:none;">
+          <div id="farmDetailContent"></div>
+        </div>
+      </div>
+      <!-- Farm Cards List -->
+      <div class="origin-card-list">
+        <div class="origin-farm-card active" onclick="selectFarm(0)">
+          <div class="origin-farm-flag">🇪🇹</div>
+          <div>
+            <div class="origin-farm-name">Yirgacheffe · Ethiopia</div>
+            <div class="origin-farm-detail">ความสูง 1,800–2,200m · กระบวนการ Washed<br>เกษตรกร: Kedir Farm Cooperative</div>
+            <div class="origin-farm-tags">
+              <span class="origin-farm-tag">SCA 89.0</span>
+              <span class="origin-farm-tag">Floral</span>
+              <span class="origin-farm-tag">Citrus</span>
+            </div>
+          </div>
+        </div>
+        <div class="origin-farm-card" onclick="selectFarm(1)">
+          <div class="origin-farm-flag">🇨🇴</div>
+          <div>
+            <div class="origin-farm-name">Huila · Colombia</div>
+            <div class="origin-farm-detail">ความสูง 1,500–1,800m · กระบวนการ Honey<br>เกษตรกร: Familia Muñoz, รุ่นที่ 3</div>
+            <div class="origin-farm-tags">
+              <span class="origin-farm-tag">SCA 87.5</span>
+              <span class="origin-farm-tag">Caramel</span>
+              <span class="origin-farm-tag">Vanilla</span>
+            </div>
+          </div>
+        </div>
+        <div class="origin-farm-card" onclick="selectFarm(2)">
+          <div class="origin-farm-flag">🇹🇭</div>
+          <div>
+            <div class="origin-farm-name">ดอยช้าง · เชียงราย</div>
+            <div class="origin-farm-detail">ความสูง 1,200–1,600m · กระบวนการ Natural<br>เกษตรกร: กลุ่มเกษตรกรอาข่า ดอยช้าง</div>
+            <div class="origin-farm-tags">
+              <span class="origin-farm-tag">SCA 88.5</span>
+              <span class="origin-farm-tag">Fruity</span>
+              <span class="origin-farm-tag">Wine</span>
+            </div>
+          </div>
+        </div>
+        <div class="origin-farm-card" onclick="selectFarm(3)">
+          <div class="origin-farm-flag">🇹🇭</div>
+          <div>
+            <div class="origin-farm-name">ดอยอินทนนท์ · เชียงใหม่</div>
+            <div class="origin-farm-detail">ความสูง 1,400–1,700m · กระบวนการ Washed<br>เกษตรกร: โครงการหลวงอินทนนท์</div>
+            <div class="origin-farm-tags">
+              <span class="origin-farm-tag">SCA 87.0</span>
+              <span class="origin-farm-tag">Clean</span>
+              <span class="origin-farm-tag">Bright</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FEATURE 3: AI FLAVOR PROFILER ✨ -->
+<section class="ai-profiler-section" id="ai-profiler">
+  <div class="ai-profiler-inner">
+    <div class="section-eyebrow" style="color:var(--gold);text-align:center;">✨ AI Barista</div>
+    <h2 class="section-title" style="color:#fff;text-align:center;">ไม่รู้จะเลือกอะไร?<br><em style="color:var(--gold);font-style:italic;">คุยกับ AI Barista</em></h2>
+    <p style="text-align:center;font-size:14px;color:rgba(255,255,255,0.5);max-width:440px;margin:0.75rem auto 0;line-height:1.75;">บอกเราสักนิดว่าชอบรสชาติแบบไหน — เราจะแนะนำล็อตที่ใช่ให้คุณทันที</p>
+    <div class="ai-chat-window">
+      <div class="ai-chat-header">
+        <div class="ai-chat-avatar">☕</div>
+        <div>
+          <div class="ai-chat-name">Origin AI Barista</div>
+          <div class="ai-chat-status"><span class="ai-status-dot"></span> Online · พร้อมช่วยเลือกกาแฟ</div>
+        </div>
+      </div>
+      <div class="ai-chat-body" id="aiChatBody">
+        <div class="ai-msg bot">
+          <div class="ai-bubble">สวัสดีครับ! ผมคือ AI Barista ของ Origin Coffee 👋<br>ช่วยแนะนำกาแฟที่เหมาะกับคุณได้เลย — เริ่มต้นด้วย <strong>คุณชอบรสชาติกาแฟแบบไหนมากที่สุด?</strong></div>
+          <div class="ai-options">
+            <button class="ai-option-btn" onclick="aiAnswer('fruity', '🍋 ผลไม้ / กรดสด')">🍋 ผลไม้ / กรดสด</button>
+            <button class="ai-option-btn" onclick="aiAnswer('chocolate', '🍫 ช็อกโกแลต / เข้ม')">🍫 ช็อกโกแลต / เข้ม</button>
+            <button class="ai-option-btn" onclick="aiAnswer('floral', '🌸 ดอกไม้ / หอมละมุน')">🌸 ดอกไม้ / หอมละมุน</button>
+            <button class="ai-option-btn" onclick="aiAnswer('sweet', '🍯 หวาน / คาราเมล')">🍯 หวาน / คาราเมล</button>
+          </div>
+        </div>
+      </div>
+      <div class="ai-chat-footer">
+        <input class="ai-chat-input" type="text" id="aiChatInput" placeholder="พิมพ์คำถามเกี่ยวกับกาแฟ..." onkeydown="if(event.key==='Enter')aiSendText()"/>
+        <button class="ai-send-btn" onclick="aiSendText()">→</button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- 6. BRAND STORY 🌱 -->
 <section class="section" id="story">
@@ -2893,9 +3461,13 @@ function renderCoffees(filter) {
 
           <!-- 3. Score Bars -->
           <div class="score-section">
-            <div class="score-row"><span class="score-label">🍋 Acidity</span><div class="score-track"><div class="score-fill" style="width:${c.acidity}%"></div></div><span class="score-val">${c.acidity}</span></div>
-            <div class="score-row"><span class="score-label">🍬 Sweet</span><div class="score-track"><div class="score-fill" style="width:${c.sweetness}%"></div></div><span class="score-val">${c.sweetness}</span></div>
-            <div class="score-row"><span class="score-label">☁️ Body</span><div class="score-track"><div class="score-fill" style="width:${c.body}%"></div></div><span class="score-val">${c.body}</span></div>
+            <div class="sca-badge">
+              <div class="sca-badge-num">${c.score}</div>
+              <div class="sca-badge-label">SCA pts</div>
+            </div>
+            <div class="score-row"><span class="score-label">🍋 Acidity</span><div class="score-track"><div class="score-fill" data-width="${c.acidity}%" style="width:${c.acidity}%"></div></div><span class="score-val">${c.acidity}</span></div>
+            <div class="score-row"><span class="score-label">🍬 Sweet</span><div class="score-track"><div class="score-fill" data-width="${c.sweetness}%" style="width:${c.sweetness}%"></div></div><span class="score-val">${c.sweetness}</span></div>
+            <div class="score-row"><span class="score-label">☁️ Body</span><div class="score-track"><div class="score-fill" data-width="${c.body}%" style="width:${c.body}%"></div></div><span class="score-val">${c.body}</span></div>
           </div>
 
           <!-- 4. Price + CTA -->
@@ -4534,6 +5106,346 @@ const _patchTab = setInterval(() => {
     clearInterval(_patchTab);
   }
 }, 100);
+
+
+// ══════════════════════════════════════════════════════════
+// FEATURE 1: Animate score bars when in viewport
+// ══════════════════════════════════════════════════════════
+function animateScoreBars(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.score-fill').forEach(fill => {
+        const w = fill.getAttribute('data-width') || fill.style.width;
+        fill.style.width = '0';
+        requestAnimationFrame(() => { fill.style.width = w; });
+      });
+    }
+  });
+}
+const scoreObs = new IntersectionObserver(animateScoreBars, { threshold: 0.3 });
+document.querySelectorAll('.score-section').forEach(el => scoreObs.observe(el));
+
+// Animate score bars on page load fallback
+document.querySelectorAll('.score-fill').forEach(fill => {
+  const w = fill.style.width;
+  fill.setAttribute('data-width', w);
+  fill.style.width = '0';
+  setTimeout(() => { fill.style.width = w; }, 600);
+});
+
+// ══════════════════════════════════════════════════════════
+// FEATURE 2: ORIGIN MAP
+// ══════════════════════════════════════════════════════════
+const farmData = [
+  { name: 'Yirgacheffe · Ethiopia 🇪🇹', alt: '1,800–2,200m', process: 'Washed', sca: '89.0', farmer: 'Kedir Farm Cooperative', desc: 'กาแฟแอฟริกาที่มีกลิ่นดอกไม้ มะนาว และพีชที่ชัดเจน — เป็นที่ชื่นชอบมากที่สุดใน lineup ของเรา' },
+  { name: 'Huila · Colombia 🇨🇴', alt: '1,500–1,800m', process: 'Honey', sca: '87.5', farmer: 'Familia Muñoz รุ่นที่ 3', desc: 'ความหวานของคาราเมลและวานิลลาจากกระบวนการ Honey ที่ทีมเราคัดเลือกมาเป็นพิเศษ' },
+  { name: 'ดอยช้าง · เชียงราย 🇹🇭', alt: '1,200–1,600m', process: 'Natural', sca: '88.5', farmer: 'กลุ่มเกษตรกรอาข่า ดอยช้าง', desc: 'กาแฟไทยระดับ World Class — Natural process ให้ความหวานผลไม้ที่ลึกและ wine-like ที่หาได้ยาก' },
+  { name: 'ดอยอินทนนท์ · เชียงใหม่ 🇹🇭', alt: '1,400–1,700m', process: 'Washed', sca: '87.0', farmer: 'โครงการหลวงอินทนนท์', desc: 'กาแฟสะอาด กรดสดใส จากโครงการหลวงที่ร่วมมือกับเราเพื่อพัฒนาคุณภาพให้สม่ำเสมอ' },
+];
+
+function selectFarm(idx) {
+  document.querySelectorAll('.origin-farm-card').forEach((c,i) => {
+    c.classList.toggle('active', i === idx);
+  });
+  const f = farmData[idx];
+  if (!f) return;
+  const box = document.getElementById('farmDetailBox');
+  const content = document.getElementById('farmDetailContent');
+  if (box && content) {
+    content.innerHTML = `
+      <div style="font-size:12px;font-weight:500;color:var(--gold);margin-bottom:4px;">${f.name}</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.55);line-height:1.65;margin-bottom:6px;">${f.desc}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:10px;background:rgba(196,154,58,0.15);border:1px solid rgba(196,154,58,0.25);border-radius:50px;padding:2px 8px;color:var(--gold);">⛰ ${f.alt}</span>
+        <span style="font-size:10px;background:rgba(196,154,58,0.15);border:1px solid rgba(196,154,58,0.25);border-radius:50px;padding:2px 8px;color:var(--gold);">🔄 ${f.process}</span>
+        <span style="font-size:10px;background:rgba(196,154,58,0.15);border:1px solid rgba(196,154,58,0.25);border-radius:50px;padding:2px 8px;color:var(--gold);">🏅 SCA ${f.sca}</span>
+      </div>`;
+    box.style.display = 'block';
+  }
+}
+selectFarm(0);
+
+// ══════════════════════════════════════════════════════════
+// FEATURE 3: AI FLAVOR PROFILER
+// ══════════════════════════════════════════════════════════
+const aiResponses = {
+  fruity: {
+    q2: 'ชอบกาแฟ filter หรือ espresso-based มากกว่า?',
+    opts: ['🫖 Filter / Black', '🥛 Espresso / Milk'],
+  },
+  chocolate: {
+    q2: 'ชอบ body เข้มหรือเบา?',
+    opts: ['💪 Full Body', '🍃 Light Body'],
+  },
+  floral: {
+    q2: 'ชอบกรดสดใสหรือความสมดุล?',
+    opts: ['⚡ Bright Acidity', '⚖️ Balanced'],
+  },
+  sweet: {
+    q2: 'ชอบแบบ natural หรือ processed?',
+    opts: ['🍒 Natural (หวานมาก)', '🍯 Honey (นุ่มหวาน)'],
+  },
+};
+const aiFinalRec = {
+  fruity: 'Ethiopia Yirgacheffe Washed SCA 89.0 — กรดผลไม้ มะนาว ดอกไม้ เหมาะมากครับ! ✨',
+  chocolate: 'Ethiopia Gedeo Anaerobic SCA 90.5 — ความเข้มข้น dark chocolate และ wine note 🍫',
+  floral: 'Colombia Huila Honey SCA 87.5 — สมดุลระหว่างหอมละมุนและหวาน caramel 🌸',
+  sweet: 'Doi Chang Natural SCA 88.5 — กาแฟไทยรสหวาน ผลไม้เข้ม มีเอกลักษณ์ไม่เหมือนใคร 🍒',
+};
+let aiUserPref = null;
+let aiStep = 0;
+
+function aiAddMsg(text, isUser, opts) {
+  const body = document.getElementById('aiChatBody');
+  if (!body) return;
+  const msg = document.createElement('div');
+  msg.className = 'ai-msg ' + (isUser ? 'user' : 'bot');
+  let inner = `<div class="ai-bubble">${text}</div>`;
+  if (opts && opts.length) {
+    inner += `<div class="ai-options">${opts.map(o => `<button class="ai-option-btn" onclick="aiAnswer2('${o}')">${o}</button>`).join('')}</div>`;
+  }
+  msg.innerHTML = inner;
+  body.appendChild(msg);
+  body.scrollTop = body.scrollHeight;
+}
+
+function aiTypingThenMsg(text, opts, delay) {
+  const body = document.getElementById('aiChatBody');
+  if (!body) return;
+  const typing = document.createElement('div');
+  typing.className = 'ai-msg bot';
+  typing.innerHTML = '<div class="ai-bubble"><div class="ai-typing"><span></span><span></span><span></span></div></div>';
+  body.appendChild(typing);
+  body.scrollTop = body.scrollHeight;
+  setTimeout(() => {
+    typing.remove();
+    aiAddMsg(text, false, opts);
+  }, delay || 1200);
+}
+
+function aiAnswer(pref, label) {
+  aiUserPref = pref;
+  aiStep = 1;
+  document.querySelectorAll('.ai-options')[0]?.querySelectorAll('button').forEach(b => b.disabled = true);
+  aiAddMsg(label, true);
+  const r = aiResponses[pref];
+  if (r) {
+    aiTypingThenMsg(r.q2, r.opts);
+  }
+}
+
+function aiAnswer2(label) {
+  aiAddMsg(label, true);
+  const rec = aiFinalRec[aiUserPref] || aiFinalRec.fruity;
+  aiTypingThenMsg(
+    `ขอบคุณครับ! จากที่คุณบอกมา — ผมแนะนำ:<br><br><strong style="color:var(--gold);">${rec}</strong><br><br>ต้องการให้ผมอธิบายเพิ่มหรือแนะนำ brewing method ที่เหมาะกับล็อตนี้ไหมครับ? 😊`,
+    null, 1400
+  );
+}
+
+function aiSendText() {
+  const input = document.getElementById('aiChatInput');
+  if (!input || !input.value.trim()) return;
+  const text = input.value.trim();
+  input.value = '';
+  aiAddMsg(text, true);
+  // Simple keyword responses
+  let reply = 'ขอบคุณที่ถามครับ! ถ้ามีคำถามเกี่ยวกับกาแฟหรือการชง ผมยินดีช่วยเสมอ ☕';
+  const low = text.toLowerCase();
+  if (low.includes('ราคา') || low.includes('price')) reply = 'ราคากาแฟของเราเริ่มต้นที่ 390 บาท/100g ครับ ขึ้นอยู่กับล็อตและ origin 💰';
+  else if (low.includes('ชง') || low.includes('brew')) reply = 'สำหรับการชง — ดูที่ส่วน Brew Guide ด้านบนได้เลยครับ มีทั้ง V60, Aeropress, French Press พร้อม Timer จับเวลา ⏱';
+  else if (low.includes('ส่ง') || low.includes('ship')) reply = 'จัดส่งทั่วไทยภายใน 48 ชม. หลังยืนยันออเดอร์ครับ ฟรีค่าส่งเมื่อซื้อครบ 600 บาท 🚚';
+  else if (low.includes('natural') || low.includes('washed')) reply = 'Natural process จะได้กลิ่นผลไม้เข้มข้น หวาน full body ส่วน Washed จะสะอาด กรดชัด เหมาะกับคนชอบ black coffee ครับ 🌟';
+  aiTypingThenMsg(reply);
+}
+
+// ══════════════════════════════════════════════════════════
+// FEATURE 5: BREW GUIDE + TIMER
+// ══════════════════════════════════════════════════════════
+const brewMethods = {
+  v60: {
+    coffee: '15g', water: '250ml', temp: '93°C', grind: 'Medium Fine',
+    tip: 'เทน้ำวนเป็นวงกลม ช้าๆ จากกลางออกขอบ เพื่อให้กาแฟสัมผัสน้ำอย่างสม่ำเสมอ',
+    steps: [
+      { title: 'Rinse & Preheat', desc: 'ล้าง filter ด้วยน้ำร้อน อุ่น V60 และถ้วย', time: '30s', sec: 30 },
+      { title: 'Bloom', desc: 'เทน้ำ 30ml วนช้าๆ รอให้กาแฟ bloom ฟู', time: '30s', sec: 30 },
+      { title: 'First Pour', desc: 'เทน้ำถึง 130ml วนช้าๆ จากกลางออก', time: '45s', sec: 45 },
+      { title: 'Second Pour', desc: 'เติมน้ำถึง 250ml วนเบาๆ', time: '45s', sec: 45 },
+      { title: 'Drawdown', desc: 'รอให้น้ำซึมผ่านหมด', time: '1:00', sec: 60 },
+    ]
+  },
+  aeropress: {
+    coffee: '18g', water: '200ml', temp: '88°C', grind: 'Medium',
+    tip: 'กด plunger ช้าๆ ใช้เวลาอย่างน้อย 30 วินาที เพื่อให้ได้รสที่สม่ำเสมอ',
+    steps: [
+      { title: 'Prep', desc: 'ใส่ filter รินน้ำร้อนผ่าน เพื่อล้างรสกระดาษ', time: '20s', sec: 20 },
+      { title: 'Add Coffee', desc: 'ใส่กาแฟบด 18g ลง chamber', time: '10s', sec: 10 },
+      { title: 'Bloom', desc: 'เทน้ำ 36ml (2x กาแฟ) รอ bloom', time: '30s', sec: 30 },
+      { title: 'Fill & Stir', desc: 'เทน้ำจนครบ 200ml คนเบาๆ 3 ครั้ง', time: '20s', sec: 20 },
+      { title: 'Press', desc: 'พลิก กดช้าๆ ใช้เวลา 30 วินาที', time: '30s', sec: 30 },
+    ]
+  },
+  french: {
+    coffee: '30g', water: '500ml', temp: '96°C', grind: 'Coarse',
+    tip: 'บดหยาบกว่า V60 — ถ้าละเอียดเกินไปจะได้รสขมและขุ่น',
+    steps: [
+      { title: 'Add Coffee', desc: 'ใส่กาแฟบดหยาบ 30g ลง French Press', time: '10s', sec: 10 },
+      { title: 'First Pour', desc: 'เทน้ำ 500ml อุณหภูมิ 96°C คนเบาๆ', time: '30s', sec: 30 },
+      { title: 'Steep', desc: 'ปิดฝา (อย่ากด) รอให้ชงครบ 4 นาที', time: '4:00', sec: 240 },
+      { title: 'Skim', desc: 'ช้อนโฟมบนผิวออก ให้กาแฟตกตะกอน 1 นาที', time: '1:00', sec: 60 },
+      { title: 'Press & Pour', desc: 'กด plunger ช้าๆ เทเสิร์ฟทันที', time: '20s', sec: 20 },
+    ]
+  },
+  moka: {
+    coffee: '20g', water: '150ml', temp: '(เย็น)', grind: 'Fine-Medium',
+    tip: 'ใช้ไฟกลาง-ต่ำ ฝาเปิดไว้จนกาแฟเริ่มไหลออกมา แล้วค่อยปิดฝา',
+    steps: [
+      { title: 'Fill Bottom', desc: 'ใส่น้ำเย็นในห้องล่างถึงเส้น valve', time: '20s', sec: 20 },
+      { title: 'Add Coffee', desc: 'ใส่กาแฟบดในตะกร้ากลาง อย่ากดแน่น', time: '15s', sec: 15 },
+      { title: 'Assemble & Heat', desc: 'ขันให้แน่น วางบนเตาไฟกลาง-ต่ำ', time: '10s', sec: 10 },
+      { title: 'Brew', desc: 'รอกาแฟไหลออกมา สังเกตสีและเสียง', time: '4:00', sec: 240 },
+      { title: 'Stop & Serve', desc: 'เมื่อกาแฟเริ่มมีฟองและสีอ่อนลง ยกออกจากเตาทันที', time: '10s', sec: 10 },
+    ]
+  },
+};
+let currentBrewMethod = 'v60';
+let brewTimerInterval = null;
+let brewTimerSeconds = 0;
+let brewTimerRunning = false;
+let brewCurrentStep = 0;
+let brewStepTimers = [];
+
+function renderBrewSteps(method) {
+  const steps = brewMethods[method].steps;
+  const list = document.getElementById('brewStepsList');
+  if (!list) return;
+  list.innerHTML = steps.map((s, i) => `
+    <div class="brew-step-item${i === 0 ? ' active-step' : ''}" id="brewStep${i}" onclick="jumpBrewStep(${i})">
+      <div class="brew-step-num">${i + 1}</div>
+      <div class="brew-step-body">
+        <div class="brew-step-title">${s.title}</div>
+        <div class="brew-step-desc">${s.desc}</div>
+        <div class="brew-step-time">⏱ ${s.time}</div>
+      </div>
+    </div>`).join('');
+}
+
+function selectBrewMethod(method, btn) {
+  currentBrewMethod = method;
+  brewTimerReset();
+  document.querySelectorAll('.brew-method-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const m = brewMethods[method];
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setEl('brewCoffee', m.coffee);
+  setEl('brewWater', m.water);
+  setEl('brewTemp', m.temp);
+  setEl('brewGrind', m.grind);
+  setEl('brewTipText', m.tip);
+  renderBrewSteps(method);
+}
+
+function updateBrewStepHighlight(totalSec) {
+  const steps = brewMethods[currentBrewMethod].steps;
+  let elapsed = 0;
+  let currentIdx = 0;
+  for (let i = 0; i < steps.length; i++) {
+    if (totalSec >= elapsed && totalSec < elapsed + steps[i].sec) {
+      currentIdx = i; break;
+    }
+    elapsed += steps[i].sec;
+    currentIdx = i;
+  }
+  document.querySelectorAll('.brew-step-item').forEach((el, i) => {
+    el.classList.toggle('active-step', i === currentIdx);
+  });
+  const step = steps[currentIdx];
+  const lbl = document.getElementById('brewTimerLabel');
+  if (lbl) lbl.textContent = step ? step.title : 'เสร็จแล้ว!';
+}
+
+function brewTimerToggle() {
+  const btn = document.getElementById('brewStartBtn');
+  if (brewTimerRunning) {
+    clearInterval(brewTimerInterval);
+    brewTimerRunning = false;
+    if (btn) btn.textContent = '▶ ต่อ';
+  } else {
+    brewTimerRunning = true;
+    if (btn) btn.textContent = '⏸ หยุด';
+    brewTimerInterval = setInterval(() => {
+      brewTimerSeconds++;
+      const m = Math.floor(brewTimerSeconds / 60);
+      const s = brewTimerSeconds % 60;
+      const el = document.getElementById('brewTimerDisplay');
+      if (el) el.textContent = `${m}:${String(s).padStart(2,'0')}`;
+      updateBrewStepHighlight(brewTimerSeconds);
+      const totalSec = brewMethods[currentBrewMethod].steps.reduce((a, s) => a + s.sec, 0);
+      if (brewTimerSeconds >= totalSec) {
+        clearInterval(brewTimerInterval);
+        brewTimerRunning = false;
+        if (btn) btn.textContent = '✓ เสร็จ!';
+        const lbl = document.getElementById('brewTimerLabel');
+        if (lbl) lbl.textContent = '🎉 กาแฟพร้อมเสิร์ฟแล้ว!';
+      }
+    }, 1000);
+  }
+}
+
+function brewTimerReset() {
+  clearInterval(brewTimerInterval);
+  brewTimerRunning = false;
+  brewTimerSeconds = 0;
+  const el = document.getElementById('brewTimerDisplay');
+  if (el) el.textContent = '0:00';
+  const btn = document.getElementById('brewStartBtn');
+  if (btn) btn.textContent = '▶ เริ่ม';
+  const lbl = document.getElementById('brewTimerLabel');
+  if (lbl) lbl.textContent = 'กดเริ่มเพื่อจับเวลา';
+  document.querySelectorAll('.brew-step-item').forEach((el, i) => {
+    el.classList.toggle('active-step', i === 0);
+  });
+}
+
+function jumpBrewStep(idx) {
+  const steps = brewMethods[currentBrewMethod].steps;
+  let elapsed = 0;
+  for (let i = 0; i < idx; i++) elapsed += steps[i].sec;
+  brewTimerSeconds = elapsed;
+  const m = Math.floor(brewTimerSeconds / 60);
+  const s = brewTimerSeconds % 60;
+  const el = document.getElementById('brewTimerDisplay');
+  if (el) el.textContent = `${m}:${String(s).padStart(2,'0')}`;
+  updateBrewStepHighlight(brewTimerSeconds);
+}
+
+// Init brew guide
+selectBrewMethod('v60', null);
+
+// ══════════════════════════════════════════════════════════
+// FEATURE 6: SCROLL STORY NAV
+// ══════════════════════════════════════════════════════════
+let storyAutoTimer = null;
+function goStage(idx, clickedBtn) {
+  document.querySelectorAll('.story-stage').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.story-step-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.story-progress-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === idx);
+  });
+  // Auto-advance
+  clearTimeout(storyAutoTimer);
+  storyAutoTimer = setTimeout(() => {
+    const next = (idx + 1) % 4;
+    goStage(next, null);
+  }, 6000);
+}
+// Start auto-advance
+storyAutoTimer = setTimeout(() => goStage(1, null), 6000);
+
 
 console.log('[Origin Coffee] Init complete ✅');
 </script>
