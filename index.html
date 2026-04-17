@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 /* ══════════════════════════════════════════
    THEME SYSTEM — Dark & Light
@@ -194,6 +195,37 @@ nav{
 @media(max-width:768px){
   nav{padding:1rem 1.25rem}
   .nav-links{display:none}
+  .mobile-menu-btn{display:flex}
+}
+/* Mobile Menu Button */
+.mobile-menu-btn{
+  display:none;
+  width:38px;height:38px;border-radius:10px;
+  background:var(--input-bg);border:1.5px solid var(--border);
+  color:var(--text);cursor:pointer;font-size:18px;
+  align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .2s;
+}
+.mobile-menu-btn:hover{border-color:var(--gold);color:var(--gold)}
+/* Mobile Nav Drawer */
+.mobile-nav-drawer{
+  display:none;position:fixed;inset:0;z-index:490;
+  background:var(--modal-bg);backdrop-filter:blur(12px);
+  flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+}
+.mobile-nav-drawer.open{display:flex}
+.mobile-nav-drawer a{
+  font-size:22px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--text);text-decoration:none;transition:color .2s;
+  font-family:'Playfair Display',serif;
+}
+.mobile-nav-drawer a:hover{color:var(--gold)}
+.mobile-nav-close{
+  position:absolute;top:1.25rem;right:1.25rem;
+  width:38px;height:38px;border-radius:50%;
+  background:var(--input-bg);border:1px solid var(--border);
+  color:var(--text2);cursor:pointer;font-size:18px;
+  display:flex;align-items:center;justify-content:center;
 }
 
 /* ══════════════════════════════════════════
@@ -682,9 +714,11 @@ nav{
 }
 .pp-qr{
   width:140px;height:140px;background:#fff;border-radius:12px;
-  padding:10px;margin:0 auto .85rem;
-  display:flex;align-items:center;justify-content:center;font-size:50px;
+  padding:8px;margin:0 auto .85rem;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
 }
+.pp-qr canvas,.pp-qr img{width:124px!important;height:124px!important;display:block}
 .pp-num{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream2);margin-bottom:4px}
 .pp-name{font-size:11px;color:var(--text2)}
 .process-steps{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
@@ -1124,8 +1158,19 @@ footer{
       🛒 ตะกร้า
       <span class="cart-badge" id="navCartBadge" style="display:none">0</span>
     </button>
+    <button class="mobile-menu-btn" onclick="openMobileNav()" aria-label="เมนู">☰</button>
   </div>
 </nav>
+
+<!-- ═══ MOBILE NAV DRAWER ═══ -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a href="#catalog" onclick="closeMobileNav()">กาแฟ</a>
+  <a href="#quiz" onclick="closeMobileNav()">ค้นหาล็อต</a>
+  <a href="#subscription" onclick="closeMobileNav()">สมัครสมาชิก</a>
+  <a href="#reviews" onclick="closeMobileNav()">รีวิว</a>
+  <a href="#order" onclick="closeMobileNav()">สั่งซื้อ</a>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="home">
@@ -1371,7 +1416,7 @@ footer{
           <div class="channel-card" onclick="showPromptpay()"><span class="ch-icon">📱</span><div class="ch-name">PromptPay</div><div class="ch-desc">โอนตรง<br>ไม่มีค่าธรรมเนียม</div></div>
         </div>
         <div id="promptpayBox" style="display:none">
-          <div class="promptpay-card"><div class="pp-qr">📱</div><div class="pp-num">098-765-4321</div><div class="pp-name">Origin Coffee Roastery</div><p style="font-size:11px;color:var(--text2);margin-top:.75rem;line-height:1.6">โอนแล้วแจ้งสลิป + ที่อยู่จัดส่งมาที่ LINE OA ทันที</p></div>
+          <div class="promptpay-card"><div class="pp-qr" id="ppQrCode"></div><div class="pp-num">098-765-4321</div><div class="pp-name">Origin Coffee Roastery</div><p style="font-size:11px;color:var(--text2);margin-top:.75rem;line-height:1.6">โอนแล้วแจ้งสลิป + ที่อยู่จัดส่งมาที่ LINE OA ทันที</p></div>
         </div>
       </div>
       <div class="fade-up">
@@ -1600,7 +1645,7 @@ footer{
       <span class="co-success-icon">✅</span>
       <div class="co-success-title">ส่งคำสั่งซื้อเรียบร้อย!</div>
       <div class="co-success-sub">เราจะติดต่อกลับเพื่อยืนยันและส่งรายละเอียดการชำระเงิน<br>ภายใน 1 ชั่วโมง (เวลาทำการ 9:00–21:00)</div>
-      <button class="btn btn-gold" onclick="closeCheckout();clearCart()">กลับหน้าหลัก</button>
+      <button class="btn btn-gold" onclick="closeCheckout();clearCart();window.scrollTo({top:0,behavior:'smooth'})">กลับหน้าหลัก</button>
     </div>
   </div>
 </div>
@@ -1841,6 +1886,12 @@ const SS = (() => {
 let ADMIN_PASS = SS.get('adminPass') || 'origin2024';
 
 /* ════════════════════════════════════════
+   MOBILE NAV
+════════════════════════════════════════ */
+function openMobileNav(){document.getElementById('mobileNavDrawer').classList.add('open');document.body.style.overflow='hidden';}
+function closeMobileNav(){document.getElementById('mobileNavDrawer').classList.remove('open');document.body.style.overflow='';}
+
+/* ════════════════════════════════════════
    THEME
 ════════════════════════════════════════ */
 function toggleTheme(){
@@ -2019,17 +2070,12 @@ function closeModalBtn(){document.getElementById('modalOverlay').classList.remov
 let cart=[];
 function addToCart(id,e){
   if(e) e.stopPropagation();
-  const c=coffees.find(x=>x.id===id);
-  if(!c||c.soldOut) return;
-  const existing=cart.find(x=>x.id===id);
-  if(existing) existing.qty++;
-  else cart.push({id:c.id,name:c.name,origin:c.origin,price:c.price,unit:'/ 250g',emoji:c.emoji,color:c.color,qty:1});
-  updateCart();
-  showToast(`✅ เพิ่ม "${c.name}" ลงตะกร้าแล้ว`);
+  // Open modal so user can choose size before adding
+  openModal(id);
 }
-function removeFromCart(id){cart=cart.filter(x=>x.id!=id);updateCart();renderCartItems();}
+function removeFromCart(id){cart=cart.filter(x=>String(x.id)!==String(id));updateCart();renderCartItems();}
 function changeQty(id,d){
-  const item=cart.find(x=>x.id==id);
+  const item=cart.find(x=>String(x.id)===String(id));
   if(!item) return;
   item.qty+=d;
   if(item.qty<=0) removeFromCart(id);
@@ -2069,21 +2115,21 @@ function renderCartItems(){
         <div class="ci-name">${item.name}</div>
         <div class="ci-origin">${item.unit}</div>
         <div class="ci-qty">
-          <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+          <button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
           <span class="qty-num">${item.qty}</span>
-          <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+          <button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
         <div class="ci-price">฿${(item.price*item.qty).toLocaleString()}</div>
-        <button class="ci-remove" onclick="removeFromCart(${item.id})">🗑</button>
+        <button class="ci-remove" onclick="removeFromCart('${item.id}')">🗑</button>
       </div>
     </div>`).join('');
 }
 function openCart(){renderCartItems();document.getElementById('cartOverlay').classList.add('open');document.body.style.overflow='hidden';}
 function closeCart(){document.getElementById('cartOverlay').classList.remove('open');document.body.style.overflow='';}
 function handleCartClick(e){if(e.target===document.getElementById('cartOverlay'))closeCart();}
-function clearCart(){cart=[];updateCart();}
+function clearCart(){cart=[];updateCart();renderCartItems();}
 
 /* ════════════════════════════════════════
    CHECKOUT
@@ -2105,7 +2151,11 @@ function openCheckout(){
 }
 function closeCheckout(){document.getElementById('checkoutOverlay').classList.remove('open');document.body.style.overflow='';}
 function closeCheckoutClick(e){if(e.target===document.getElementById('checkoutOverlay'))closeCheckout();}
+let lastOrderTime=0;
 function submitOrder(){
+  const now=Date.now();
+  if(now-lastOrderTime<15000){showToast('⚠️ กรุณารอสักครู่ก่อนส่งออเดอร์ใหม่');return;}
+  lastOrderTime=now;
   const name=document.getElementById('co_name').value.trim();
   const phone=document.getElementById('co_phone').value.trim();
   const addr=document.getElementById('co_address').value.trim();
@@ -2487,7 +2537,47 @@ function saveSettings(){
   if(ppNameEl&&ppName) ppNameEl.textContent=ppName;
   // Re-sync shipping bar
   updateCart();
+  // Regenerate PromptPay QR if number changed
+  if(ppNum) generatePromptPayQR(ppNum);
   showToast('✅ บันทึกการตั้งค่าเรียบร้อย');
+}
+
+/* ════════════════════════════════════════
+   PROMPTPAY QR GENERATION
+════════════════════════════════════════ */
+function generatePromptPayQR(phoneOrId){
+  const el=document.getElementById('ppQrCode');
+  if(!el||typeof QRCode==='undefined') return;
+  el.innerHTML='';
+  // Format PromptPay payload (simplified — encodes phone as text for QR)
+  const raw=phoneOrId.replace(/[-\s]/g,'');
+  // PromptPay QR payload per Thai standard (EMV-compliant simplified)
+  function pad(n){return String(n).padStart(2,'0');}
+  function tlv(tag,val){return tag+pad(val.length)+val;}
+  const accountId=raw.length===10?'0066'+raw.slice(1):raw; // convert 098... → 006698...
+  const payload=[
+    tlv('00','01'),
+    tlv('01','12'),
+    tlv('29', tlv('00','A000000677010111') + tlv('01',accountId)),
+    '5303764',
+    '5802TH',
+    tlv('63','0000')
+  ].join('');
+  // CRC16-CCITT
+  function crc16(str){
+    let crc=0xFFFF;
+    for(let i=0;i<str.length;i++){
+      crc^=str.charCodeAt(i)<<8;
+      for(let j=0;j<8;j++) crc=crc&0x8000?(crc<<1)^0x1021:(crc<<1);
+    }
+    return (crc&0xFFFF).toString(16).toUpperCase().padStart(4,'0');
+  }
+  const withCrc=payload+crc16(payload+'6304');
+  try{
+    new QRCode(el,{text:withCrc,width:124,height:124,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+  }catch(err){
+    el.innerHTML='<span style="font-size:36px">📱</span>';
+  }
 }
 
 /* ════════════════════════════════════════
@@ -2495,7 +2585,12 @@ function saveSettings(){
 ════════════════════════════════════════ */
 function showPromptpay(){
   const box=document.getElementById('promptpayBox');
-  box.style.display=box.style.display==='none'?'block':'none';
+  const isHidden=box.style.display==='none'||box.style.display==='';
+  box.style.display=isHidden?'block':'none';
+  if(isHidden){
+    const ppNum=SS.get('ppNum')||'098-765-4321';
+    generatePromptPayQR(ppNum);
+  }
 }
 function openNotify(name){showToast(`🔔 เราจะแจ้งเตือนเมื่อ "${name}" กลับมาพร้อมอีกครั้ง`);}
 
@@ -2556,6 +2651,9 @@ function init(){
   renderCoffees('all');
   renderReviews();
   updateAdminStats();
+  // Generate PromptPay QR after fonts/libs load
+  const ppNum=SS.get('ppNum')||'098-765-4321';
+  setTimeout(()=>generatePromptPayQR(ppNum),500);
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
 else init();
